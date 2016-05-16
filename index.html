@@ -1,50 +1,417 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+        <title>Writing fast Python</title>
+        <meta name="description" content="Presentation about source code level optimizations for Python">
+        <meta name="author" content="Sebastian Witowski">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/beige.css">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai-sublime.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+        <link rel="stylesheet" href="css/reveal.css">
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <!-- Reveal.js theme -->
+        <link rel="stylesheet" href="css/theme/league.css">
+        <!-- Custom CSS rules -->
+        <link rel="stylesheet" href="css/custom.css">
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/gruvbox-dark.css">
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>Hi my name is Sebastian</section>
+                <section>Slide 2</section>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+                <section>
+                    <h2>Time it with %timeit</h2>
+                    <pre><code class='python' data-trim data-noescape>
+def a_function():
+    print(42)
+                    </pre></code>
+                    <pre><code class='shell' data-trim data-noescape>
+$ %timeit a_function
+>>> xxx times, 5 ms per loop
+                    </pre></code>
+                    <aside class="notes">
+                        In my examples, I have used the %timeit magic function that comes with IPython. It has some overhead over the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and how many times.
+                    </aside>
+                </section>
+                <!-- Counting elements in a list -->
+                <section>
+                <h4><span class="orange">#</span> Count elements in list</h4>
+                    <pre><code class='python'># SLOW
+how_many = 0
+for element in BIG_LIST:
+    how_many += 1
+print how_many</pre></code>
+                            <pre><code class='python'># FAST
+print len(BIG_LIST)</pre></code>
+                    <p>
+                        For 1 000 000 elements it's <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        The fast version is <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        Let's start with something simple. Let's say you want to count a number of elements in a list. You can easily write a simple loop than increments a counter and there is nothing wrong with this code, except that it's slow. You can achieve the same results using the built-in function len(). And as you can see the speed improvement is quite huge.
+                        So, try to use the built-in functions and functions from the standard library when you can.
+                        <<< ADD a separate slide with the list of python 3.5.1 built-ins >>>
+                        Python 3.5.1 contains 68 built-in variables [source](https://docs.python.org/3.5/library/functions.html) - you won't need all of them (I don't remember when was the list time - if ever - I used (xxx - find function names here), but it will take you just a moment to take a look at that list from time to time and keep it in the back of your head.
+                    </aside>
+                </section>
+                <!-- Checking for True -->
+                <section>
+                <h4><span class="orange">#</span> Checking for True</h4>
+                    <pre><code class='python' data-trim data-noescape>
+if variable == True:
+                    </pre></code>
+                    <p>
+                        <span class="bad">35.8 ns</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+if variable is True:
+                    </pre></code>
+                    <p>
+                        <span class="bad">28.7 ns</span><br>
+                        1.24 times faster
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+if variable:
+                    </pre></code>
+                    <p>
+                        <span class="good">20.6 ns</span><br>
+                        1.73 times faster
+                    </p>
+                    <aside class="notes">
+                        Let's say you want to check if some variable or an expression is true. You can explicitly compare this variable to True, but unless you really want to check if a variable is really True (and not 0 or None)  you can simplify your condition to just 'if variable'. It will return True, unless the variable is False, None, 0, empty string, empty list or any other "Falsy" expression. And by doing that, your instruction get almost twice faster.
+                    </aside>
+                </section>
+                <!-- Checking for False -->
+                <section>
+                <h4><span class="orange">#</span> Checking for False</h4>
+                    <pre><code class='python' data-trim data-noescape>
+if variable == False:
+                    </pre></code>
+                    <p>
+                        <span class="bad">35.1 ns</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+if variable is False:
+                    </pre></code>
+                    <p>
+                        <span class="bad">26.9 ns</span><br>
+                        1.30 times faster
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+if not variable:
+                    </pre></code>
+                    <p>
+                        <span class="good">19.8 ns</span><br>
+                        1.77 times faster
+                    </p>
+                    <aside class="notes">
+                        The same rule applies when checking for False, the fastest way to do this is to use 'if not variable', unless you really need to distinguish False from None, 0 or other Falsy values.
+                    </aside>
+                </section>
+                <!-- Ask for permissions vs beg for forgiveness -->
+                <section>
+                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
+                    <pre><code class='python' data-trim data-noescape>
+class Foo(object):
+    hello = 'world'
+foo = Foo()
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+if hasattr(foo, 'hello'):
+    foo.hello
+                    </pre></code>
+                    <p>
+                        <span class="bad">149 ns</span><br>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+try:
+    foo.hello
+except AttributeError:
+    pass
+                    </pre></code>
+                    <p>
+                        <span class="good">43.1 ns</span><br>
+                        3.5 times faster
+                    </p>
+                    <aside class="notes">
+                        When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or maybe performing a specific operation will throw as exception), so you want to protect yourself somehow. The first way you can do this is called 'Look before you leap' or ask for permission. What is means is that you check if all variables are set and everything is fine and then you perform you operations. Usually this checking is performed with the if statement.
+                        However, there is a different approach that you could use - it's called "Beg for forgiveness". In this scenario, you perform your operation without checking the conditions, but in case you expect that something might break, you wrap you code in try/except block and catch the exceptions that were raised.
+                        As you can see in this example, begging for forgiveness is 3,5 times faster.
+                    </aside>
+                </section>
+                <!-- Ask for permissions vs beg for forgiveness 2 -->
+                <section>
+                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
+                    <pre><code class='python' data-trim data-noescape>
+if (hasattr(foo, 'foo') and hasattr(foo, 'bar')
+    and hasattr(foo, 'baz')):
+    foo.foo
+    foo.bar
+    foo.baz
+                    </pre></code>
+                    <p>
+                        vs
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+try:
+    foo.foo
+    foo.bar
+    foo.baz
+except AttributeError:
+    pass
+                    </pre></code>
+                    <p>
+                        <span class="bad">401 ns</span> vs <span class="good">110 ns</span><br>
+                        3.64 times faster
+                    </p>
+                    <aside class="notes">
+                        But it gets even better if you are checking for more conditions.
+                        Here, we are checking if 3 attributes are available. Asking for permissions is still slower and now it gets more difficult to read.
+                        Following the beg for forgiveness principle will result in faster and more readable code
+                        So, is asking for forgiveness instead of checking the permissions always the best choice ?
+                    </aside>
+                </section>
+                <!-- Ask for permissions vs beg for forgiveness 3 -->
+                <section>
+                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
+                    <pre><code class='python' data-trim data-noescape>
+class Bar(object):
+    pass
+bar = Bar()
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+if hasattr(bar, 'hello'):
+    bar.hello
+                    </pre></code>
+                    <p>
+                        <span class="good">428 ns</span><br>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+try:
+    bar.hello
+except AttributeError:
+    pass
+                    </pre></code>
+                    <p>
+                        <span class="bad">536 ns</span><br>
+                        25% slower
+                    </p>
+                    <aside class="notes">
+                        Well, not really. The exception handling is still quite expensive performance wise.
+                        If the object doesn't have the attribute we are looking for, begging for forgiveness will be slower than asking for permissions.
+                        So as a rule of thumb, you can use the 'Ask for permissions' way if you know that it's very probably that there will be some uninitialized variables or other problems.
+                        Otherwise if you are expecting your code to run smoothly most of the time (for example, you are fetching some files from the internet and you are expecting that it will work, unless there is no internet connection) using try/except will be the faster and quite often cleaner way to go.
+                        But again, I strongly advise you to measure both solutions to see which one is faster in your scenario.
+                    </aside>
+                </section>
+                <!-- Ask for permissions vs beg for forgiveness 4 -->
+                <section>
+                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
+                    <p>Find an example of using dict.get() function to best faster and better than ask for forgiveness/permissions</p>
+                    <aside class="notes">
+                        Quite common use case for this kind of lookup happens with the dictionaries. Let's say we have a dictionary containing square value of the first 1 million numbers. For an arbitrary number, we want to get it's square value or empty string, if there is no emtry in our dictionary.
+                        As you can see, begging for forgiveness is almost twice faster than asking for permission.
+                        But we can do better than this. Dictionaries have a get method, that you should use in a case like that.
+                    </aside>
+                </section>
+                <!-- END Execute operation 1000 times in a function than a function 1000 times -->
+                <section>
+                <h4><span class="orange">#</span> Execute function 1000 times or execute an operation 1000 times in a function ?</h4>
+                    <pre><code class='python' data-trim data-noescape>
+def square(number):
+    return number**2
+squares = [square(i) for i in range(1000)]
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+def compute_squares():
+    return [i**2 for i in range(1000)]
+                    </pre></code>
+                    <p>
+                        <span class="bad">399 µs</span> vs <span class="good">314 µs</span><br>
+                         27% faster
+                    </p>
+                    <aside class="notes">
+                        If you want to perform some kind of operation on a large set of data, your first idea might be to write a function that performs said operation and then apply this function on the set of data. However, it's faster to perform those 1000 operations inside a function instead of calling a function 1000 times.
+                    </aside>
+                </section>
+                <!-- Create a string from a list -->
+                <section>
+                <h4><span class="orange">#</span> Create a string from a list</h4>
+                    <pre><code class='python' data-trim data-noescape>
+# Create a list of 1000 words:
+LIST = ['word'] * 1000
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+result = ''
+for word in LIST:
+    result += word
+                    </pre></code>
+                    <p>vs</p>
+                    <pre><code class='python' data-trim data-noescape>
+result = ''.join(LIST)
+                    </pre></code>
+                    <p>
+                        10000 loops, best of 3: 94 µs per loop
+                        100000 loops, best of 3: 8.54 µs per loop
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+                        <span class="bad">94 µs</span> vs <span class="good">8.54 µs</span><br>
+                        11 times faster
+                    </p>
+                    <aside class="notes">
+                        Let's talk about string for now. If you have a list of strings and want to concatenate them into one string, using a loop is not the best idea. Instead, you can use the join function, that will be much faster (and clearer to understand). Here, for a list of 1000 words, the join function is 11 times faster. I have also tested it with longer words and even though the difference got lower (for 1000 words of 600 characters, join was 'only' twice as fast), join function is still a clear winner here.
+                    </aside>
+                </section>
+                <!-- String formatting is faster than string concatenation -->
+                <section>
+                <h4><span class="orange">#</span> String formatting or string concatenation ?</h4>
+                <h2>This is not working, find better example: https://wiki.python.org/moin/PythonSpeed/PerformanceTips#String_Concatenation</h2>
+                    <pre><code class='python' data-trim data-noescape>
+word1 = 'Hello'
+word2 = 'world'
+word3 = 'from'
+word4 = 'EuroPython'
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+"This is:" + word1 + word2 + word3 + word4 + "!"
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+"This is:%s%s%s%s!" % (word1, word2, word3, word4)
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                    1000000 loops, best of 3: 369 ns per loop
+
+                        In case you are trying to concatenate just a few strings, not a whole list, you are also better of with using string formatting, instead of concatenation operator.
+                    </aside>
+                </section>
+                <!-- List sorting is faster in place -->
+                <section>
+                <h4><span class="orange">#</span> List sorting</h4>
+                    <pre><code class='python' data-trim data-noescape># SETUP
+alist = [random.randint(1,100) for _ in range(1000000)]
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        List sorting is faster when you do this in place with list.sort() instead of calling sorted method on a list.
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
 </html>

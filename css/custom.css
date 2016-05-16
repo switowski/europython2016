@@ -1,0 +1,31 @@
+/*********************************************
+ * GENERAL
+ *********************************************/
+.reveal pre {
+  /*Bigger font for code */
+  font-size: 0.8em;
+}
+
+.reveal .bad {
+  /*Class for worse performance*/
+  color: red;
+  font-weight: bold;
+}
+
+.reveal .good {
+  /*Class for better performance*/
+  color: lime;
+  font-weight: bold;
+}
+
+.reveal .left {
+  /*Left column*/
+  width: 50%;
+  float: left;
+}
+
+.reveal .right {
+  /*Right column*/
+  width: 50%;
+  float: left;
+}
