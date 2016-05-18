@@ -7,11 +7,19 @@
 
 - _It's better to beg for forgiveness than to ask for permission_ give some examples where a code with exceptions handling is faster than code with __if__ statements AND also mention that if you do this often, it might be better to do this the other way: [SO example explaining that it might actually be faster to ask for permission if you are doing it often ](http://programmers.stackexchange.com/questions/175655/python-forgiveness-vs-permission-and-duck-typing))
 
-
+- Example of list comprehension vs for loop (vs lambda) to filter a list of items
 
 ## Already used at the end:
 
 - It's faster to perform an operation 1000 times inside a function, than calling the function 1000 times.
+
+- There is usually no difference between using a lambda and a named function, so often named function is a better solution because it's more readable. Lambdas are nice as a short, simple one-liners that don't require a lot of explanation.
+    - Also, according to PEP-8 you should not assign lambda to a variable:
+    Good: **def f(x): return 2*x**
+    Bad: **f = lambda x: 2*x** - this is a duplication of def functionality and can cause confusion ([source](http://stackoverflow.com/questions/25010167/e731-do-not-assign-a-lambda-expression-use-a-def))
+
+- Using **[]** is faster than calling **list()**, using {} is faster than calling dict() because the first ones are _literal syntax_ so Python just creates bytecode for them, while the second one are _objects_ that need to be resolved [^3]
+
 
 ## Use those examples:
 
@@ -30,8 +38,6 @@
 - Sorting lists is faster if you sort in place (**list.sort() vs sorted(list)**)
 
 - Removing duplicates - you get it for free if you convert list to a set (but if the order is important use [OrderedSet](http://code.activestate.com/recipes/576694/)) and https://github.com/brennerm/PyTricks/blob/master/removeduplicatefromlist.py
-
-- Using [] is faster than calling list(), using {} is faster than calling dict() because the first ones are _literal syntax_ so Python just creates bytecode for them, while the second one are _objects_ that need to be resolved [^3]
 
 - There are bad ways to check if a list is empty: **if list == []** or **if len(list) <= 0** but there is also a good way to do that **if not list**
 
@@ -55,6 +61,13 @@
 
 - value swapping: a, b = b, a vs tmp = a, a = b, b = tmp
 
+- __in__ operator vs for loop to check if element is in a list -- zbyt naciągany przykład, większość osób zna operator __in__
+
+- When using **sorted()** function you can specify **cmp()** function that is used to compare two elements or **key()** (Python 2.4 and up)function that will return a comparison key for each list element. Use the **key()** because it's faster (the **cmp()** is actually removed in Python 3) - cmp has to be evaluated for each comparison, while key only once per element -- cmp was removed in python3
+
+- To get an element from the dictionary use __dict.get(key)__ function instead of doing __if key in dict: dict[key]__ --already mentioned
+
+
 ## All examples:
 
 Random:
@@ -63,27 +76,14 @@ Random:
 
 * Structures:
     - General:
-    - Lists:
-        + When using **sorted()** function you can specify **cmp()** function that is used to compare two elements or **key()** (Python 2.4 and up)function that will return a comparison key for each list element. Use the **key()** because it's faster (the **cmp()** is actually removed in Python 3) - cmp has to be evaluated for each comparison, while key only once per element
-        + List comprehension:
-            * Example of list comprehension vs for loop (vs lambda) to filter a list of items
-            * __in__ operator vs for loop to check if element is in a list
-    - Tuples:
     - Sets:
         + Sets vs lists:
             * Sets have a lot of useful functions for checking the intersection, union, difference, sub- and super-sets that you don't have in lists: Give a few examples.
     - Dictionaries:
         + Lookup time is constant (same as for sets), so it's faster than with lists
-        + Initializing a dictionary: __d = {} vs d = dict()__ (first one is faster, but compare it with different Python compilers)
-        + To get an element from the dictionary use __dict.get(key)__ function instead of doing __if key in dict: dict[key]__
         + Example of dictionary comprehension (for example to get a dictionary {number: number**2}) vs for loop
 * Strings:
     - If you need to create a string from a list of words, it's faster to use **s = "".join(list)** than **for x in list: s += x**. The same if you need to call a function on each element of list: this **slist = [some_function(elt) for elt in somelist]; s = "".join(slist)** is faster than the for loop.[^1]
-* Lambdas:
-    - There is usually no difference between using a lambda and a named function, so often named function is a better solution because it's more readable. Lambdas are nice as a short, simple one-liners that don't require a lot of explanation.
-    - Also, according to PEP-8 you should not assign lambda to a variable:
-    Good: **def f(x): return 2*x**
-    Bad: **f = lambda x: 2*x** - this is a duplication of def functionality and can cause confusion ([source](http://stackoverflow.com/questions/25010167/e731-do-not-assign-a-lambda-expression-use-a-def))
 * Generators:
     - In short, generator expressions are like list comprehension but they don't generate the whole list at once (so they are faster if you don't need the whole list).
     - Example of finding the first element matching the criteria: comparing list comprehension (it's a totally wrong approach here, since we don't need the whole list) vs for loop (it's faster and seems like a good solution) vs generator (same performance as for loop, but this is a pythonic approach and you can get next elements basically for free)

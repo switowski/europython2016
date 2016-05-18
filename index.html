@@ -325,6 +325,198 @@ alist = [random.randint(1,100) for _ in range(1000000)]
                         List sorting is faster when you do this in place with list.sort() instead of calling sorted method on a list.
                     </aside>
                 </section>
+                <!-- Filter a list -->
+                <section>
+                <h4><span class="orange">#</span> Filter list</h4>
+                    <pre><code class='python' data-trim data-noescape>
+# SLOW
+output = []
+for element in MILLION_ELEMENTS:
+    if element % 2:
+        output.append(element)
+                    </pre></code>
+                    <p>
+                        <span class="bad">107 ms</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+# FAST?
+list(filter(lambda x: x % 2, MILLION_ELEMENTS))
+                    </pre></code>
+                    <p>
+                        <span class="bad">168 ms</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+# FAST!
+[item for item in MILLION_ELEMENTS if item % 2]
+                    </pre></code>
+                    <p>
+                        <span class="good">80.9 ms</span>
+                    </p>
+                    <p>
+                        35% faster
+                    </p>
+                    <aside class="notes">
+                        Let's say you want to filter a list of 1 million elements and select only those, that are matching some condition.
+                        The naive version would be to use for loop, but I already showed you that in most cases, for loops are bad.
+                        You can use the built-in filter function instead. In Python2, filter was returning the list directly. In Python3, it's returning an iterator, so I need to explicitly convert the results of filter function to a list to get the same results as in case of the loop.
+                        This conversion impacts the performance, but even without some overhead for list function, you can see that filter performs much slower.
+                        Why does this happen ? Well, the fact that filter is now returning an iterator is a good suggestion that this is a wrong use case for filter function.
+                        If we want to get the whole list as a result, the better idea is to use list comprehension. It's around 35% faster than the for loop and - at least for me - it looks much better.
+                    </aside>
+                </section>
+                <!-- Lambda vs def -->
+                <section>
+                <h4><span class="orange">#</span> Lambda vs def</h4>
+                    <p>Def:</p>
+                    <pre><code class='python' data-trim data-noescape>
+def greet_def(name):
+    return 'Hello {}!'.format(name)
+                    </pre></code>
+                    <p>Lambda:</p>
+                    <pre><code class='python' data-trim data-noescape>
+greet_l = lambda name: 'Hello {}!'.format(name)
+                    </pre></code>
+                    <p>Compare:</p>
+                    <pre><code class='python' data-trim data-noescape>
+>>> %timeit greet_def('Tom')
+1000000 loops, best of 3: 329 ns per loop
+>>> %timeit greet_l('Tom')
+1000000 loops, best of 3: 332 ns per loop
+                    </pre></code>
+                    <aside class="notes">
+                        Let's take a look at different ways of defining functions in Python. The most common way to create a function is with def keyword. The other way is to declare an anonymous function with lambda. If you assign this lambda to a variable it will act in the same way as function created with def keyword.
+                        So let's see which version is faster.
+                        Well, actually they are both equally fast.
+                        Why ? Because both version exactly the same thing.
+                        We can see that even better when disassembling the code of both function.
+                    </aside>
+                </section>
+                <!-- Lambda vs def contd.-->
+                <section>
+                <h4><span class="orange">#</span> Lambda vs def</h4>
+                    <pre><code class='python' data-trim data-noescape>
+>>> dis.dis(greet_def)
+ 0 LOAD_CONST    1 ('Hello {}!')
+ 3 LOAD_ATTR     0 (format)
+ 6 LOAD_FAST     0 (name)
+ 9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
+12 RETURN_VALUE
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+>>> dis.dis(greet_l)
+ 0 LOAD_CONST    1 ('Hello {}!')
+ 3 LOAD_ATTR     0 (format)
+ 6 LOAD_FAST     0 (name)
+ 9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
+12 RETURN_VALUE
+                    </pre></code>
+                    <small><a href='http://stackoverflow.com/questions/29804774/why-is-lambda-expression-necessary-in-this-example-python'>Stack Overflow on when lambda might be necessary</a></small>
+                    <aside class="notes">
+                        So is there any difference ?
+                        Well, if your function has more than one line, then you can't use lambda.
+                        Also, you can't really put documentation inside lambda function.
+                        And if you have PEP-8 enabled in you code editor, it will complain each time you try to assign lambda to a variable.
+                        And he is right, lambda works really nice when you need a simple one-liner callback for functions, especially for functions like filter, map or reduce.
+                        There are also some quite narrow use cases when it might be necessary to use the lambda instead of def as a callback - if you want to read more, I'm linking a stack overflow question with that problem.
+                        However, for any other case, I would use def. It's much cleaner, you can document it properly and the performance is the same.
+                    </aside>
+                </section>
+                <!-- [] vs list() and {} vs dict() -->
+                <section>
+                <h4><span class="orange"></span>[] and {}</h4>
+                    <div>
+                        <div class='left'>
+                            <pre><code class='python' data-trim data-noescape>
+list()
+                            </pre></code>
+                            <p>
+                                <span class="bad">104 ns</span>
+                            </p>
+                            <pre><code class='python' data-trim data-noescape>
+[]
+                            </pre></code>
+                            <p>
+                                <span class="good">22.5 ns</span>
+                            </p>
+                            <p>
+                                4.6 times faster
+                            </p>
+                        </div>
+                        <div class='right'>
+                            <pre><code class='python' data-trim data-noescape>
+dict()
+                            </pre></code>
+                            <p>
+                                <span class="bad">161 ns</span>
+                            </p>
+                            <pre><code class='python' data-trim data-noescape>
+{}
+                            </pre></code>
+                            <p>
+                                <span class="good">93 ns</span>
+                            </p>
+                            <p>
+                                1.7 times faster
+                            </p>
+                        </div>
+                    </div>
+                    <aside class="notes">
+                        There are 2 ways you can create an empty list or a dictionary. You can either call a function for that, or you can simply use the literal syntax.
+                        As you can see, using the literal syntax is way faster.
+                        Let's take a quick look, why this happens.
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
+                <!-- XXXXXXXXXX -->
+                <section>
+                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
+                    <pre><code class='python' data-trim data-noescape># SLOW
+
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape># FAST
+
+                    </pre></code>
+                    <p>
+                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
+                        XXXXXXXX <span class="good">274 000</span> times faster
+                    </p>
+                    <aside class="notes">
+                        xxxxxxxxxxxxxxxxx
+                    </aside>
+                </section>
                 <!-- XXXXXXXXXX -->
                 <section>
                 <h4><span class="orange">#</span> XXXXXXXXXX</h4>
@@ -403,6 +595,7 @@ alist = [random.randint(1,100) for _ in range(1000000)]
             // More info https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
                 history: true,
+                slideNumber: true,
 
                 // More info https://github.com/hakimel/reveal.js#dependencies
                 dependencies: [

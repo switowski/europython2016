@@ -64,3 +64,9 @@ squares = [square(i) for i in range(1000000)]
 
 def compute_squares():
     return [i**2 for i in range(1000000)]
+
+################################# Def vs lambda ##############################
+def name_d(person):
+    return person.get('name')
+
+name_l = lambda person: person.get('name')
