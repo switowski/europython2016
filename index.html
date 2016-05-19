@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/reveal.css">
 
         <!-- Reveal.js theme -->
-        <link rel="stylesheet" href="css/theme/league.css">
+        <link rel="stylesheet" href="css/theme/blood.css">
         <!-- Custom CSS rules -->
         <link rel="stylesheet" href="css/custom.css">
         <!-- Theme used for syntax highlighting of code -->
@@ -33,7 +33,66 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>Hi my name is Sebastian</section>
+                <section>
+                    <!-- Vertical slides for different title variations -->
+                    <section>
+                        <h1>Writing faster code</h1>
+                        <aside class="notes">
+                            Hi everyone.<br>
+                            I would like to talk with you about writing faster code. Last time I gave a short talk on how to make your Python code faster, I remember someone pointing out that 'basically you can rewrite your code in C to make it faster'.<br>
+                            And you know what ? The guy was absolutely right. Take any piece of code, rewrite it in C or C++ and it will be automatically faster.<br>
+                            So I was thinking, "Hmm, if I say just 'writing faster code', people will be confused if it's only about Python or not".<br>
+                            So I decided to fix it.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Writing faster code <span class='orange'>and not hating your job as a software developer</span></h2>
+                        <aside class="notes">
+                            I was very happy with the new title. It makes it clear that we are not talking about Java or C here.<br>
+                            But then I remembered from school that the presentation title should be clear but also concise.
+                            And frankly - this one barely even fits on the slides.<br>
+                            So I had to fix it again.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Writing faster <span class='orange'>Python</span></h1>
+                        <aside class="notes">
+                            And this is how I ended up with 'Writing faster Python' as a title for my today's talk.
+                            Let's put aside the flame war about which programming language is better.<br>
+                            (Whisper) We all know the answer, otherwise you wouldn't be here!(/Whisper)
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <ul>
+                            <h4>Python was not made to be fast...</h4>
+                            <h4>...but to make programmers happy.</h4>
+                            <div>
+                                <div class='left'>
+                                    <pre><code class='python' data-trim data-noescape>
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World");
+    }
+}
+                                    </code></pre>
+                                </div>
+                                <div class='right'>
+                                    <pre><code class='python' data-trim data-noescape>
+print("Hello, world!")
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </ul>
+                        <aside class="notes">
+                            Python was not created to be a fast language that you would use for some LHC computations where every nanosecond counts.<br>
+                            And that's fine. Python is a great programming language that is very easy to learn and easy to use.<br>
+                            It's very easy to write some throw-away prototypes.<br>
+                            You can use it for writing web applications, simple scripts and for all those use cases it's fast enough.
+                        </aside>
+                    </section>
+                </section>
                 <section>Slide 2</section>
 
                 <section>
