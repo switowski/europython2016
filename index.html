@@ -568,19 +568,45 @@ dict()
                         xxxxxxxxxxxxxxxxx
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
+                <!-- SPLIT DIV -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
+                <h4><span class="orange">#</span> SPLIT DIV </h4>
+                    <div>
+                        <div class='left'>
+                            <pre><code class='python' data-trim data-noescape>
 
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
+                            </pre></code>
+                            <p>
+                                <span class="bad">xxxxxx</span>
+                            </p>
+                            <pre><code class='python' data-trim data-noescape>
 
-                    </pre></code>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
+                            </pre></code>
+                            <p>
+                                <span class="good">xxxxxx</span>
+                            </p>
+                            <p>
+                                xxxxxxxxx
+                            </p>
+                        </div>
+                        <div class='right'>
+                            <pre><code class='python' data-trim data-noescape>
+
+                            </pre></code>
+                            <p>
+                                <span class="bad">xxxxxxxx</span>
+                            </p>
+                            <pre><code class='python' data-trim data-noescape>
+
+                            </pre></code>
+                            <p>
+                                <span class="good">xxxxxxxx</span>
+                            </p>
+                            <p>
+                                xxxxxxxxxx
+                            </p>
+                        </div>
+                    </div>
                     <aside class="notes">
                         xxxxxxxxxxxxxxxxx
                     </aside>
@@ -595,7 +621,7 @@ dict()
             // More info https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
                 history: true,
-                slideNumber: true,
+                slideNumber: 'c/t',
 
                 // More info https://github.com/hakimel/reveal.js#dependencies
                 dependencies: [
