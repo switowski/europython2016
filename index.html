@@ -59,41 +59,126 @@
                         <aside class="notes">
                             And this is how I ended up with 'Writing faster Python' as a title for my today's talk.
                             Let's put aside the flame war about which programming language is better.<br>
-                            (Whisper) We all know the answer, otherwise you wouldn't be here!(/Whisper)
+                            (Whisper) We all know the answer, that's why you are here!(/Whisper)
                         </aside>
                     </section>
                 </section>
                 <section>
                     <section>
-                        <ul>
-                            <h4>Python was not made to be fast...</h4>
-                            <h4>...but to make programmers happy.</h4>
-                            <div>
-                                <div class='left'>
-                                    <pre><code class='python' data-trim data-noescape>
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World");
-    }
-}
-                                    </code></pre>
-                                </div>
-                                <div class='right'>
-                                    <pre><code class='python' data-trim data-noescape>
-print("Hello, world!")
-                                    </code></pre>
-                                </div>
-                            </div>
-                        </ul>
+                        <h4>Python was not made to be fast...</h4>
+                        <h4>...but to make programmers happy.</h4>
                         <aside class="notes">
                             Python was not created to be a fast language that you would use for some LHC computations where every nanosecond counts.<br>
-                            And that's fine. Python is a great programming language that is very easy to learn and easy to use.<br>
-                            It's very easy to write some throw-away prototypes.<br>
-                            You can use it for writing web applications, simple scripts and for all those use cases it's fast enough.
+                            And that's fine with me. Python is a great programming language that is easy and fun to use.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <!-- TODO: MAKE quotes pretty: http://tympanus.net/Tutorials/ModernBlockQuoteStyles/index3.html -->
+                        <blockquote>
+                            <p>It was nice to learn Python; a nice afternoon</p>
+                            <footer>Donald Knuth</footer>
+                        </blockquote>
+                        <aside class="notes">
+                            Python is very easy to learn. The ease of use and read is very encouraging for people new to development.<br>
+                            I see that it's getting more and more popular in schools or universities as the first programming language that people are learning.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class='python' data-trim data-noescape>
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
+}
+                        </code></pre>
+                        <p>vs.</p>
+                        <pre><code class='python' data-trim data-noescape>
+print("Hello, world!")
+                        </code></pre>
+                        <aside class="notes">
+                            And I'm not surprised. I mean, imagine you are completely new to programming and someone tells you: "Hey, let me show you how much fun is programming. Let's start with something simple and print some text to the screen."<br>
+                            And then he shows you one of those examples.<br>
+                            One of them is clearly not something that you would show to a beginner to encourage him to start programming.
+                        </aside>
+                    </section>
+                    <section>
+                        <p>TODO: Get statistics for python usage</p>
+                        <small>http://expandedramblings.com/index.php/dropbox-statistics/ and https://www.dropbox.com/about</small>
+                        <aside class="notes">
+                            So let's take a look at how slow Python is.
+                            There quite a lot of big websites and services out there that are using Python as their back-end.
+                            https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites/
+
+                            You guys probably heard about Instagram. You can post pictures of your food there. And cats.
+                            So Instagram is using Python in their backend. They have over 400 millions active users monthly, who post more than 80 millions pictures daily and they don't seem to complain about Python.
                         </aside>
                     </section>
                 </section>
-                <section>Slide 2</section>
+                <section>
+                    <section>
+                        <h1 class='h1-smaller'>OPTIMIZATION</h1>
+                        <aside class="notes">
+                            So Python is usually fast enough. But what if we decide it's not fast enough anymore.<br>
+                            For example, your websites starts giving timeouts to your users or maybe a faster code will bring more money for your company (or more data for your physicists).<br>
+                            It's time for optimization!
+                        </aside>
+                    </section>
+                    <section data-background="#fff">
+                        <img src="./img/google-optimization.png">
+                        <aside class="notes">
+                            But how do you optimize your code ?<br>
+                            Probably you need to follow some rules, so let's try to google that.<br>
+                        </aside>
+                    </section>
+                    <section data-background="#fff">
+                        <img src="./img/optimization-rules.png">
+                        <aside class="notes">
+                            Let's open the first link.<br>
+                            Only 3 rules ? Wow, optimization might be easier than we expected!
+                            Let's take a closer look at those rules.
+                        </aside>
+                    </section>
+                    <section>
+                        <ol>
+                            <li>Don't</li>
+                            <li>Don't...&nbsp;yet</li>
+                            <li>Profile</li>
+                        </ol>
+                        <aside class="notes">
+                            First rule of optimization: Don't. Ok, that was easy. Thank you for your attention. Are there any questions ?<br>
+                            Ah, no wait, there is more.<br>
+                            Those rules only look weird. So what does it mean 'Don't.
+                            Well, 9 out of 10 times, you don't need the optimization, especially in the early part of your product's life.<br>
+                            You might think it would be nice to optimize your code a bit, but first of all, you will waste time doing something that is not needed. You can get more benefits from getting a faster hardware of something if you want. Second of all, optimization comes with a cost. Sometimes it's only the time spend optimizing existing code. Sometimes you have to add even more time to fix, what you broke with you optimization. But also, the optimized code might not be as readable as it was in the first place. And maybe your code is running faster but uses more memory ? So unless you have real resons to optimize - don't do this.
+                            If you know that you really need to optimize, then you can move to the second rule of optimization - don't do this yet. That would be my favorite rule - how I understand it is - first make sure your code works, then make sure you have good test suite and only then, start optimizing.<br>
+                            I love this rule, it always reminds me how many times I have violated it. So many times I was in the middle of working on a more or less complex piece of code and then I started thinking: "Hey, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
+                            Did it end up well for me ?<br>
+                            Nope. And it's not even because I broke some stuff. Well, quite often I ended up breaking something, but also, when I started jumping around the code, I forgot what exactly was I writing in the first place.<br> One way or another, it was causing confusion, pain and tears.<br>
+                            Did it make my code faster ? I have no idea, cause I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's better or worse now, but otherwise I could only guess.<br>
+                            And that brings me to the last rules of optimization - Don't guess.<br>
+                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If you code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Levels of optimization:</h3>
+                        <ul>
+                            <li>Design</li>
+                            <li class="fragment">Algorithms and data structures</li>
+                        </ul>
+                        <aside class="notes">
+                            Another important thing to note here is that there are various levels of optimization:<br>
+                            Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language that might be faster, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries etc.<br>
+                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.
+
+                            One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good, fast software.
+                            For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop:
+                        </aside>
+                    </section>
+                    <section>
+                    </section>
+                </section>
 
                 <section>
                     <h2>Time it with %timeit</h2>
