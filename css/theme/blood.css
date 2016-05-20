@@ -10,6 +10,8 @@
  *
  */
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic,700italic);
+/* Additional fonts */
+ @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
@@ -18,7 +20,7 @@ body {
   background-color: #222; }
 
 .reveal {
-  font-family: Ubuntu, "sans-serif";
+  font-family: Roboto, "sans-serif";
   font-size: 36px;
   font-weight: normal;
   color: #eee; }
