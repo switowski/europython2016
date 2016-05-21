@@ -66,28 +66,32 @@
                 <section>
                     <section>
                         <h4>Python was not made to be fast...</h4>
-                        <h4>...but to make programmers happy.</h4>
+                        <h4>...but to make developers fast.</h4>
                         <aside class="notes">
-                            Python was not created to be a fast language that you would use for some LHC computations where every nanosecond counts.<br>
+                            Python was not created to be a fast language that you would use for LHC computations where every nanosecond counts.<br>
                             And that's fine with me. Python is a great programming language that is easy and fun to use.<br>
                         </aside>
                     </section>
                     <section data-background="#f7f3de">
-                        <!-- TODO: MAKE quotes pretty: http://tympanus.net/Tutorials/ModernBlockQuoteStyles/index3.html -->
-                        <blockquote>
-                            <p>It was nice to learn Python; a nice afternoon</p>
-                        </blockquote>
-                        <div class="blockquote-attribution">
-                            <p>
-                                Donald Knuth
-                            </p>
+                        <div class="blockquote">
+                            <blockquote>
+                                <p>It was nice to learn Python;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                a nice afternoon</p>
+                            </blockquote>
+                            <div class="blockquote-attribution">
+                                <p class="blockquote-author">
+                                    Donald Knuth
+                                </p>
+                                <div class="blockquote-picture knuth"></div>
+                            </div>
                         </div>
                         <aside class="notes">
-                            Python is very easy to learn. The ease of use and read is very encouraging for people new to development.<br>
+                            Python is very easy to learn. The fact that it's so easy to read and write code in Python is very encouraging for people new to development.<br>
                             I see that it's getting more and more popular in schools or universities as the first programming language that people are learning.<br>
                         </aside>
                     </section>
                     <section>
+                        <p>Would you like your FIRST program EVER to be like:<br><br></p>
                         <pre><code class='python' data-trim data-noescape>
 public class HelloWorld {
     public static void main(String[] args) {
@@ -95,14 +99,14 @@ public class HelloWorld {
     }
 }
                         </code></pre>
-                        <p>vs.</p>
+                        <p>or</p>
                         <pre><code class='python' data-trim data-noescape>
 print("Hello, world!")
                         </code></pre>
                         <aside class="notes">
                             And I'm not surprised. I mean, imagine you are completely new to programming and someone tells you: "Hey, let me show you how much fun is programming. Let's start with something simple and print some text to the screen."<br>
                             And then he shows you one of those examples.<br>
-                            One of them is clearly not something that you would show to a beginner to encourage him to start programming.
+                            I mean, one of them is clearly not something that you would show to a beginner to encourage him or her to start programming.
                         </aside>
                     </section>
                     <section>
@@ -127,14 +131,14 @@ print("Hello, world!")
                             It's time for optimization!
                         </aside>
                     </section>
-                    <section data-background="#fff">
+                    <section data-background="#f7f3de">
                         <img src="./img/google-optimization.png">
                         <aside class="notes">
                             But how do you optimize your code ?<br>
                             Probably you need to follow some rules, so let's try to google that.<br>
                         </aside>
                     </section>
-                    <section data-background="#fff">
+                    <section data-background="#f7f3de">
                         <img src="./img/optimization-rules.png">
                         <aside class="notes">
                             Let's open the first link.<br>
@@ -143,11 +147,14 @@ print("Hello, world!")
                         </aside>
                     </section>
                     <section>
-                        <ol>
-                            <li>Don't</li>
-                            <li>Don't...&nbsp;yet</li>
-                            <li>Profile</li>
-                        </ol>
+                        <h3>Don't</h3>
+                        <h3 class="fragment">Don't...&nbsp;yet</h3>
+                        <ul class="fragment current-visible remove" style="padding-left:325px;">
+                            <li>Finish your code</li>
+                            <li>Have tests</li>
+                            <li>Now</li>
+                        </ul>
+                        <h3 class="fragment">Profile</h3>
                         <aside class="notes">
                             First rule of optimization: Don't. Ok, that was easy. Thank you for your attention. Are there any questions ?<br>
                             Ah, no wait, there is more.<br>
@@ -165,10 +172,15 @@ print("Hello, world!")
                     </section>
                 </section>
                 <section>
+                    <h5>TODO: Put profiling tools here</h5>
+                    <aside class="notes">
+                    </aside>
+                </section>
+                <section>
                     <section>
-                        <h3>Levels of optimization:</h3>
+                        <h3>Levels of optimization</h3>
                         <ul>
-                            <li>Design</li>
+                            <li class="fragment">Design</li>
                             <li class="fragment">Algorithms and data structures</li>
                         </ul>
                         <aside class="notes">
@@ -177,10 +189,90 @@ print("Hello, world!")
                             We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.
 
                             One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good, fast software.
-                            For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop:
                         </aside>
                     </section>
                     <section>
+                        <pre><code class='python' data-trim data-noescape>
+sum = 0
+for x in range(1, N + 1):
+    sum += x
+print sum
+                        </pre></code>
+                        <div class="fragment">
+                            <p class="arrow">&#8595;</p>
+                            <pre><code class='python' data-trim data-noescape>
+print N * (1 + N) / 2
+                            </pre></code>
+                        </div>
+                        <aside class="notes">
+                            For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop that goes though all elements and adds them.<br>
+                            It will work, but it won't be fast.<br>
+                            You can instead use an algorithm for the arithmetic sum, which will give you the same results and it will be more efficient.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Levels of optimization</h3>
+                        <ul>
+                            <li>Design</li>
+                            <li>Algorithms and data structures</li>
+                            <li>Source code</li>
+                            <li class="fragment">Build level</li>
+                            <li class="fragment">Compile level</li>
+                            <li class="fragment">Assembly level</li>
+                            <li class="fragment">Runtime level</li>
+                        </ul>
+                        <aside class="notes">
+                            Next level is the source code optimization. This is something that I want to talk about today. We are slowly getting there.
+
+                            And now we got to the low levels of optimization. For example, "build level" involves setting up specific build flags. In you daily work, it's not something that you do often. You can optimize Python for a specific architecture, but if you are a web-developer like me, you don't go to that level of optimization.
+
+                            Compile level - you can make some optimizations if you are using Ahead of Time compiler. Which is not the case for Python, as there is no ahead of time compiler for Python.
+
+                            Assembly level - this is probably as low as you can get with the optimization. For additional performance, you can write directly the assembly code for a specific architecture. As this is "Python Developers Forum", not the "Assembly Developers Forum", I will not focus on this level of optimization either.
+
+                            Last but not least - runtime level. It's related with a specific compiler you are using. Some compilers are faster than the others, for example if you replace CPython with PyPy, you can gain on average up to 7 times speed improvement, but again, it depends on what kind of task you are doing.<br>
+                            Most of the time, once we set up on a specific language implementation, there is nothing we have to do to benefit from this kind of optimizations - it's up to the creators of the compilers to optimize them, so simply updating to the new version of the programming language you are using can make your programs run a bit faster.
+                        </aside>
+                    </section>
+                </section>
+                <!-- Optimization is not only the speed -->
+                <section>
+                    <section>
+                        <h4>Optimization is all about the speed</h4>
+                        <div class="fragment">
+                            <h4>... but also memory</h4>
+                        </div>
+                        <div class="fragment">
+                            <h4>... and disk space</h4>
+                            <h4>... disk I/O</h4>
+                            <h4>... network I/O</h4>
+                            <h4>... power consumption</h4>
+                            <h4>... and more.</h4>
+                        </div>
+                        <aside class="notes">
+                            Another important thing that we need to remember here is that optimization is not only about the speed.<br>
+                            You can also optimize memory usage, disk space usage, disk I/O, network I/O, power consumption and other resources.
+                            And usually, you can't optimize in all directions in the same time, so you have to decide what resources are more important and what are less.
+                            So it's possible that optimization will have nothing to do with the execution time at all, as there can be other resources more important than the raw speed.
+                            For example, who cares if you program is now 10 times faster if it's crashing half of the time, because it's running out of memory ?
+                        </aside>
+                    </section>
+                    <section data-background="#f7f3de">
+                        <div class="blockquote">
+                            <blockquote>
+                                <p>Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live</p>
+                            </blockquote>
+                            <div class="blockquote-attribution">
+                                <p class="blockquote-author">
+                                    John Woods
+                                </p>
+                            </div>
+                        </div>
+                        <aside class="notes">
+                            Another important resource of optimization that people are often forgetting is sanity.<br>
+                            Sanity of a person, who will be maintaining your code. Please, be nice to that person, you never know who that might be.<br>
+                            Unless you are really writing a throw-away code, if you are making the code harder to read and maintain, then you are probably doing it wrong!
+                        </aside>
                     </section>
                 </section>
 
@@ -699,19 +791,12 @@ dict()
                         xxxxxxxxxxxxxxxxx
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
+                <!-- Attributions -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </pre></code>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
+                <h4><span class="orange">#</span> Attributions</h4>
+                    <ul>
+                        <li>Donald Knuth at a reception for the Open Content Alliance, hosted by the Internet Archive. Taken October 25, 2005 by Jacob Appelbaum in San Francisco.</li>
+                    </ul>
                     <aside class="notes">
                         xxxxxxxxxxxxxxxxx
                     </aside>

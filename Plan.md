@@ -4,30 +4,7 @@
 
 ## What to do when your code is slow ?
 * Czasem jednak przychodzi czas, że stwierdzamy, że nasz kod jest zbyt wolny - nadchodzi czas na optymalizację.
-* One important thing to note here is that there are various levels of optimization (https://en.wikipedia.org/wiki/Program_optimization):
-    - Design level - it's the highest level of optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting your parts or the whole application in a different programming language that might be faster, changing the type of database you are using so it fits your needs betters or redesigning the architecture of your software to limit the number of DB queries etc. We are probably not interested in that today, as we are not going to rewrite something that we have been working very hard on in the past months/years. However, if you have some critical parts of the code that is run often, you can optimize it by rewriting it in C or C++.The advantage is that C is faster, so you will get some speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code.
-    - Algorithms and data structures - one level lower, we have algorithms. That's usually the second biggest improvement you can get after after a complete redesign. Knowing different algorithms together with their complexity definitely helps. For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop:
-    ```
-    sum = 0
-    for x in range(1, N+1):
-        sum += x
-    print sum
-    ```
-    which will work, but you can also use an algorithm for the arithmetic sum:
-    ```
-    print N * (1 + N) / 2
-    ```
-    which will give the same results AND it will be more efficient.
-    - Source code - this is something that I will be talking about today.
-    - Build level - Low level optimization, that involves setting up specific build flags. In your daily work, it's not something that you do often. You can optimize the Python build for a specific architecture, but if you are a web developer like me, most of the time you don't go to this level of optimization.
-    - Compile level - you can make some optimization if you are using Ahead of Time compiler. Which is not the case for Python, as there is not ahead of time compiler for Python.
-    - Assembly level - this is probably as low as we can get. For additional performance, you can write directly the assembly code for a specific architecture. As this is "Python Developers Forum", not "Assembly Developer Forum", I will not focus on this level of optimization either.
-    - Run time - it's related with the specific compiler you are using. Some compilers are faster than the other, for example, if you replace CPython with PyPy, you can gain up to 7x speed improvement (http://speed.pypy.org/), but again, it depends of what task you are doing. Most of the time once we set up on a specific language implementation, there is nothing we have to do to benefit from this kind of optimization - it's up to the creators of the compilers to optimize them, so simply updating to new version of the programming language you are using can make your programs run a bit faster.
-* Another important thing that we need to remember here - optimization is not only about the speed. Sometimes, optimization can have nothing to do with the execution time at all, as there can be other resources more important than raw speed.You can optimize memory usage, disk space usage, disk IO, bandwidth, power consumption and other resources.
-    + Sometimes maybe the memory consumption will be more important than the speed of a script. Who cares that your program is now 10 times faster if it now crashes half of the time because of too big memory consumption ?
-    + Quite often, optimization in one area will cause deterioration in the other. Let's say that you have some computations that require processing a lot of data. You might run out of RAM if you store all of it in the memory, so you can store intermediate results on the disk. This will make you program consume less memory, but it will be slower due to more disk IO, so you have to decide which of those resources is more important to you.
-* Also, unless your code is "write and forget" (which probably isn't, so please be nice to people who will be maintaining it! - tweet about _always write code as the person who will maintain it is a psychopath who knows where you live_), if you are making the code harder to read and maintain, then you are probably doing it wrong.
-* So, having that things cleared, let's see what happens when you know what you want to optimize.
+* * Let's see what happens when you know what you want to optimize.
 * The first thing you do, you probably google for something like 'optimization rule' and you click the first website you find: http://c2.com/cgi/wiki?RulesOfOptimization. Huh? Only 3 rules? That should be simple. Well, not really.
 * Rule number 1: Don't. Ok, that was not very helpful.
 * Rule number 2: Don't yet. This is a very good advice. How I understand it is:
@@ -47,6 +24,30 @@
     + You could change the Python compiler to a different one (PyPy instead of CPython?)
 * However, quite often you can improve you code by changing your algorithm. Is most of the time spend waiting for I/O ? Then maybe it's time to use asynchronous library instead.
 * Even when you already have a good algorithm, you can further refine it by using correct data structures or avoiding some anti-patterns.
+
+* One important thing to note here is that there are various levels of optimization (https://en.wikipedia.org/wiki/Program_optimization):
+    - Design level - it's the highest level of optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting your parts or the whole application in a different programming language that might be faster, changing the type of database you are using so it fits your needs betters or redesigning the architecture of your software to limit the number of DB queries etc. We are probably not interested in that today, as we are not going to rewrite something that we have been working very hard on in the past months/years. However, if you have some critical parts of the code that is run often, you can optimize it by rewriting it in C or C++.The advantage is that C is faster, so you will get some speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code.
+    - Algorithms and data structures - one level lower, we have algorithms. That's usually the second biggest improvement you can get after after a complete redesign. Knowing different algorithms together with their complexity definitely helps. For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop:
+    ```
+    sum = 0
+    for x in range(1, N+1):
+        sum += x
+    print sum
+    ```
+    which will work, but you can also use an algorithm for the arithmetic sum:
+    ```
+    print N * (1 + N) / 2
+    ```
+    which will give the same results AND it will be more efficient.
+    - Source code - this is something that I will be talking about today.
+    - Build level - Low level optimization, that involves setting up specific build flags. In your daily work, it's not something that you do often. You can optimize the Python build for a specific architecture, but if you are a web developer like me, most of the time you don't go to this level of optimization.
+    - Compile level - you can make some optimization if you are using Ahead of Time compiler. Which is not the case for Python, as there is not ahead of time compiler for Python.
+    - Assembly level - this is probably as low as we can get. For additional performance, you can write directly the assembly code for a specific architecture. As this is "Python Developers Forum", not "Assembly Developer Forum", I will not focus on this level of optimization either.
+    - Run time - it's related with the specific compiler you are using. Some compilers are faster than the other, for example, if you replace CPython with PyPy, you can gain up to 7x speed improvement (http://speed.pypy.org/), but again, it depends of what task you are doing. Most of the time once we set up on a specific language implementation, there is nothing we have to do to benefit from this kind of optimization - it's up to the creators of the compilers to optimize them, so simply updating to new version of the programming language you are using can make your programs run a bit faster.
+* Another important thing that we need to remember here - optimization is not only about the speed. Sometimes, optimization can have nothing to do with the execution time at all, as there can be other resources more important than raw speed. You can optimize memory usage, disk space usage, disk IO, bandwidth, power consumption and other resources.
+    + Sometimes maybe the memory consumption will be more important than the speed of a script. Who cares that your program is now 10 times faster if it now crashes half of the time because of too big memory consumption ?
+    + Quite often, optimization in one area will cause deterioration in the other. Let's say that you have some computations that require processing a lot of data. You might run out of RAM if you store all of it in the memory, so you can store intermediate results on the disk. This will make you program consume less memory, but it will be slower due to more disk IO, so you have to decide which of those resources is more important to you.
+* Also, unless your code is "write and forget" (which probably isn't, so please be nice to people who will be maintaining it! - tweet about _always write code as the person who will maintain it is a psychopath who knows where you live_), if you are making the code harder to read and maintain, then you are probably doing it wrong.
 
 ## Why do I care about source code optimizations ?
 * I don't know about you, but when I'm coding, for each line of code I'm always wondering if this is the best way to write my code. Maybe if instead of a loop I can use map ? Will it be faster ? Should I cache this variable or not ?
