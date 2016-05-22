@@ -176,3 +176,8 @@
 .reveal .source-link a:hover{
   color: #8dcffc;
 }
+
+.reveal .mb50 {
+  /* Some spacing - can be used on headers*/
+  margin-bottom: 50px;
+}

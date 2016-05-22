@@ -294,102 +294,89 @@ print N * (1 + N) / 2
                         </aside>
                     </section>
                     <section>
-                        <h5>%timeit</h5>
+                        <h4 class="mb50">Python 3.5.1 (IPython 1.2.1)</h4>
                         <pre><code class='python' data-trim data-noescape>
 def ultimate_answer_of_life():
     return 42
                         </pre></code>
+                        <p>&nbsp;</p>
                         <pre><code class='python' data-trim data-noescape>
 >>> %timeit ultimate_answer_of_life()
 10000000 loops, best of 3: 87.1 ns per loop
                         </pre></code>
+                        <p>&nbsp;</p>
                         <p class="source-link">
-                            2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a>
+                            2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
                         </p>
                         <aside class="notes">
-                            In my examples, I have used the magic %timeit function that comes with IPython. It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
+                            In my examples I'm using Python version 3.5.1 together with IPython, although unless I say it, all the examples should apply to both Python 2 and 3.
+                            For measuring execution times of code, I will use the magic %timeit function. It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
                             So for each of my example, I write different versions of code, measure the execution time and compare them.
                         </aside>
                     </section>
                 </section>
+
+                <!-- List of examples: -->
+                <!-- built-ins Counting elements in a list vs using a built-in-->
+                <!-- dictionary Ask for permissions vs beg for forgiveness -->
+
+                <!-- list Filter a list -->
+
+                <!-- string/list Create a string from a list -->
+                <!-- string String formatting is faster than string concatenation -->
+
+                <!-- functions Execute operation 1000 times in a function than a function 1000 times -->
+                <!-- loop Simple loop vs map -->
+                <!-- list List sorting is faster in place -->
+                <!-- bool Checking for True -->
+                <!-- bool Checking for False -->
+                <!-- list Checking if list in empty -->
+                <!-- function Lambda vs def -->
+                <!-- function [] vs list() and {} vs dict() -->
+
+
                 <!-- Counting elements in a list -->
                 <section>
-                <h4><span class="orange">#</span> Count elements in a list</h4>
-                    <pre><code class='python'># SLOW
+                    <section>
+                    <h4 class="mb50"><span class="orange">#</span> Count elements in a list</h4>
+                        <pre><code class='python' data-trim data-noescape>
 how_many = 0
-for element in BIG_LIST:
+for element in ONE_MILLION_ELEMENTS:
     how_many += 1
-print how_many</pre></code>
-                            <pre><code class='python'># FAST
-print len(BIG_LIST)</pre></code>
-                    <p>
-                        For 1 000 000 elements it's <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        The fast version is <span class="good">274 000</span> times faster
-                    </p>
-                    <aside class="notes">
-                        Let's start with something simple. Let's say you want to count a number of elements in a list. You can easily write a simple loop than increments a counter and there is nothing wrong with this code, except that it's slow. You can achieve the same results using the built-in function len(). And as you can see the speed improvement is quite huge.
-                        So, try to use the built-in functions and functions from the standard library when you can.
-                        <<< ADD a separate slide with the list of python 3.5.1 built-ins >>>
-                        Python 3.5.1 contains 68 built-in variables [source](https://docs.python.org/3.5/library/functions.html) - you won't need all of them (I don't remember when was the list time - if ever - I used (xxx - find function names here), but it will take you just a moment to take a look at that list from time to time and keep it in the back of your head.
-                    </aside>
+print how_many
+                        </pre></code>
+                        <p>
+                            <span class="bad">26.5 ms</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+print len(ONE_MILLION_ELEMENTS)
+                        </pre></code>
+                        <p>
+                            <span class="good">96.7 ns</span>
+                        </p>
+                        <p>
+                            <span class="good">274 000</span> times faster
+                        </p>
+                        <aside class="notes">
+                            Let's start with something simple. Let's say you want to count the number of elements in a list.<br>
+                            You can easily write a simple loop that increments a counter and there is nothing wrong with this code, except that it's very slow.<br>
+                            You can achieve the same results by simply calling the built-in function len().<br>
+                            And as you can see the speed difference is quite huge.
+                            So, try to use the built-in functions or functions from the standard library when you can.
+                        </aside>
+                    </section>
+                    <section data-background="#f7f3de">
+                        <img src="./img/built-ins.png">
+                        <aside class="notes">
+                            Python 3.5.1 contains 68 built-in variables, so it's good to take a look at them from time to time and keep them in the back of your head, because they might be handy at some point.
+                        </aside>
+                    </section>
                 </section>
-                <!-- Checking for True -->
-                <section>
-                <h4><span class="orange">#</span> Checking for True</h4>
-                    <pre><code class='python' data-trim data-noescape>
-if variable == True:
-                    </pre></code>
-                    <p>
-                        <span class="bad">35.8 ns</span>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-if variable is True:
-                    </pre></code>
-                    <p>
-                        <span class="bad">28.7 ns</span><br>
-                        1.24 times faster
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-if variable:
-                    </pre></code>
-                    <p>
-                        <span class="good">20.6 ns</span><br>
-                        1.73 times faster
-                    </p>
-                    <aside class="notes">
-                        Let's say you want to check if some variable or an expression is true. You can explicitly compare this variable to True, but unless you really want to check if a variable is really True (and not 0 or None)  you can simplify your condition to just 'if variable'. It will return True, unless the variable is False, None, 0, empty string, empty list or any other "Falsy" expression. And by doing that, your instruction get almost twice faster.
-                    </aside>
-                </section>
-                <!-- Checking for False -->
-                <section>
-                <h4><span class="orange">#</span> Checking for False</h4>
-                    <pre><code class='python' data-trim data-noescape>
-if variable == False:
-                    </pre></code>
-                    <p>
-                        <span class="bad">35.1 ns</span>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-if variable is False:
-                    </pre></code>
-                    <p>
-                        <span class="bad">26.9 ns</span><br>
-                        1.30 times faster
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-if not variable:
-                    </pre></code>
-                    <p>
-                        <span class="good">19.8 ns</span><br>
-                        1.77 times faster
-                    </p>
-                    <aside class="notes">
-                        The same rule applies when checking for False, the fastest way to do this is to use 'if not variable', unless you really need to distinguish False from None, 0 or other Falsy values.
-                    </aside>
-                </section>
+
+
                 <!-- Ask for permissions vs beg for forgiveness -->
                 <section>
-                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
+                <h4 class="mb50"><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
                     <pre><code class='python' data-trim data-noescape>
 class Foo(object):
     hello = 'world'
@@ -493,9 +480,29 @@ except AttributeError:
                         But we can do better than this. Dictionaries have a get method, that you should use in a case like that.
                     </aside>
                 </section>
-                <!-- END Execute operation 1000 times in a function than a function 1000 times -->
+                <!-- Execute operation 1000 times in a function than a function 1000 times -->
                 <section>
                 <h4><span class="orange">#</span> Execute function 1000 times or execute an operation 1000 times in a function ?</h4>
+                    <pre><code class='python' data-trim data-noescape>
+def square(number):
+    return number**2
+squares = [square(i) for i in range(1000)]
+                    </pre></code>
+                    <pre><code class='python' data-trim data-noescape>
+def compute_squares():
+    return [i**2 for i in range(1000)]
+                    </pre></code>
+                    <p>
+                        <span class="bad">399 µs</span> vs <span class="good">314 µs</span><br>
+                         27% faster
+                    </p>
+                    <aside class="notes">
+                        If you want to perform some kind of operation on a large set of data, your first idea might be to write a function that performs said operation and then apply this function on the set of data. However, it's faster to perform those 1000 operations inside a function instead of calling a function 1000 times.
+                    </aside>
+                </section>
+                <!-- Simple loop vs map -->
+                <section>
+                <h4><span class="orange">#</span> Simple loop vs map</h4>
                     <pre><code class='python' data-trim data-noescape>
 def square(number):
     return number**2
@@ -626,6 +633,97 @@ list(filter(lambda x: x % 2, MILLION_ELEMENTS))
                         If we want to get the whole list as a result, the better idea is to use list comprehension. It's around 35% faster than the for loop and - at least for me - it looks much better.
                     </aside>
                 </section>
+
+                <!-- Checking for True -->
+                <section>
+                    <section>
+                        <h4 class="mb50"><span class="orange">#</span> Checking for True</h4>
+                        <pre><code class='python' data-trim data-noescape>
+if variable == True:
+                        </pre></code>
+                        <p>
+                            <span class="bad">35.8 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if variable is True:
+                        </pre></code>
+                        <p>
+                            <span class="bad">28.7 ns</span><br>
+                            24% faster
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if variable:
+                        </pre></code>
+                        <p>
+                            <span class="good">20.6 ns</span><br>
+                            73% faster
+                        </p>
+                        <aside class="notes">
+                            What is the best way to check if a variable or expression is True ?<br>
+                            You can explicitly compare this variable to True, but unless you really want to check if a variable is True (and not for example 0 or None), then using the first two versions is adding unnecessary redundancy.<br>
+                            You can simplify your condition to just 'if variable'. It will return True, unless the variable is False, None, 0, empty string, empty list or any other "Falsy" expression.<br>
+                            And by doing that, your comparison gets almost twice faster.
+                        </aside>
+                    </section>
+                    <!-- Checking for False -->
+                    <section>
+                        <h4 class="mb50"><span class="orange">#</span> Checking for False</h4>
+                        <pre><code class='python' data-trim data-noescape>
+if variable == False:
+                        </pre></code>
+                        <p>
+                            <span class="bad">35.1 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if variable is False:
+                        </pre></code>
+                        <p>
+                            <span class="bad">26.9 ns</span><br>
+                            30% faster
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if not variable:
+                        </pre></code>
+                        <p>
+                            <span class="good">19.8 ns</span><br>
+                            77% faster
+                        </p>
+                        <aside class="notes">
+                            The same rule applies when checking for False.<br>
+                            The fastest way to do this is to use 'if not variable', unless you really need to distinguish False from None, 0 or other Falsy values.
+                        </aside>
+                    </section>
+                    <!-- Checking for empty list -->
+                    <section>
+                        <h4 class="mb50"><span class="orange">#</span> Checking for empty list</h4>
+                        <pre><code class='python' data-trim data-noescape>
+if len(a_list) == 0:
+                        </pre></code>
+                        <p>
+                            <span class="bad">91.7 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if a_list == []:
+                        </pre></code>
+                        <p>
+                            <span class="bad">56.3 ns</span><br>
+                            60% faster
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+if not a_list:
+                        </pre></code>
+                        <p>
+                            <span class="good">32.4 ns</span><br>
+                            280% faster
+                        </p>
+                        <aside class="notes">
+                            Two slides before I said that the if not statement is checking for Falsy expressions and Falsy means: False, but also 0, None, empty list, empty string, empty set, dictionary or other data structure.<br>
+                            You can take advantage of that for checking, for example  if a list is empty.<br>
+                            Simply doing "if not a_list", will be almost 3 times faster than explicitelly checking for the length of a list.
+                        </aside>
+                    </section>
+                </section>
+
                 <!-- Lambda vs def -->
                 <section>
                 <h4><span class="orange">#</span> Lambda vs def</h4>
@@ -809,16 +907,6 @@ dict()
                         XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
                         XXXXXXXX <span class="good">274 000</span> times faster
                     </p>
-                    <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
-                    </aside>
-                </section>
-                <!-- Attributions -->
-                <section>
-                <h4><span class="orange">#</span> Attributions</h4>
-                    <ul>
-                        <li>Donald Knuth at a reception for the Open Content Alliance, hosted by the Internet Archive. Taken October 25, 2005 by Jacob Appelbaum in San Francisco.</li>
-                    </ul>
                     <aside class="notes">
                         xxxxxxxxxxxxxxxxx
                     </aside>
