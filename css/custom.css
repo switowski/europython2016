@@ -158,3 +158,21 @@
   width: 50%;
   float: left;
 }
+
+/* Remove borders and shadows from image */
+.reveal img.no-borders {
+  background: none;
+  border: none;
+  box-shadow: none
+}
+
+.reveal small.source-link {
+  color: #333;
+}
+
+.reveal .source-link a {
+  color: #42affa;
+}
+.reveal .source-link a:hover{
+  color: #8dcffc;
+}

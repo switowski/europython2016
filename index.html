@@ -104,21 +104,19 @@ public class HelloWorld {
 print("Hello, world!")
                         </code></pre>
                         <aside class="notes">
-                            And I'm not surprised. I mean, imagine you are completely new to programming and someone tells you: "Hey, let me show you how much fun is programming. Let's start with something simple and print some text to the screen."<br>
+                            And I'm not surprised. I mean, imagine you are completely new to programming and someone tells you: "Hey, let me show you how much fun programming is. Let's start with something super simple and write some text to the screen."<br>
                             And then he shows you one of those examples.<br>
                             I mean, one of them is clearly not something that you would show to a beginner to encourage him or her to start programming.
                         </aside>
                     </section>
-                    <section>
-                        <p>TODO: Get statistics for python usage</p>
-                        <small>http://expandedramblings.com/index.php/dropbox-statistics/ and https://www.dropbox.com/about</small>
+                    <section data-background="#f7f3de">
+                        <img class="no-borders" src="./img/logos.png">
+                        <p></p>
+                        <small class='source-link'>Source: <a href="">https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites</a></small>
                         <aside class="notes">
-                            So let's take a look at how slow Python is.
-                            There quite a lot of big websites and services out there that are using Python as their back-end.
-                            https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites/
-
-                            You guys probably heard about Instagram. You can post pictures of your food there. And cats.
-                            So Instagram is using Python in their backend. They have over 400 millions active users monthly, who post more than 80 millions pictures daily and they don't seem to complain about Python.
+                            So, is Python only usefull for learning programming ?
+                            Nope, and as a proof of that, here are some big companies that are quite happy with using Python as their backend or parts of their backend.
+                            Those are companies with millions of users and billions of requests, so I think your website website will also be fine with using Python.
                         </aside>
                     </section>
                 </section>
@@ -155,26 +153,35 @@ print("Hello, world!")
                             <li>Now</li>
                         </ul>
                         <h3 class="fragment">Profile</h3>
+                        <ul class="fragment current-visible remove" style="padding-left:325px;">
+                            <li>cProfile</li>
+                            <li>pstats</li>
+                            <li>RunSnakeRun, SnakeViz</li>
+                        </ul>
                         <aside class="notes">
-                            First rule of optimization: Don't. Ok, that was easy. Thank you for your attention. Are there any questions ?<br>
-                            Ah, no wait, there is more.<br>
-                            Those rules only look weird. So what does it mean 'Don't.
-                            Well, 9 out of 10 times, you don't need the optimization, especially in the early part of your product's life.<br>
+                            First rule of optimization: Don't. Ok, that was easy. Thank you for your attention.<br>
+                            Well, actually now, there is more.<br>
+                            So what does it mean 'Don't.<br>
+                            Well, 9 out of 10 times when you think you need optimization, you don't, especially in the early stage of your product's life.<br>
                             You might think it would be nice to optimize your code a bit, but first of all, you will waste time doing something that is not needed. You can get more benefits from getting a faster hardware of something if you want. Second of all, optimization comes with a cost. Sometimes it's only the time spend optimizing existing code. Sometimes you have to add even more time to fix, what you broke with you optimization. But also, the optimized code might not be as readable as it was in the first place. And maybe your code is running faster but uses more memory ? So unless you have real resons to optimize - don't do this.
-                            If you know that you really need to optimize, then you can move to the second rule of optimization - don't do this yet. That would be my favorite rule - how I understand it is - first make sure your code works, then make sure you have good test suite and only then, start optimizing.<br>
-                            I love this rule, it always reminds me how many times I have violated it. So many times I was in the middle of working on a more or less complex piece of code and then I started thinking: "Hey, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
-                            Did it end up well for me ?<br>
-                            Nope. And it's not even because I broke some stuff. Well, quite often I ended up breaking something, but also, when I started jumping around the code, I forgot what exactly was I writing in the first place.<br> One way or another, it was causing confusion, pain and tears.<br>
-                            Did it make my code faster ? I have no idea, cause I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's better or worse now, but otherwise I could only guess.<br>
+                            If you know that you really need to optimize, then you can move to the second rule of optimization - don't do this yet. This is how I understand it:<br>
+                            First make sure your code works<br>
+                            Then make sure you have good test suite<br>
+                            And only then, you are ready for optimization.<br>
+                            I love this rule, it always reminds me how many times I have violated it. So many times I was in the middle of working on a more or less complex piece of code and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
+                            Was it a good idea ?<br>
+                            Nope. And not only because I ended up breaking things. Well, quite often I did end up breaking things, but also, when I started jumping around the code, I forgot what exactly was I writing in the first place.<br>
+                            One way or another, it was causing confusion and additional work.<br>
+                            Did it make my code faster ?<br>
+                            I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's better or worse now, but otherwise I could only guess.<br>
                             And that brings me to the last rules of optimization - Don't guess.<br>
                             Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If you code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.
+                            There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
+                            It will show you a clear overview of how many times each function is called and where is your code spending most of the time, so there is no need to guess.<br>
+                            You can combine it with the pstats module, which allows for more advanced formatting of the results.<br>
+                            If you prefer a graphical interface, there are also libraries like that. RunSnakeRun and SnakeViz seems to be the most common.
                         </aside>
                     </section>
-                </section>
-                <section>
-                    <h5>TODO: Put profiling tools here</h5>
-                    <aside class="notes">
-                    </aside>
                 </section>
                 <section>
                     <section>
@@ -184,7 +191,8 @@ print("Hello, world!")
                             <li class="fragment">Algorithms and data structures</li>
                         </ul>
                         <aside class="notes">
-                            Another important thing to note here is that there are various levels of optimization:<br>
+                            Once we are ready for optimization, we have to decide, on which area we want to focus.<br>
+                            There are different levels of optimization:<br>
                             Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language that might be faster, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries etc.<br>
                             We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.
 
@@ -240,7 +248,7 @@ print N * (1 + N) / 2
                     <section>
                         <h4>Optimization is all about the speed</h4>
                         <div class="fragment">
-                            <h4>... but also memory</h4>
+                            <h4>... and memory</h4>
                         </div>
                         <div class="fragment">
                             <h4>... and disk space</h4>
@@ -250,9 +258,10 @@ print N * (1 + N) / 2
                             <h4>... and more.</h4>
                         </div>
                         <aside class="notes">
-                            Another important thing that we need to remember here is that optimization is not only about the speed.<br>
-                            You can also optimize memory usage, disk space usage, disk I/O, network I/O, power consumption and other resources.
-                            And usually, you can't optimize in all directions in the same time, so you have to decide what resources are more important and what are less.
+                            So, when you optimize you probably want your code to run faster.<br>
+                            And also use less memory. And less disk space, perform less disk I/O, network I/O, less power consumption, etc. etc.
+                            The bad news is - you can't have all of this. Optimization in one area will usuallycause deterioration in other areas.
+                            So you have to always decide, which resources are crucial to you and try to optimize in that direction.
                             So it's possible that optimization will have nothing to do with the execution time at all, as there can be other resources more important than the raw speed.
                             For example, who cares if you program is now 10 times faster if it's crashing half of the time, because it's running out of memory ?
                         </aside>
@@ -270,29 +279,42 @@ print N * (1 + N) / 2
                         </div>
                         <aside class="notes">
                             Another important resource of optimization that people are often forgetting is sanity.<br>
-                            Sanity of a person, who will be maintaining your code. Please, be nice to that person, you never know who that might be.<br>
+                            Sanity of a person, who will be maintaining your code. So please, be nice to that person, you never know who that might be.<br>
                             Unless you are really writing a throw-away code, if you are making the code harder to read and maintain, then you are probably doing it wrong!
                         </aside>
                     </section>
                 </section>
-
+                <!-- SOURCE CODE OPTIMIZATION -->
                 <section>
-                    <h2>Time it with %timeit</h2>
-                    <pre><code class='python' data-trim data-noescape>
-def a_function():
-    print(42)
-                    </pre></code>
-                    <pre><code class='shell' data-trim data-noescape>
-$ %timeit a_function
->>> xxx times, 5 ms per loop
-                    </pre></code>
-                    <aside class="notes">
-                        In my examples, I have used the %timeit magic function that comes with IPython. It has some overhead over the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and how many times.
-                    </aside>
+                    <section>
+                        <h2>Writing fast Python</h2>
+                        <h5>a.k.a source code optimization</h5>
+                        <aside class="notes">
+                            Having those things cleared, let's jump straight to how you can write faster Python, also known as source code optimization.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h5>%timeit</h5>
+                        <pre><code class='python' data-trim data-noescape>
+def ultimate_answer_of_life():
+    return 42
+                        </pre></code>
+                        <pre><code class='python' data-trim data-noescape>
+>>> %timeit ultimate_answer_of_life()
+10000000 loops, best of 3: 87.1 ns per loop
+                        </pre></code>
+                        <p class="source-link">
+                            2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a>
+                        </p>
+                        <aside class="notes">
+                            In my examples, I have used the magic %timeit function that comes with IPython. It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
+                            So for each of my example, I write different versions of code, measure the execution time and compare them.
+                        </aside>
+                    </section>
                 </section>
                 <!-- Counting elements in a list -->
                 <section>
-                <h4><span class="orange">#</span> Count elements in list</h4>
+                <h4><span class="orange">#</span> Count elements in a list</h4>
                     <pre><code class='python'># SLOW
 how_many = 0
 for element in BIG_LIST:

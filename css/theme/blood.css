@@ -195,7 +195,9 @@ body {
   border-bottom: none; }
 
 .reveal sup {
-  vertical-align: super; }
+  vertical-align: super;
+  font-size: 70%;
+}
 
 .reveal sub {
   vertical-align: sub; }

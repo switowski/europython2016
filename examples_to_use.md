@@ -41,6 +41,8 @@
 
 - There are bad ways to check if a list is empty: **if list == []** or **if len(list) <= 0** but there is also a good way to do that **if not list**
 
+- Use dictionary.iteritems() not, dictionary.items(): http://docs.quantifiedcode.com/python-anti-patterns/performance/not_using_iteritems_to_iterate_large_dict.html
+
 ### Examples I want to mention at the end (more like curiosities):
 
 - Python can access local variables faster than global variables (or built-ins) + you can assign built-in to a variable in a function, so it's looked up only once. So if inside a function you assign **upper = str.upper** it will be faster than calling **str.upper()** but less readable: as described here: https://www.python.org/doc/essays/list2str/ (Local variables are faster than globals; if you use a global constant in a loop, copy it to a local variable before the loop. And in Python, function names (global or built-in) are also global constants!)
