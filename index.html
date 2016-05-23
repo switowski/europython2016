@@ -294,7 +294,8 @@ print N * (1 + N) / 2
                         </aside>
                     </section>
                     <section>
-                        <h4 class="mb50">Python 3.5.1 (IPython 1.2.1)</h4>
+                        <h3 class="mb50">Setup</h3>
+                        <p class="mb50">Python 3.5.1 (IPython 1.2.1)</p>
                         <pre><code class='python' data-trim data-noescape>
 def ultimate_answer_of_life():
     return 42
@@ -309,7 +310,7 @@ def ultimate_answer_of_life():
                             2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
                         </p>
                         <aside class="notes">
-                            In my examples I'm using Python version 3.5.1 together with IPython, although unless I say it, all the examples should apply to both Python 2 and 3.
+                            In my examples I'm using version 3.5.1 of Python together with IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
                             For measuring execution times of code, I will use the magic %timeit function. It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
                             So for each of my example, I write different versions of code, measure the execution time and compare them.
                         </aside>
@@ -333,6 +334,10 @@ def ultimate_answer_of_life():
                 <!-- list Checking if list in empty -->
                 <!-- function Lambda vs def -->
                 <!-- function [] vs list() and {} vs dict() -->
+
+                <!-- DANGER ZONE -->
+                <!-- Parallel vs sequential variables assignment -->
+
 
 
                 <!-- Counting elements in a list -->
@@ -826,38 +831,72 @@ dict()
                         Let's take a quick look, why this happens.
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
+                <!-- DANGER ZONE - although those examples are faster, I don't recommend them as they make your code less readable !!!
+                     Treat those examples as curiosities -->
+                <!-- Parallel vs sequential variables assignment -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
+                <h4><span class="orange">#</span>Variables assignment</h4>
+                    <pre><code class='python' data-trim data-noescape>
+q=1
+w=2
+e=3
+r=4
+t=5
+y=6
+u=7
+i=8
+o=9
+p=0
 
                     </pre></code>
                     <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
+                        <span class="bad">71.8 ns</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
+                    </pre></code>
+                    <p>
+                        <span class="good">56.4 ns</span><br>
+                        27% faster (but please don't)
                     </p>
                     <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
+                        One interesting thing is variables assignments.<br>
+                        If you have a bunch of variables that you need to assign, you can either do this the normal, sequential way or you can pull this crazy parallel assignment.<br>
+                        Indeed, you can gain some speed, but you can easily gain hate from someone reading your code later.<br>
+                        In my opinion, it's not worth it.
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
+                <!-- Local vs global/built-in variables  -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
+                <h4><span class="orange">#</span> Variables lookup</h4>
+                    <pre><code class='python' data-trim data-noescape>
+def squares(MILLION_NUMBERS):
+    output = []
+    for element in MILLION_NUMBERS:
+        output.append(element*element)
+    return output
                     </pre></code>
                     <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
+                        <span class="bad">149 ms</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+def squares_faster(MILLION_NUMBERS):
+    output = []
+    append = output.append # <= !!!!!!!!
+    for element in MILLION_NUMBERS:
+        append(element*element)
+    return output
+                    </pre></code>
+                    <p>
+                        <span class="good">110 ms</span><br>
+                        35% faster (and 27% less clear)
                     </p>
                     <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
+                        Another interesting property of Python - local variable lookup is faster than global or built-in lookup.<br>
+                        So you can save some time if, for example, you store the reference to a built-in function in a local variable.<br>
+                        In this example, the only difference is that I store the reference to append function of a list in a variable called append.<br>
+                        Thanks to that, this function is 35% faster, but then again, if you see this code for the first time, it's not obvious what it is supposed to do.<br>
+                        It might be confusing to see this append function inside that for loop, as we are used to see the list.append version more often.
                     </aside>
                 </section>
                 <!-- XXXXXXXXXX -->

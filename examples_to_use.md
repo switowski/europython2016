@@ -11,6 +11,8 @@
 
 - Sorting lists is faster if you sort in place (**list.sort() vs sorted(list)**)
 
+- In dictionaries, lookup time is constant (same as for sets), so it's faster than with lists
+
 ## Already used at the end:
 
 - It's faster to perform an operation 1000 times inside a function, than calling the function 1000 times.
@@ -23,6 +25,15 @@
 - Using **[]** is faster than calling **list()**, using {} is faster than calling dict() because the first ones are _literal syntax_ so Python just creates bytecode for them, while the second one are _objects_ that need to be resolved [^3]
 
 - There are bad ways to check if a list is empty: **if list == []** or **if len(list) <= 0** but there is also a good way to do that **if not list**
+
+
+### Curiosities:
+
+- Parallel vs sequential variables assignment: parallel variables assignment is faster than sequential one (however, sequential assignment might be more clear for some):
+>>> %timeit q=1;w=2;e=3;r=4;t=5;y=6;u=7;i=8;o=9;p=0;
+10000000 loops, best of 3: 69.6 ns per loop
+>>> %timeit q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
+10000000 loops, best of 3: 49.4 ns per loop
 
 
 ## Use those examples:
@@ -51,17 +62,14 @@
 
 ### Examples I want to mention at the end (more like curiosities):
 
-- Python can access local variables faster than global variables (or built-ins) + you can assign built-in to a variable in a function, so it's looked up only once. So if inside a function you assign **upper = str.upper** it will be faster than calling **str.upper()** but less readable: as described here: https://www.python.org/doc/essays/list2str/ (Local variables are faster than globals; if you use a global constant in a loop, copy it to a local variable before the loop. And in Python, function names (global or built-in) are also global constants!)
 
-- Parallel vs sequential variables assignment: parallel variables assignment is faster than sequential one (however, sequential assignment might be more clear for some):
->>> %timeit q=1;w=2;e=3;r=4;t=5;y=6;u=7;i=8;o=9;p=0;
-10000000 loops, best of 3: 69.6 ns per loop
->>> %timeit q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
-10000000 loops, best of 3: 49.4 ns per loop
+
+
 
 - each time you call function with dots inside (like **newlist.append** or **str.upper**, the function's reference is reevaluated. You can assign it to a variable like **append = newlist.append** and then use **append(element)** for a performance gain and a readability lost.
 
 - Using string formatting is faster than string concatenation: **out = "<html>%s%s%s%s</html>" % (head, prologue, query, tail)** is better than **out = "<html>" + head + prologue + query + tail + "</html>"** (and using **out = "<html>%(head)s%(prologue)s%(query)s%(tail)s</html>" % locals()** is more clear).[^1]
+
 
 ## Examples that I probably won't use:
 
@@ -99,7 +107,6 @@ Random:
         + Sets vs lists:
             * Sets have a lot of useful functions for checking the intersection, union, difference, sub- and super-sets that you don't have in lists: Give a few examples.
     - Dictionaries:
-        + Lookup time is constant (same as for sets), so it's faster than with lists
         + Example of dictionary comprehension (for example to get a dictionary {number: number**2}) vs for loop
 * Strings:
     - If you need to create a string from a list of words, it's faster to use **s = "".join(list)** than **for x in list: s += x**. The same if you need to call a function on each element of list: this **slist = [some_function(elt) for elt in somelist]; s = "".join(slist)** is faster than the for loop.[^1]
