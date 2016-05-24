@@ -662,7 +662,7 @@ MILLION_SET = set(MILLION_NUMBERS)
 %timeit set(MILLION_NUMBERS)
                             </code></pre>
                             <p>
-                                <span class="good">106 ms</span>
+                                <span class="bad">106 ms</span>
                             </p>
                         </div>
                         <aside class="notes">
@@ -696,6 +696,9 @@ set(MILLION_ELEMENTS)
                     <p>
                         <span class="good">19.3 ms</span><br>
                         400 times faster
+                    </p>
+                    <p class="source-link">
+                        <small><a href="https://github.com/brennerm/PyTricks/blob/master/removeduplicatefromlist.py">Trick with OrderedDict</a> (if order matters)</small>
                     </p>
                     <aside class="notes">
                         Speaking of sets, they have one interesting feature - they don't contain duplicates.<br>

@@ -15,6 +15,8 @@
 
 - Lookup time in a set is constant (so it's faster than in a list) but it costs you the overhead to convert list to a set (so in general if you are checking if one element belongs to a collection, use list, if you are checking for multiple elements, convert to a set)
 
+- Removing duplicates - you get it for free if you convert list to a set (but if the order is important use [OrderedSet](http://code.activestate.com/recipes/576694/)) and https://github.com/brennerm/PyTricks/blob/master/removeduplicatefromlist.py
+
 
 ## Already used at the end:
 
@@ -44,21 +46,13 @@
 ## Use those examples:
 
 
-- Removing duplicates - you get it for free if you convert list to a set (but if the order is important use [OrderedSet](http://code.activestate.com/recipes/576694/)) and https://github.com/brennerm/PyTricks/blob/master/removeduplicatefromlist.py
-
 
 - Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function!
-
-- You almost never need to use the **for** loop. Map/filter/reduce (functions are better solution. List comprehensions are the best solution.
-
-- Use iterator versions of functions when you need them (for example imap from itertools)
-
-
-
 
 
 
 - Use dictionary.iteritems() not, dictionary.items(): http://docs.quantifiedcode.com/python-anti-patterns/performance/not_using_iteritems_to_iterate_large_dict.html
+
 
 ### Examples I want to mention at the end (more like curiosities):
 
@@ -95,6 +89,11 @@
     - Always use profiling tools to find bottlenecks of your application. There is no point for you to try to optimize those parts of code that are already running fast or are called very rarely. Use module like **cProfile** (that replaced **hotshot**, that replaced **profile**) or **trace**.
 
 - If the body of a loop is simple, the interpreter overhead for the **for** loop itself can be quite big - in this case you can use **map()**. Map is _a for loop moved into C code_.[^1] - not anymore, in Python3 map is super slow and list comprehension is way to go.
+
+- You almost never need to use the **for** loop. Map/filter/reduce (functions are better solution. List comprehensions are the best solution. - useless advice
+
+
+- Use iterator versions of functions when you need them (for example imap from itertools) - Python3 has most data structures as iterators
 
 
 ## All examples:
