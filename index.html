@@ -678,6 +678,32 @@ MILLION_SET = set(MILLION_NUMBERS)
 
 
 
+                <!-- Removing duplicates -->
+                <section>
+                    <h4 class="mb50"><span class="orange">#5</span> Remove duplicates</h4>
+                    <pre><code class='python' data-trim data-noescape>
+unique = []
+for element in MILLION_ELEMENTS:
+    if element not in unique:
+        unique.append(element)
+                    </code></pre>
+                    <p>
+                        <span class="bad">8.29 s</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+set(MILLION_ELEMENTS)
+                    </code></pre>
+                    <p>
+                        <span class="good">19.3 ms</span><br>
+                        400 times faster
+                    </p>
+                    <aside class="notes">
+                        Speaking of sets, they have one interesting feature - they don't contain duplicates.<br>
+                        So if you have a list of elements and you want to remove duplicates, the fastest way would be to convert this list to a set.<br>
+                        But be aware that sets are unordered, so if you need to preserve the order, you can either take a look at ordered dictionary from the collection module or search for ordered-set package on pypy.
+                    </aside>
+                </section>
+
 
                 <!-- List sorting is faster in place -->
                 <section>

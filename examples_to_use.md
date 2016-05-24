@@ -13,6 +13,9 @@
 
 - In dictionaries, lookup time is constant (same as for sets), so it's faster than with lists
 
+- Lookup time in a set is constant (so it's faster than in a list) but it costs you the overhead to convert list to a set (so in general if you are checking if one element belongs to a collection, use list, if you are checking for multiple elements, convert to a set)
+
+
 ## Already used at the end:
 
 - It's faster to perform an operation 1000 times inside a function, than calling the function 1000 times.
@@ -40,10 +43,6 @@
 
 ## Use those examples:
 
-
-
-
-- Lookup time in a set is constant (so it's faster than in a list) but it costs you the overhead to convert list to a set (so in general if you are checking if one element belongs to a collection, use list, if you are checking for multiple elements, convert to a set)
 
 - Removing duplicates - you get it for free if you convert list to a set (but if the order is important use [OrderedSet](http://code.activestate.com/recipes/576694/)) and https://github.com/brennerm/PyTricks/blob/master/removeduplicatefromlist.py
 
