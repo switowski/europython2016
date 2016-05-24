@@ -42,19 +42,26 @@ def forgiveness():
         pass
 
 ################# Dictionary ask for permission/forgiveness ##################
-people = {'john': 'John Doe',
-          'tim': 'Tim Doe'}
+people = {
+    'john': {
+        'first': 'John',
+        'last': 'Doe'
+    }
+}
 
-if 'john' in people:
+if 'john' in people and 'last' in people['john']:
     fullname = people['john']
 else:
     fullname = ''
 
 
 try:
-    fullname = people['john']
+    fullname = people['john']['last']
 except KeyError:
     fullname = ''
+
+fullname = people.get('john', {}).get('last', '')
+
 
 ######### Calling a function 1000 times vs running operation 1000 times in a function ##########
 def square(number):
@@ -70,3 +77,13 @@ def name_d(person):
     return person.get('name')
 
 name_l = lambda person: person.get('name')
+
+
+MILLION_NUMBERS = range(1,1000001)
+
+output = []
+for element in MILLION_NUMBERS:
+    if element % 2:
+        output.append(element)
+
+filter(lambda x: x % 2, MILLION_NUMBERS)

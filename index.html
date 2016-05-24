@@ -297,12 +297,12 @@ print N * (1 + N) / 2
                         <h3 class="mb50">Setup</h3>
                         <p class="mb50">Python 3.5.1 (IPython 1.2.1)</p>
                         <pre><code class='python' data-trim data-noescape>
-def ultimate_answer_of_life():
+def ultimate_answer_to_life():
     return 42
                         </pre></code>
                         <p>&nbsp;</p>
                         <pre><code class='python' data-trim data-noescape>
->>> %timeit ultimate_answer_of_life()
+>>> %timeit ultimate_answer_to_life()
 10000000 loops, best of 3: 87.1 ns per loop
                         </pre></code>
                         <p>&nbsp;</p>
@@ -337,13 +337,14 @@ def ultimate_answer_of_life():
 
                 <!-- DANGER ZONE -->
                 <!-- Parallel vs sequential variables assignment -->
+                <!-- Local vs global/built-in variables -->
 
 
 
                 <!-- Counting elements in a list -->
-                <section>
+                <section class='example'>
                     <section>
-                    <h4 class="mb50"><span class="orange">#</span> Count elements in a list</h4>
+                    <h4 class="mb50"><span class="orange counter"></span> Count elements in a list</h4>
                         <pre><code class='python' data-trim data-noescape>
 how_many = 0
 for element in ONE_MILLION_ELEMENTS:
@@ -364,150 +365,154 @@ print len(ONE_MILLION_ELEMENTS)
                         </p>
                         <aside class="notes">
                             Let's start with something simple. Let's say you want to count the number of elements in a list.<br>
-                            You can easily write a simple loop that increments a counter and there is nothing wrong with this code, except that it's very slow.<br>
+                            You can easily write a simple loop that increments a counter and, while this will work, it will be very slow.<br>
                             You can achieve the same results by simply calling the built-in function len().<br>
-                            And as you can see the speed difference is quite huge.
-                            So, try to use the built-in functions or functions from the standard library when you can.
+                            And as you can see even for only 1 million elements, the speed difference is insanely huge.<br>
+                            So, my first advice is to not reinvent the wheel, but first check if there is a function that you can use.
                         </aside>
                     </section>
                     <section data-background="#f7f3de">
                         <img src="./img/built-ins.png">
+                        <small class="source-link">And <a href="https://docs.python.org/3/library/collections.html">collections</a> module.</small>
                         <aside class="notes">
-                            Python 3.5.1 contains 68 built-in variables, so it's good to take a look at them from time to time and keep them in the back of your head, because they might be handy at some point.
+                            Python 3.5.1 has 68 built-in functions, so it's good to take a look at them from time to time and keep them in the back of your head, because they might be handy at some point.<br>
+                            Also, before you start writing your own version of ordered dictionary or dictionary with default values, take a look at the collections module from the standard library.<br>
+                            Even though it contains only like 10 different datatypes, they are probably THE datatypes you are looking for when the standard ones are not enough.
                         </aside>
                     </section>
                 </section>
 
 
                 <!-- Ask for permissions vs beg for forgiveness -->
-                <section>
-                <h4 class="mb50"><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
-                    <pre><code class='python' data-trim data-noescape>
+                <section class="example">
+                    <section>
+                        <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                        <pre><code class='python' data-trim data-noescape>
 class Foo(object):
     hello = 'world'
 foo = Foo()
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <pre><code class='python' data-trim data-noescape>
 if hasattr(foo, 'hello'):
     foo.hello
-                    </pre></code>
-                    <p>
-                        <span class="bad">149 ns</span><br>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <p>
+                            <span class="bad">149 ns</span><br>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
 try:
     foo.hello
 except AttributeError:
     pass
-                    </pre></code>
-                    <p>
-                        <span class="good">43.1 ns</span><br>
-                        3.5 times faster
-                    </p>
-                    <aside class="notes">
-                        When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or maybe performing a specific operation will throw as exception), so you want to protect yourself somehow. The first way you can do this is called 'Look before you leap' or ask for permission. What is means is that you check if all variables are set and everything is fine and then you perform you operations. Usually this checking is performed with the if statement.
-                        However, there is a different approach that you could use - it's called "Beg for forgiveness". In this scenario, you perform your operation without checking the conditions, but in case you expect that something might break, you wrap you code in try/except block and catch the exceptions that were raised.
-                        As you can see in this example, begging for forgiveness is 3,5 times faster.
-                    </aside>
-                </section>
-                <!-- Ask for permissions vs beg for forgiveness 2 -->
-                <section>
-                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <p>
+                            <span class="good">43.1 ns</span><br>
+                            3.5 times faster
+                        </p>
+                        <aside class="notes">
+                            When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or like here, the class doesn't have a specific attribute), so you want to protect yourself somehow. The first way you can do this is called 'Look before you leap' or 'Ask for permission'. What is means is that you fist check if the class has a specific attribute and then you perform the operations. Usually this checking is done with the if statement.
+                            However, there is a different approach that you could use - it's called "Beg for forgiveness". In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap you code in a try/except block and catch the exceptions that were raised.
+                            As you can see in this simple example, begging for forgiveness is 3 times faster.
+                        </aside>
+                    </section>
+                    <!-- Ask for permissions vs beg for forgiveness 2 -->
+                    <section>
+                    <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                        <pre><code class='python' data-trim data-noescape>
 if (hasattr(foo, 'foo') and hasattr(foo, 'bar')
     and hasattr(foo, 'baz')):
     foo.foo
     foo.bar
     foo.baz
-                    </pre></code>
-                    <p>
-                        vs
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <p>
+                            <span class="bad">401 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
 try:
     foo.foo
     foo.bar
     foo.baz
 except AttributeError:
     pass
-                    </pre></code>
-                    <p>
-                        <span class="bad">401 ns</span> vs <span class="good">110 ns</span><br>
-                        3.64 times faster
-                    </p>
-                    <aside class="notes">
-                        But it gets even better if you are checking for more conditions.
-                        Here, we are checking if 3 attributes are available. Asking for permissions is still slower and now it gets more difficult to read.
-                        Following the beg for forgiveness principle will result in faster and more readable code
-                        So, is asking for forgiveness instead of checking the permissions always the best choice ?
-                    </aside>
-                </section>
-                <!-- Ask for permissions vs beg for forgiveness 3 -->
-                <section>
-                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <p>
+                            <span class="good">110 ns</span><br>
+                            3.64 times faster
+                        </p>
+                        <aside class="notes">
+                            But it gets even better if you are checking for more conditions.<br>
+                            Here, we are checking if 3 attributes are available.<br>
+                            Asking for permissions is still slower and now it also gets more difficult to read.<br>
+                            Following the beg for forgiveness approach will result in faster and more readable code.<br>
+                            So, we could say that asking for forgiveness instead of checking the permissions as always a better choice.
+                        </aside>
+                    </section>
+                    <!-- Ask for permissions vs beg for forgiveness 3 -->
+                    <section>
+                    <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                        <pre><code class='python' data-trim data-noescape>
 class Bar(object):
     pass
 bar = Bar()
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <pre><code class='python' data-trim data-noescape>
 if hasattr(bar, 'hello'):
     bar.hello
-                    </pre></code>
-                    <p>
-                        <span class="good">428 ns</span><br>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
+                        </pre></code>
+                        <p>
+                            <span class="good">428 ns</span><br>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
 try:
     bar.hello
 except AttributeError:
     pass
-                    </pre></code>
-                    <p>
-                        <span class="bad">536 ns</span><br>
-                        25% slower
-                    </p>
-                    <aside class="notes">
-                        Well, not really. The exception handling is still quite expensive performance wise.
-                        If the object doesn't have the attribute we are looking for, begging for forgiveness will be slower than asking for permissions.
-                        So as a rule of thumb, you can use the 'Ask for permissions' way if you know that it's very probably that there will be some uninitialized variables or other problems.
-                        Otherwise if you are expecting your code to run smoothly most of the time (for example, you are fetching some files from the internet and you are expecting that it will work, unless there is no internet connection) using try/except will be the faster and quite often cleaner way to go.
-                        But again, I strongly advise you to measure both solutions to see which one is faster in your scenario.
-                    </aside>
-                </section>
-                <!-- Ask for permissions vs beg for forgiveness 4 -->
-                <section>
-                <h4><span class="orange">#</span> Ask for permissions vs beg for forgiveness</h4>
-                    <p>Find an example of using dict.get() function to best faster and better than ask for forgiveness/permissions</p>
-                    <aside class="notes">
-                        Quite common use case for this kind of lookup happens with the dictionaries. Let's say we have a dictionary containing square value of the first 1 million numbers. For an arbitrary number, we want to get it's square value or empty string, if there is no emtry in our dictionary.
-                        As you can see, begging for forgiveness is almost twice faster than asking for permission.
-                        But we can do better than this. Dictionaries have a get method, that you should use in a case like that.
-                    </aside>
+                        </pre></code>
+                        <p>
+                            <span class="bad">536 ns</span><br>
+                            25% slower
+                        </p>
+                        <aside class="notes">
+                            But we won't say that, because it's not true.<br>
+                            Exceptions handling is still quite expensive.<br>
+                            If the object doesn't have the attribute we are looking for, begging for forgiveness will be slower than asking for permissions.<br>
+                            So as a rule of thumb, you can use the 'Ask for permissions' way if you know that it's very likely that the attribute will be missing or there will be some other problems that you can predict.<br>
+                            Otherwise, if you are expecting that your code will work fine for most of the time, using try/except will be faster and quite often more readable way to go<br>
+                            For example, you are fetching some files from the internet and you are expecting that it will work, unless there is no internet connection, then instead of checking if there is network connection, if it's fast enough, no timeouts, etc. just go for try/except.<br>
+                            But again, I strongly advise you to measure both solutions to see which one is faster in your scenario.
+                        </aside>
+                    </section>
                 </section>
                 <!-- Execute operation 1000 times in a function than a function 1000 times -->
-                <section>
-                <h4><span class="orange">#</span> Execute function 1000 times or execute an operation 1000 times in a function ?</h4>
+                <section class="example">
+                    <h4 class="mb50"><span class="orange counter"></span> 1000 operations and 1 function</h4>
                     <pre><code class='python' data-trim data-noescape>
 def square(number):
     return number**2
 squares = [square(i) for i in range(1000)]
                     </pre></code>
+                    <p>
+                        <span class="bad">399 µs</span>
+                    </p>
                     <pre><code class='python' data-trim data-noescape>
 def compute_squares():
     return [i**2 for i in range(1000)]
                     </pre></code>
                     <p>
-                        <span class="bad">399 µs</span> vs <span class="good">314 µs</span><br>
+                        <span class="good">314 µs</span><br>
                          27% faster
                     </p>
                     <aside class="notes">
-                        If you want to perform some kind of operation on a large set of data, your first idea might be to write a function that performs said operation and then apply this function on the set of data. However, it's faster to perform those 1000 operations inside a function instead of calling a function 1000 times.
+                        If you want to perform the same operation on a large set of data, you have two options.<br>
+                        You can write a function that performs the operation and then call this function 1000 time.<br>
+                        Or, you can write a function that takes those 1000 elements and performs the operation inside.<br>
+                        And the second approach will be faster, so if you can easily change your code, especially if you have a simple function, and replace multiple calls to a function with one function, then probably it's a good idea.
                     </aside>
                 </section>
                 <!-- Simple loop vs map -->
-                <section>
-                <h4><span class="orange">#</span> Simple loop vs map</h4>
+                <section class="example">
+                    <h4><span class="orange counter"></span> Simple loop vs map</h4>
                     <pre><code class='python' data-trim data-noescape>
 def square(number):
     return number**2
@@ -522,7 +527,6 @@ def compute_squares():
                          27% faster
                     </p>
                     <aside class="notes">
-                        If you want to perform some kind of operation on a large set of data, your first idea might be to write a function that performs said operation and then apply this function on the set of data. However, it's faster to perform those 1000 operations inside a function instead of calling a function 1000 times.
                     </aside>
                 </section>
                 <!-- Create a string from a list -->
