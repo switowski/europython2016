@@ -319,15 +319,14 @@ def ultimate_answer_to_life():
 
                 <!-- List of examples: -->
                 <!-- built-ins Counting elements in a list vs using a built-in-->
-                <!-- dictionary Ask for permissions vs beg for forgiveness -->
-
                 <!-- list Filter a list -->
+                <!-- Ask for permissions vs beg for forgiveness -->
+
 
                 <!-- string/list Create a string from a list -->
                 <!-- string String formatting is faster than string concatenation -->
 
                 <!-- functions Execute operation 1000 times in a function than a function 1000 times -->
-                <!-- loop Simple loop vs map -->
                 <!-- list List sorting is faster in place -->
                 <!-- bool Checking for True -->
                 <!-- bool Checking for False -->
@@ -381,6 +380,53 @@ print len(ONE_MILLION_ELEMENTS)
                         </aside>
                     </section>
                 </section>
+
+
+                <!-- Filter a list -->
+                <section class='example'>
+                <h4 class="mb50"><span class="orange counter"></span> Filter list</h4>
+                    <pre><code class='python' data-trim data-noescape>
+output = []
+for element in MILLION_NUMBERS:
+    if element % 2:
+        output.append(element)
+                    </pre></code>
+                    <p>
+                        <span class="bad">222 ms</span>
+                    </p>
+                    <div class='fragment'>
+                        <pre><code class='python' data-trim data-noescape>
+list(filter(lambda x: x % 2, MILLION_NUMBERS))
+                        </pre></code>
+                        <p>
+                            <span class="bad">234 ms</span>
+                        </p>
+                    </div>
+                    <div class='fragment'>
+                        <pre><code class='python' data-trim data-noescape>
+[item for item in MILLION_NUMBERS if item % 2]
+                        </pre></code>
+                        <p>
+                            <span class="good">127 ms</span><br>
+                            75% faster
+                        </p>
+                    </div>
+                    <aside class="notes">
+                        Let's say you have a list of 1 million numbers and you want to select only the odd numbers.<br>
+                        The naive version would be to use a for loop, so for each element of the list you check if it's odd and if it is, the you add it to another list.<br>
+                        But I already showed you in the previous example that in most cases, for loops can be replaced with something better.<br>
+                        In this case, you could use the built-in filter function instead.<br>
+                        In Python 2, filter was returning a list directly.<br>
+                        In Python 3, it's returning an iterator, so I need to call list function on that iterator to get the same results as in case of the loop.<br>
+                        Even though calling list function has some impacts on the performance, it's negligible comparing to the time spent in filter function.<br>
+                        And as we can see, filter performs even slower than the for loop.<br>
+                        Why does this happen ?<br>
+                        Well, the fact that filter is now returning an iterator is a clear suggestion that this is a wrong use case for filter function.<br>
+                        If we want to get the whole list as a result, the better idea is to use list comprehension.<br>
+                        It's around 75% faster than the for loop and - at least for me - it looks very clear.
+                    </aside>
+                </section>
+
 
 
                 <!-- Ask for permissions vs beg for forgiveness -->
@@ -484,51 +530,10 @@ except AttributeError:
                         </aside>
                     </section>
                 </section>
-                <!-- Execute operation 1000 times in a function than a function 1000 times -->
-                <section class="example">
-                    <h4 class="mb50"><span class="orange counter"></span> 1000 operations and 1 function</h4>
-                    <pre><code class='python' data-trim data-noescape>
-def square(number):
-    return number**2
-squares = [square(i) for i in range(1000)]
-                    </pre></code>
-                    <p>
-                        <span class="bad">399 µs</span>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-def compute_squares():
-    return [i**2 for i in range(1000)]
-                    </pre></code>
-                    <p>
-                        <span class="good">314 µs</span><br>
-                         27% faster
-                    </p>
-                    <aside class="notes">
-                        If you want to perform the same operation on a large set of data, you have two options.<br>
-                        You can write a function that performs the operation and then call this function 1000 time.<br>
-                        Or, you can write a function that takes those 1000 elements and performs the operation inside.<br>
-                        And the second approach will be faster, so if you can easily change your code, especially if you have a simple function, and replace multiple calls to a function with one function, then probably it's a good idea.
-                    </aside>
-                </section>
-                <!-- Simple loop vs map -->
-                <section class="example">
-                    <h4><span class="orange counter"></span> Simple loop vs map</h4>
-                    <pre><code class='python' data-trim data-noescape>
-def square(number):
-    return number**2
-squares = [square(i) for i in range(1000)]
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape>
-def compute_squares():
-    return [i**2 for i in range(1000)]
-                    </pre></code>
-                    <p>
-                        <span class="bad">399 µs</span> vs <span class="good">314 µs</span><br>
-                         27% faster
-                    </p>
-                    <aside class="notes">
-                    </aside>
-                </section>
+
+
+
+
                 <!-- Create a string from a list -->
                 <section>
                 <h4><span class="orange">#</span> Create a string from a list</h4>
@@ -556,6 +561,10 @@ result = ''.join(LIST)
                         Let's talk about string for now. If you have a list of strings and want to concatenate them into one string, using a loop is not the best idea. Instead, you can use the join function, that will be much faster (and clearer to understand). Here, for a list of 1000 words, the join function is 11 times faster. I have also tested it with longer words and even though the difference got lower (for 1000 words of 600 characters, join was 'only' twice as fast), join function is still a clear winner here.
                     </aside>
                 </section>
+
+
+
+
                 <!-- String formatting is faster than string concatenation -->
                 <section>
                 <h4><span class="orange">#</span> String formatting or string concatenation ?</h4>
@@ -583,6 +592,11 @@ word4 = 'EuroPython'
                         In case you are trying to concatenate just a few strings, not a whole list, you are also better of with using string formatting, instead of concatenation operator.
                     </aside>
                 </section>
+
+
+
+
+
                 <!-- List sorting is faster in place -->
                 <section>
                 <h4><span class="orange">#</span> List sorting</h4>
@@ -603,45 +617,40 @@ alist = [random.randint(1,100) for _ in range(1000000)]
                         List sorting is faster when you do this in place with list.sort() instead of calling sorted method on a list.
                     </aside>
                 </section>
-                <!-- Filter a list -->
-                <section>
-                <h4><span class="orange">#</span> Filter list</h4>
+
+
+
+
+
+                <!-- Execute operation 1000 times in a function than a function 1000 times -->
+                <section class="example">
+                    <h4 class="mb50"><span class="orange counter"></span> 1000 operations and 1 function</h4>
                     <pre><code class='python' data-trim data-noescape>
-# SLOW
-output = []
-for element in MILLION_ELEMENTS:
-    if element % 2:
-        output.append(element)
+def square(number):
+    return number**2
+squares = [square(i) for i in range(1000)]
                     </pre></code>
                     <p>
-                        <span class="bad">107 ms</span>
+                        <span class="bad">399 µs</span>
                     </p>
                     <pre><code class='python' data-trim data-noescape>
-# FAST?
-list(filter(lambda x: x % 2, MILLION_ELEMENTS))
+def compute_squares():
+    return [i**2 for i in range(1000)]
                     </pre></code>
                     <p>
-                        <span class="bad">168 ms</span>
-                    </p>
-                    <pre><code class='python' data-trim data-noescape>
-# FAST!
-[item for item in MILLION_ELEMENTS if item % 2]
-                    </pre></code>
-                    <p>
-                        <span class="good">80.9 ms</span>
-                    </p>
-                    <p>
-                        35% faster
+                        <span class="good">314 µs</span><br>
+                         27% faster
                     </p>
                     <aside class="notes">
-                        Let's say you want to filter a list of 1 million elements and select only those, that are matching some condition.
-                        The naive version would be to use for loop, but I already showed you that in most cases, for loops are bad.
-                        You can use the built-in filter function instead. In Python2, filter was returning the list directly. In Python3, it's returning an iterator, so I need to explicitly convert the results of filter function to a list to get the same results as in case of the loop.
-                        This conversion impacts the performance, but even without some overhead for list function, you can see that filter performs much slower.
-                        Why does this happen ? Well, the fact that filter is now returning an iterator is a good suggestion that this is a wrong use case for filter function.
-                        If we want to get the whole list as a result, the better idea is to use list comprehension. It's around 35% faster than the for loop and - at least for me - it looks much better.
+                        If you want to perform the same operation on a large set of data, you have two options.<br>
+                        You can write a function that performs the operation and then call this function 1000 time.<br>
+                        Or, you can write a function that takes those 1000 elements and performs the operation inside.<br>
+                        And the second approach will be faster, so if you can easily change your code, especially if you have a simple function, and replace multiple calls to a function with one function, then probably it's a good idea.
                     </aside>
                 </section>
+
+
+
 
                 <!-- Checking for True -->
                 <section>
