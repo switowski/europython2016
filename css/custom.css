@@ -1,20 +1,6 @@
 /*********************************************
  * GENERAL
  *********************************************/
-/* Automatic CSS counter */
-body {
-  counter-reset: exampleNum;
-}
-.reveal .example {
-  /* Increment and counter*/
-  counter-increment: exampleNum;
-}
-
-.reveal .counter:after {
-  /*Just print the counter*/
-  content: "#" counter(exampleNum);
-}
-
 /* Load fonts: */
 /* Quotes font: */
 @import url(https://fonts.googleapis.com/css?family=Alegreya);

@@ -87,3 +87,17 @@ for element in MILLION_NUMBERS:
         output.append(element)
 
 filter(lambda x: x % 2, MILLION_NUMBERS)
+
+
+def t():
+    for item in MILLION_NUMBERS:
+        if item == 100:
+            return True
+    return False
+
+
+def b():
+    for item in MILLION_NUMBERS:
+        if item == 999999:
+            return True
+    return False

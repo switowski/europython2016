@@ -27,6 +27,8 @@
 - There are bad ways to check if a list is empty: **if list == []** or **if len(list) <= 0** but there is also a good way to do that **if not list**
 
 
+- Don't make loops like that: **for i in range(0,len(list)):**. If you need a list with index use the enumerate() function -> actually better to use list comprehension with enumerate
+
 ### Curiosities:
 
 - Parallel vs sequential variables assignment: parallel variables assignment is faster than sequential one (however, sequential assignment might be more clear for some):
@@ -38,9 +40,8 @@
 
 ## Use those examples:
 
-- If the body of a loop is simple, the interpreter overhead for the **for** loop itself can be quite big - in this case you can use **map()**. Map is _a for loop moved into C code_.[^1] - not anymore, in Python3 map is super slow and list comprehension is way to go.
 
-- Don't make loops like that: **for i in range(0,len(list)):**. If you need a list with index use the enumerate() function -> actually better to use list comprehension with enumerate
+
 
 - Lookup time in a set is constant (so it's faster than in a list) but it costs you the overhead to convert list to a set (so in general if you are checking if one element belongs to a collection, use list, if you are checking for multiple elements, convert to a set)
 
@@ -93,6 +94,8 @@
         + [Reading file in Java](http://stackoverflow.com/questions/4716503/best-way-to-read-a-text-file) vs [Reading file in Python](http://stackoverflow.com/questions/8011797/open-read-and-close-a-file-in-1-line-of-code)
 * Advanced profiling:
     - Always use profiling tools to find bottlenecks of your application. There is no point for you to try to optimize those parts of code that are already running fast or are called very rarely. Use module like **cProfile** (that replaced **hotshot**, that replaced **profile**) or **trace**.
+
+- If the body of a loop is simple, the interpreter overhead for the **for** loop itself can be quite big - in this case you can use **map()**. Map is _a for loop moved into C code_.[^1] - not anymore, in Python3 map is super slow and list comprehension is way to go.
 
 
 ## All examples:

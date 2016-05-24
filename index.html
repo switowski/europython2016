@@ -205,12 +205,12 @@ sum = 0
 for x in range(1, N + 1):
     sum += x
 print sum
-                        </pre></code>
+                        </code></pre>
                         <div class="fragment">
                             <p class="arrow">&#8595;</p>
                             <pre><code class='python' data-trim data-noescape>
 print N * (1 + N) / 2
-                            </pre></code>
+                            </code></pre>
                         </div>
                         <aside class="notes">
                             For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop that goes though all elements and adds them.<br>
@@ -299,12 +299,12 @@ print N * (1 + N) / 2
                         <pre><code class='python' data-trim data-noescape>
 def ultimate_answer_to_life():
     return 42
-                        </pre></code>
+                        </code></pre>
                         <p>&nbsp;</p>
                         <pre><code class='python' data-trim data-noescape>
 >>> %timeit ultimate_answer_to_life()
 10000000 loops, best of 3: 87.1 ns per loop
-                        </pre></code>
+                        </code></pre>
                         <p>&nbsp;</p>
                         <p class="source-link">
                             2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
@@ -320,6 +320,8 @@ def ultimate_answer_to_life():
                 <!-- List of examples: -->
                 <!-- built-ins Counting elements in a list vs using a built-in-->
                 <!-- list Filter a list -->
+                <!-- dict List with index -->
+
                 <!-- Ask for permissions vs beg for forgiveness -->
 
 
@@ -341,21 +343,21 @@ def ultimate_answer_to_life():
 
 
                 <!-- Counting elements in a list -->
-                <section class='example'>
+                <section>
                     <section>
-                    <h4 class="mb50"><span class="orange counter"></span> Count elements in a list</h4>
+                    <h4 class="mb50"><span class="orange">#1</span> Count elements in a list</h4>
                         <pre><code class='python' data-trim data-noescape>
 how_many = 0
 for element in ONE_MILLION_ELEMENTS:
     how_many += 1
 print how_many
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">26.5 ms</span>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 print len(ONE_MILLION_ELEMENTS)
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">96.7 ns</span>
                         </p>
@@ -383,21 +385,21 @@ print len(ONE_MILLION_ELEMENTS)
 
 
                 <!-- Filter a list -->
-                <section class='example'>
-                <h4 class="mb50"><span class="orange counter"></span> Filter list</h4>
+                <section>
+                <h4 class="mb50"><span class="orange">#2</span> Filter a list</h4>
                     <pre><code class='python' data-trim data-noescape>
 output = []
 for element in MILLION_NUMBERS:
     if element % 2:
         output.append(element)
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="bad">222 ms</span>
                     </p>
                     <div class='fragment'>
                         <pre><code class='python' data-trim data-noescape>
 list(filter(lambda x: x % 2, MILLION_NUMBERS))
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">234 ms</span>
                         </p>
@@ -405,7 +407,7 @@ list(filter(lambda x: x % 2, MILLION_NUMBERS))
                     <div class='fragment'>
                         <pre><code class='python' data-trim data-noescape>
 [item for item in MILLION_NUMBERS if item % 2]
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">127 ms</span><br>
                             75% faster
@@ -428,20 +430,57 @@ list(filter(lambda x: x % 2, MILLION_NUMBERS))
                 </section>
 
 
+                <!-- List with index -->
+                <section>
+                    <h4 class="mb50"><span class="orange">#2.5</span> List with index</h4>
+                    <pre><code class='python' data-trim data-noescape>
+output = {}
+for i in range(0, len(MILLION)):
+    output[i] = MILLION[i]
+                    </code></pre>
+                    <p>
+                        <span class="bad">334 ms</span><br>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+output = {}
+for i, element in enumerate(MILLION):
+    output[i] = element
+                    </code></pre>
+                    <p>
+                        <span class="good">220 ms</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+{i: element for i, element in enumerate(MILLION)}
+                    </code></pre>
+                    <p>
+                        <span class="good">218 ms</span><br>
+                        50% faster
+                    </p>
+                    <aside class="notes">
+                        Ok, so for loops can often be avoided.<br>
+                        But what if you need to iterate over a list and also get the index.<br>
+                        Let's say, you want to take a list and convert it to a dictionary, in such way that index of each element becomes a key of that dictionary, and the value in list becomes the value in the dictionary.<br>
+                        There is a bad was to do this, where you basically iterate over numbers from 0 to 1 million and take the value corresponding to that number in the list.<br>
+                        That's a bad idea, because you can use the enumerate function to get the index.<br>
+                        And it's going to be faster by 50%.<br>
+                        But it's still a for loop with only one instruction inside, so it can easily be replaced with dictionary comprehension.<br>
+                        The speed performance of dictionary comprehension is the same as using the enumerate, but again it's shorter and more clear.
+                    </aside>
+                </section>
 
                 <!-- Ask for permissions vs beg for forgiveness -->
-                <section class="example">
+                <section>
                     <section>
-                        <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                        <h4 class="mb50"><span class="orange">#3</span> Permissions or forgiveness ?</h4>
                         <pre><code class='python' data-trim data-noescape>
 class Foo(object):
     hello = 'world'
 foo = Foo()
-                        </pre></code>
+                        </code></pre>
                         <pre><code class='python' data-trim data-noescape>
 if hasattr(foo, 'hello'):
     foo.hello
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">149 ns</span><br>
                         </p>
@@ -450,7 +489,7 @@ try:
     foo.hello
 except AttributeError:
     pass
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">43.1 ns</span><br>
                             3.5 times faster
@@ -461,16 +500,15 @@ except AttributeError:
                             As you can see in this simple example, begging for forgiveness is 3 times faster.
                         </aside>
                     </section>
-                    <!-- Ask for permissions vs beg for forgiveness 2 -->
                     <section>
-                    <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                    <h4 class="mb50"><span class="orange">#3</span> Permissions or forgiveness ?</h4>
                         <pre><code class='python' data-trim data-noescape>
 if (hasattr(foo, 'foo') and hasattr(foo, 'bar')
     and hasattr(foo, 'baz')):
     foo.foo
     foo.bar
     foo.baz
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">401 ns</span>
                         </p>
@@ -481,7 +519,7 @@ try:
     foo.baz
 except AttributeError:
     pass
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">110 ns</span><br>
                             3.64 times faster
@@ -496,16 +534,16 @@ except AttributeError:
                     </section>
                     <!-- Ask for permissions vs beg for forgiveness 3 -->
                     <section>
-                    <h4 class="mb50"><span class="orange counter"></span> Permissions or forgiveness ?</h4>
+                    <h4 class="mb50"><span class="orange">#3</span> Permissions or forgiveness ?</h4>
                         <pre><code class='python' data-trim data-noescape>
 class Bar(object):
     pass
 bar = Bar()
-                        </pre></code>
+                        </code></pre>
                         <pre><code class='python' data-trim data-noescape>
 if hasattr(bar, 'hello'):
     bar.hello
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">428 ns</span><br>
                         </p>
@@ -514,7 +552,7 @@ try:
     bar.hello
 except AttributeError:
     pass
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">536 ns</span><br>
                             25% slower
@@ -534,22 +572,155 @@ except AttributeError:
 
 
 
-                <!-- Create a string from a list -->
+                <!-- Check list membership -->
                 <section>
-                <h4><span class="orange">#</span> Create a string from a list</h4>
+                    <section>
+                        <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
+                        <pre><code class='python' data-trim data-noescape>
+def check_number(number):
+    for item in MILLION_NUMBERS:
+        if item == number:
+            return True
+    return False
+                        </code></pre>
+                        <pre><code class='python' data-trim data-noescape>
+%timeit check_number(500000)
+                        </code></pre>
+                        <p>
+                            <span class="bad">21.4 ms</span>
+                        </p>
+                        <aside class="notes">
+                            Let's tackle another problem - membership testing.<br>
+                            If you have a list and want to check if it contains a specific element, you can use for loop.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
+                        <pre><code class='python' data-trim data-noescape>
+def check_number(number):
+    if number in MILLION_NUMBERS:
+        return True
+    return False
+                        </code></pre>
+                        <pre><code class='python' data-trim data-noescape>
+%timeit check_number(500000)
+                        </code></pre>
+                        <p>
+                            <span class="good">11.9 ms</span><br>
+                            80% faster
+                        </p>
+                        <aside class="notes">
+                            But the problem is, you are iterating over the list, event though you are not really doing anything with all the elements.<br>
+                            You can replace the for loop with the in statement.<br>
+                            It will check if specific element belongs to given set of data.<br>
+                            And it will do this around 80% faster.<br>
+                            Ok, but there is still one big problem with this approach.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
+                        <pre><code class='python' data-trim data-noescape>
+%timeit check_number(100)
+                        </code></pre>
+                        <p>
+                            <span class="bad">1.55 µs</span><br>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+%timeit check_number(999999)
+                        </code></pre>
+                        <p>
+                            <span class="bad">22.9 ms</span>
+                        </p>
+                        <aside class="notes">
+                            The lookup time in a list is linear.<br>
+                            So, if an element is at the beginning of the list, you are lucky and you get it fast.<br>
+                            If it's at the end, well, then you wait a bit more.<br>
+                            You know what would be great here ?<br>
+                            If we could have a data structure with faster lookup time.<br>
+                            And we have - both a set and a dictionary have constant lookup time.<br>
+                        </aside>
+                    </section>
+                    <section>
+                        <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
+                        <pre><code class='python' data-trim data-noescape>
+MILLION_SET = set(MILLION_NUMBERS)
+%timeit 100 in MILLION_SET
+                        </code></pre>
+                        <p>
+                            <span class="good">46.3 ns</span><br>
+                            33 times faster (vs list)
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+%timeit 999999 in MILLION_SET
+                        </code></pre>
+                        <p>
+                            <span class="good">63.3 ns</span><br>
+                            360 000 times faster (vs list)
+                        </p>
+                        <div class="fragment">
+                            <pre><code class='python' data-trim data-noescape>
+%timeit set(MILLION_NUMBERS)
+                            </code></pre>
+                            <p>
+                                <span class="good">106 ms</span>
+                            </p>
+                        </div>
+                        <aside class="notes">
+                            If we replace the list with a set, the lookup time becomes faster.<br>
+                            From few times faster to hundreds of thousands times faster.<br>
+                            Where is the catch ?<br>
+                            Well, you pay some time for converting list to a set.<br>
+                            In this example, converting list to a set is slower than any of the lookups in the list, so it doesn't make sense to do this.<br>
+                            However, if you are testing membership of more than 1 element, very often it makes sense to convert the list to a set.
+                        </aside>
+                    </section>
+                </section>
+
+
+
+
+                <!-- List sorting is faster in place -->
+                <section>
+                    <h4 class="mb50"><span class="orange">#4</span> List sorting</h4>
+                    <pre><code class='python' data-trim data-noescape>
+sorted(MILLION_RANDOM_NUMBERS)
+                    </code></pre>
+                    <p>
+                        <span class="bad">467 ms</span>
+                    </p>
+                    <pre><code class='python' data-trim data-noescape>
+MILLION_RANDOM_NUMBERS.sort()
+                    </code></pre>
+                    <p>
+                        <span class="good">77.6 ms</span><br>
+                        6 times faster
+                    </p>
+                    <aside class="notes">
+                        If you want to sort a list, you can either do this in place with list.sort function or call the sorted function, that will create a new list.<br>
+                        Unless you really need to have a new list, sorting in place will be faster<br>
+                        For 1 million random numbers, sorting in place is 6 times faster than creating a new list.
+                    </aside>
+                </section>
+
+
+
+
+                <!-- List to string -->
+<!--                 <section class="example">
+                <h4><span class="orange counter"></span> List to string</h4>
                     <pre><code class='python' data-trim data-noescape>
 # Create a list of 1000 words:
 LIST = ['word'] * 1000
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape>
 result = ''
 for word in LIST:
     result += word
-                    </pre></code>
+                    </code></pre>
                     <p>vs</p>
                     <pre><code class='python' data-trim data-noescape>
 result = ''.join(LIST)
-                    </pre></code>
+                    </code></pre>
                     <p>
                         10000 loops, best of 3: 94 µs per loop
                         100000 loops, best of 3: 8.54 µs per loop
@@ -560,13 +731,13 @@ result = ''.join(LIST)
                     <aside class="notes">
                         Let's talk about string for now. If you have a list of strings and want to concatenate them into one string, using a loop is not the best idea. Instead, you can use the join function, that will be much faster (and clearer to understand). Here, for a list of 1000 words, the join function is 11 times faster. I have also tested it with longer words and even though the difference got lower (for 1000 words of 600 characters, join was 'only' twice as fast), join function is still a clear winner here.
                     </aside>
-                </section>
+                </section> -->
 
 
 
 
                 <!-- String formatting is faster than string concatenation -->
-                <section>
+<!--                 <section>
                 <h4><span class="orange">#</span> String formatting or string concatenation ?</h4>
                 <h2>This is not working, find better example: https://wiki.python.org/moin/PythonSpeed/PerformanceTips#String_Concatenation</h2>
                     <pre><code class='python' data-trim data-noescape>
@@ -574,14 +745,14 @@ word1 = 'Hello'
 word2 = 'world'
 word3 = 'from'
 word4 = 'EuroPython'
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape>
 "This is:" + word1 + word2 + word3 + word4 + "!"
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape>
 "This is:%s%s%s%s!" % (word1, word2, word3, word4)
 
-                    </pre></code>
+                    </code></pre>
                     <p>
                         XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
                         XXXXXXXX <span class="good">274 000</span> times faster
@@ -592,51 +763,27 @@ word4 = 'EuroPython'
                         In case you are trying to concatenate just a few strings, not a whole list, you are also better of with using string formatting, instead of concatenation operator.
                     </aside>
                 </section>
-
-
-
-
-
-                <!-- List sorting is faster in place -->
-                <section>
-                <h4><span class="orange">#</span> List sorting</h4>
-                    <pre><code class='python' data-trim data-noescape># SETUP
-alist = [random.randint(1,100) for _ in range(1000000)]
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </pre></code>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </pre></code>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
-                    <aside class="notes">
-                        List sorting is faster when you do this in place with list.sort() instead of calling sorted method on a list.
-                    </aside>
-                </section>
+ -->
 
 
 
 
 
                 <!-- Execute operation 1000 times in a function than a function 1000 times -->
-                <section class="example">
-                    <h4 class="mb50"><span class="orange counter"></span> 1000 operations and 1 function</h4>
+                <section>
+                    <h4 class="mb50"><span class="orange">#5</span> 1000 operations and 1 function</h4>
                     <pre><code class='python' data-trim data-noescape>
 def square(number):
     return number**2
 squares = [square(i) for i in range(1000)]
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="bad">399 µs</span>
                     </p>
                     <pre><code class='python' data-trim data-noescape>
 def compute_squares():
     return [i**2 for i in range(1000)]
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="good">314 µs</span><br>
                          27% faster
@@ -658,20 +805,20 @@ def compute_squares():
                         <h4 class="mb50"><span class="orange">#</span> Checking for True</h4>
                         <pre><code class='python' data-trim data-noescape>
 if variable == True:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">35.8 ns</span>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if variable is True:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">28.7 ns</span><br>
                             24% faster
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if variable:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">20.6 ns</span><br>
                             73% faster
@@ -688,20 +835,20 @@ if variable:
                         <h4 class="mb50"><span class="orange">#</span> Checking for False</h4>
                         <pre><code class='python' data-trim data-noescape>
 if variable == False:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">35.1 ns</span>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if variable is False:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">26.9 ns</span><br>
                             30% faster
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if not variable:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">19.8 ns</span><br>
                             77% faster
@@ -716,20 +863,20 @@ if not variable:
                         <h4 class="mb50"><span class="orange">#</span> Checking for empty list</h4>
                         <pre><code class='python' data-trim data-noescape>
 if len(a_list) == 0:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">91.7 ns</span>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if a_list == []:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="bad">56.3 ns</span><br>
                             60% faster
                         </p>
                         <pre><code class='python' data-trim data-noescape>
 if not a_list:
-                        </pre></code>
+                        </code></pre>
                         <p>
                             <span class="good">32.4 ns</span><br>
                             280% faster
@@ -749,18 +896,18 @@ if not a_list:
                     <pre><code class='python' data-trim data-noescape>
 def greet_def(name):
     return 'Hello {}!'.format(name)
-                    </pre></code>
+                    </code></pre>
                     <p>Lambda:</p>
                     <pre><code class='python' data-trim data-noescape>
 greet_l = lambda name: 'Hello {}!'.format(name)
-                    </pre></code>
+                    </code></pre>
                     <p>Compare:</p>
                     <pre><code class='python' data-trim data-noescape>
 >>> %timeit greet_def('Tom')
 1000000 loops, best of 3: 329 ns per loop
 >>> %timeit greet_l('Tom')
 1000000 loops, best of 3: 332 ns per loop
-                    </pre></code>
+                    </code></pre>
                     <aside class="notes">
                         Let's take a look at different ways of defining functions in Python. The most common way to create a function is with def keyword. The other way is to declare an anonymous function with lambda. If you assign this lambda to a variable it will act in the same way as function created with def keyword.
                         So let's see which version is faster.
@@ -779,7 +926,7 @@ greet_l = lambda name: 'Hello {}!'.format(name)
  6 LOAD_FAST     0 (name)
  9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
 12 RETURN_VALUE
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape>
 >>> dis.dis(greet_l)
  0 LOAD_CONST    1 ('Hello {}!')
@@ -787,7 +934,7 @@ greet_l = lambda name: 'Hello {}!'.format(name)
  6 LOAD_FAST     0 (name)
  9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
 12 RETURN_VALUE
-                    </pre></code>
+                    </code></pre>
                     <small><a href='http://stackoverflow.com/questions/29804774/why-is-lambda-expression-necessary-in-this-example-python'>Stack Overflow on when lambda might be necessary</a></small>
                     <aside class="notes">
                         So is there any difference ?
@@ -806,13 +953,13 @@ greet_l = lambda name: 'Hello {}!'.format(name)
                         <div class='left'>
                             <pre><code class='python' data-trim data-noescape>
 list()
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="bad">104 ns</span>
                             </p>
                             <pre><code class='python' data-trim data-noescape>
 []
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="good">22.5 ns</span>
                             </p>
@@ -823,13 +970,13 @@ list()
                         <div class='right'>
                             <pre><code class='python' data-trim data-noescape>
 dict()
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="bad">161 ns</span>
                             </p>
                             <pre><code class='python' data-trim data-noescape>
 {}
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="good">93 ns</span>
                             </p>
@@ -861,13 +1008,13 @@ i=8
 o=9
 p=0
 
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="bad">71.8 ns</span>
                     </p>
                     <pre><code class='python' data-trim data-noescape>
 q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="good">56.4 ns</span><br>
                         27% faster (but please don't)
@@ -888,7 +1035,7 @@ def squares(MILLION_NUMBERS):
     for element in MILLION_NUMBERS:
         output.append(element*element)
     return output
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="bad">149 ms</span>
                     </p>
@@ -899,7 +1046,7 @@ def squares_faster(MILLION_NUMBERS):
     for element in MILLION_NUMBERS:
         append(element*element)
     return output
-                    </pre></code>
+                    </code></pre>
                     <p>
                         <span class="good">110 ms</span><br>
                         35% faster (and 27% less clear)
@@ -917,10 +1064,10 @@ def squares_faster(MILLION_NUMBERS):
                 <h4><span class="orange">#</span> XXXXXXXXXX</h4>
                     <pre><code class='python' data-trim data-noescape># SLOW
 
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape># FAST
 
-                    </pre></code>
+                    </code></pre>
                     <p>
                         XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
                         XXXXXXXX <span class="good">274 000</span> times faster
@@ -934,10 +1081,10 @@ def squares_faster(MILLION_NUMBERS):
                 <h4><span class="orange">#</span> XXXXXXXXXX</h4>
                     <pre><code class='python' data-trim data-noescape># SLOW
 
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape># FAST
 
-                    </pre></code>
+                    </code></pre>
                     <p>
                         XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
                         XXXXXXXX <span class="good">274 000</span> times faster
@@ -951,10 +1098,10 @@ def squares_faster(MILLION_NUMBERS):
                 <h4><span class="orange">#</span> XXXXXXXXXX</h4>
                     <pre><code class='python' data-trim data-noescape># SLOW
 
-                    </pre></code>
+                    </code></pre>
                     <pre><code class='python' data-trim data-noescape># FAST
 
-                    </pre></code>
+                    </code></pre>
                     <p>
                         XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
                         XXXXXXXX <span class="good">274 000</span> times faster
@@ -970,13 +1117,13 @@ def squares_faster(MILLION_NUMBERS):
                         <div class='left'>
                             <pre><code class='python' data-trim data-noescape>
 
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="bad">xxxxxx</span>
                             </p>
                             <pre><code class='python' data-trim data-noescape>
 
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="good">xxxxxx</span>
                             </p>
@@ -987,13 +1134,13 @@ def squares_faster(MILLION_NUMBERS):
                         <div class='right'>
                             <pre><code class='python' data-trim data-noescape>
 
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="bad">xxxxxxxx</span>
                             </p>
                             <pre><code class='python' data-trim data-noescape>
 
-                            </pre></code>
+                            </code></pre>
                             <p>
                                 <span class="good">xxxxxxxx</span>
                             </p>
