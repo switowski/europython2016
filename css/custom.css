@@ -5,6 +5,8 @@
 /* Quotes font: */
 @import url(https://fonts.googleapis.com/css?family=Alegreya);
 @import url(https://fonts.googleapis.com/css?family=Alegreya+SC);
+/* Fire font (by http://www.pizzadude.dk/home.php): */
+@import url(../lib/font/firestarter/firestarter.css);
 
 .reveal pre {
   /*Bigger font for code */
@@ -142,7 +144,7 @@
 }
 
 .reveal .orange {
-  color: #F68300;
+  color: #f68300;
 }
 /*********************************************
  * Split layout
@@ -180,4 +182,14 @@
 .reveal .mb50 {
   /* Some spacing - can be used on headers*/
   margin-bottom: 50px;
+}
+
+.reveal .danger {
+  color: #a23;
+}
+
+.reveal .fire {
+  color: #f68300;
+  font-family: 'Firestarter', sans-serif;
+  font-weight: 400;
 }

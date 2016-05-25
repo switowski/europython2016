@@ -587,52 +587,43 @@ def check_number(number):
 %timeit check_number(500000)
                         </code></pre>
                         <p>
-                            <span class="bad">21.4 ms</span>
+                            <span class="bad">18 ms</span>
                         </p>
+                        <div class="fragment">
+                            <pre><code class='python' data-trim data-noescape>
+500000 in MILLION_NUMBERS
+                            </code></pre>
+                            <p>
+                                <span class="good">8.45 ms</span><br>
+                                2 times faster
+                            </p>
+                        </div>
                         <aside class="notes">
                             Let's tackle another problem - membership testing.<br>
                             If you have a list and want to check if it contains a specific element, you can use for loop.<br>
-                        </aside>
-                    </section>
-                    <section>
-                        <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
-                        <pre><code class='python' data-trim data-noescape>
-def check_number(number):
-    if number in MILLION_NUMBERS:
-        return True
-    return False
-                        </code></pre>
-                        <pre><code class='python' data-trim data-noescape>
-%timeit check_number(500000)
-                        </code></pre>
-                        <p>
-                            <span class="good">11.9 ms</span><br>
-                            80% faster
-                        </p>
-                        <aside class="notes">
                             But the problem is, you are iterating over the list, event though you are not really doing anything with all the elements.<br>
                             You can replace the for loop with the in statement.<br>
                             It will check if specific element belongs to given set of data.<br>
-                            And it will do this around 80% faster.<br>
+                            And it will do this twice as fast.<br>
                             Ok, but there is still one big problem with this approach.<br>
                         </aside>
                     </section>
                     <section>
                         <h4 class="mb50"><span class="orange">#4</span> Membership testing</h4>
                         <pre><code class='python' data-trim data-noescape>
-%timeit check_number(100)
+100 in MILLION_NUMBERS
                         </code></pre>
                         <p>
                             <span class="bad">1.55 µs</span><br>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
-%timeit check_number(999999)
+999999 in MILLION_NUMBERS
                         </code></pre>
                         <p>
-                            <span class="bad">22.9 ms</span>
+                            <span class="bad">15.7 ms</span>
                         </p>
                         <aside class="notes">
-                            The lookup time in a list is linear.<br>
+                            The lookup time in a list is depends where is that list is the element you are looking for.<br>
                             So, if an element is at the beginning of the list, you are lucky and you get it fast.<br>
                             If it's at the end, well, then you wait a bit more.<br>
                             You know what would be great here ?<br>
@@ -655,7 +646,7 @@ MILLION_SET = set(MILLION_NUMBERS)
                         </code></pre>
                         <p>
                             <span class="good">63.3 ns</span><br>
-                            360 000 times faster (vs list)
+                            248 000 times faster (vs list)
                         </p>
                         <div class="fragment">
                             <pre><code class='python' data-trim data-noescape>
@@ -920,109 +911,110 @@ if not a_list:
 
                 <!-- Lambda vs def -->
                 <section>
-                <h4><span class="orange">#</span> Lambda vs def</h4>
-                    <p>Def:</p>
-                    <pre><code class='python' data-trim data-noescape>
-def greet_def(name):
-    return 'Hello {}!'.format(name)
-                    </code></pre>
-                    <p>Lambda:</p>
-                    <pre><code class='python' data-trim data-noescape>
-greet_l = lambda name: 'Hello {}!'.format(name)
-                    </code></pre>
-                    <p>Compare:</p>
-                    <pre><code class='python' data-trim data-noescape>
->>> %timeit greet_def('Tom')
-1000000 loops, best of 3: 329 ns per loop
->>> %timeit greet_l('Tom')
-1000000 loops, best of 3: 332 ns per loop
-                    </code></pre>
-                    <aside class="notes">
-                        Let's take a look at different ways of defining functions in Python. The most common way to create a function is with def keyword. The other way is to declare an anonymous function with lambda. If you assign this lambda to a variable it will act in the same way as function created with def keyword.
-                        So let's see which version is faster.
-                        Well, actually they are both equally fast.
-                        Why ? Because both version exactly the same thing.
-                        We can see that even better when disassembling the code of both function.
-                    </aside>
-                </section>
-                <!-- Lambda vs def contd.-->
-                <section>
-                <h4><span class="orange">#</span> Lambda vs def</h4>
-                    <pre><code class='python' data-trim data-noescape>
->>> dis.dis(greet_def)
+                    <section>
+                    <h4><span class="orange">#</span> Def vs lambda</h4>
+                        <pre><code class='python' data-trim data-noescape>
+    def greet(name):
+        return 'Hello {}!'.format(name)
+                        </code></pre>
+                        <p>
+                            <span class="good">329 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
+    greet = lambda name: 'Hello {}!'.format(name)
+                        </code></pre>
+                        <p>
+                            <span class="good">332 ns</span>
+                        </p>
+                        <aside class="notes">
+                            Let's take a look at different ways of defining functions in Python. The most common way to create a function is with def keyword. The other way is to declare an anonymous function with lambda. If you assign this lambda to a variable it will act in the same way as function created with def keyword.
+                            So let's see which version is faster.
+                            Well, actually they are both equally fast.
+                            Why ? Because both version exactly the same thing.
+                        </aside>
+                    </section>
+                    <section>
+                    <h4><span class="orange">#</span> Def vs lambda</h4>
+                        <pre><code class='python' data-trim data-noescape>
+>>> dis.dis(greet)
  0 LOAD_CONST    1 ('Hello {}!')
  3 LOAD_ATTR     0 (format)
  6 LOAD_FAST     0 (name)
  9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
 12 RETURN_VALUE
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape>
->>> dis.dis(greet_l)
- 0 LOAD_CONST    1 ('Hello {}!')
- 3 LOAD_ATTR     0 (format)
- 6 LOAD_FAST     0 (name)
- 9 CALL_FUNCTION 1 (1 positional, 0 keyword pair)
-12 RETURN_VALUE
-                    </code></pre>
-                    <small><a href='http://stackoverflow.com/questions/29804774/why-is-lambda-expression-necessary-in-this-example-python'>Stack Overflow on when lambda might be necessary</a></small>
-                    <aside class="notes">
-                        So is there any difference ?
-                        Well, if your function has more than one line, then you can't use lambda.
-                        Also, you can't really put documentation inside lambda function.
-                        And if you have PEP-8 enabled in you code editor, it will complain each time you try to assign lambda to a variable.
-                        And he is right, lambda works really nice when you need a simple one-liner callback for functions, especially for functions like filter, map or reduce.
-                        There are also some quite narrow use cases when it might be necessary to use the lambda instead of def as a callback - if you want to read more, I'm linking a stack overflow question with that problem.
-                        However, for any other case, I would use def. It's much cleaner, you can document it properly and the performance is the same.
-                    </aside>
+                        </code></pre>
+                        <small class="source-link"><a href='http://stackoverflow.com/questions/29804774/why-is-lambda-expression-necessary-in-this-example-python'>Stack Overflow on when lambda might be necessary</a></small>
+                        <aside class="notes">
+                            We can disassemble the code of both versions with the dis library and we will see that inside, it's the same code.<br>
+                            So is there any difference ?<br>
+                            Well, if your function has more than one line, then you can't use lambda.<br>
+                            Also, you can't really put documentation inside lambda function.<br>
+                            And if you have PEP-8 enabled in you code editor, it will complain each time you try to assign lambda to a variable.<br>
+                            And he is right, lambda works really nice when you need a simple one-liner callback for functions, especially for functions like filter, map or reduce.<br>
+                            There are also some quite narrow use cases when it might be necessary to use the lambda as a callback - if you want to read more, you can check the link on this slide.<br>
+                            However, for any other case, I would use def. It's much cleaner, you can document it properly and the performance is the same.<br>
+                        </aside>
+                    </section>
                 </section>
                 <!-- [] vs list() and {} vs dict() -->
                 <section>
-                <h4><span class="orange"></span>[] and {}</h4>
-                    <div>
-                        <div class='left'>
-                            <pre><code class='python' data-trim data-noescape>
+                    <section>
+                        <h4><span class="orange">#</span>list() or []</h4>
+                        <pre><code class='python' data-trim data-noescape>
 list()
-                            </code></pre>
-                            <p>
-                                <span class="bad">104 ns</span>
-                            </p>
-                            <pre><code class='python' data-trim data-noescape>
+                        </code></pre>
+                        <p>
+                            <span class="bad">104 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
 []
-                            </code></pre>
-                            <p>
-                                <span class="good">22.5 ns</span>
-                            </p>
-                            <p>
-                                4.6 times faster
-                            </p>
-                        </div>
-                        <div class='right'>
-                            <pre><code class='python' data-trim data-noescape>
+                        </code></pre>
+                        <p>
+                            <span class="good">22.5 ns</span>
+                        </p>
+                        <p>
+                            4.6 times faster
+                        </p>
+                        <aside class="notes">
+                            There are 2 ways you can create an empty list.<br>
+                            You can either call a list function, or you can simply use the list literal syntax.<br>
+                            And as you can see, using the literal syntax is way faster.<br>
+                            It happens, because if you call a function, Python needs to resolve this function first.<br>
+                            With the list literal, there is no overhead for that.
+                        </aside>
+                    </section>
+                    <section>
+                        <h4><span class="orange">#</span>dict() or {}</h4>
+                        <pre><code class='python' data-trim data-noescape>
 dict()
-                            </code></pre>
-                            <p>
-                                <span class="bad">161 ns</span>
-                            </p>
-                            <pre><code class='python' data-trim data-noescape>
+                        </code></pre>
+                        <p>
+                            <span class="bad">161 ns</span>
+                        </p>
+                        <pre><code class='python' data-trim data-noescape>
 {}
-                            </code></pre>
-                            <p>
-                                <span class="good">93 ns</span>
-                            </p>
-                            <p>
-                                1.7 times faster
-                            </p>
-                        </div>
-                    </div>
-                    <aside class="notes">
-                        There are 2 ways you can create an empty list or a dictionary. You can either call a function for that, or you can simply use the literal syntax.
-                        As you can see, using the literal syntax is way faster.
-                        Let's take a quick look, why this happens.
-                    </aside>
+                        </code></pre>
+                        <p>
+                            <span class="good">93 ns</span>
+                        </p>
+                        <p>
+                            1.7 times faster
+                        </p>
+                        <aside class="notes">
+                            Exact same thing happens for creating a dictionary.<br>
+                        </aside>
+                    </section>
                 </section>
                 <!-- DANGER ZONE - although those examples are faster, I don't recommend them as they make your code less readable !!!
                      Treat those examples as curiosities -->
                 <!-- Parallel vs sequential variables assignment -->
+                <section>
+                    <h1 class="danger">Danger zone</h1>
+                    <aside class="notes">
+                        I have 2 more slides that should be treated with caution.<br>
+                        Even though the code can run faster there, I don't advise you to do this kind of optimizations<br>
+                    </aside>
+                </section>
                 <section>
                 <h4><span class="orange">#</span>Variables assignment</h4>
                     <pre><code class='python' data-trim data-noescape>
@@ -1051,7 +1043,7 @@ q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
                     <aside class="notes">
                         One interesting thing is variables assignments.<br>
                         If you have a bunch of variables that you need to assign, you can either do this the normal, sequential way or you can pull this crazy parallel assignment.<br>
-                        Indeed, you can gain some speed, but you can easily gain hate from someone reading your code later.<br>
+                        Indeed, you can gain some speed, but with this speed comes the hate of your peers reading this code later.<br>
                         In my opinion, it's not worth it.
                     </aside>
                 </section>
@@ -1081,105 +1073,46 @@ def squares_faster(MILLION_NUMBERS):
                         35% faster (and 27% less clear)
                     </p>
                     <aside class="notes">
-                        Another interesting property of Python - local variable lookup is faster than global or built-in lookup.<br>
-                        So you can save some time if, for example, you store the reference to a built-in function in a local variable.<br>
-                        In this example, the only difference is that I store the reference to append function of a list in a variable called append.<br>
+                        Another interesting property of Python - local variables can be found faster than global or built-ins.<br>
+                        So you can save some time if, for example, you store the reference to a built-in function or a global function in a local variable.<br>
+                        In this example, the only difference is that on the line 3 I store the reference to the append function in a variable called append.<br>
                         Thanks to that, this function is 35% faster, but then again, if you see this code for the first time, it's not obvious what it is supposed to do.<br>
-                        It might be confusing to see this append function inside that for loop, as we are used to see the list.append version more often.
+                        It might be confusing to see this append function, as we are used to see the list.append version more often.
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </code></pre>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
+                    <h2>Summary</h2>
+                    <ul>
+                        <li>There are different <span class="orange">kinds</span> of optimization</li>
+                        <li>There are different <span class="orange">levels</span> of optimization</li>
+                        <li>Source code optimizations <span class="orange">adds up</span></li>
+                        <li>Source code optimizations <span class="orange">is cheap</span>
+                            <ul>
+                                <li>Idiomatic Python</li>
+                                <li>Don't reinvent the wheel</li>
+                            </ul>
+                        </li>
+                        <li>Profile your code and be curious!</li>
+                    </ul>
                     <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
+                        To sum up - there are different kinds of optimization, it's quite often about the speed, but not always.<br>
+                        There are different levels of optimization, sometimes if you can't rewrite your whole application in a faster programming language, maybe you can use a different approach?<br>
+                        Source code optimization might not be the fastest way to optimize your code, but those small improvements in your code will add up.<br>
+                        And it's main advantage is that it's cheap.<br>
+                        You don't need to make huge changes, you can optimize your code at the moment of writing.<br>
+                        If you write idiomatic code and don't reinvent the wheel but use the existing functions and data structures, then you are already good.<br>
+                        So be curious when your are coding.<br>
+                        If you think that a different code structure will be faster, you can quickly check it with timeit.
                     </aside>
                 </section>
-                <!-- XXXXXXXXXX -->
                 <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </code></pre>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
+                    <h1>Thank you!</h1>
+                    <h2 class="orange">Happy and <span class='fire'>fast</span> coding!</h2>
                     <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
-                    </aside>
-                </section>
-                <!-- XXXXXXXXXX -->
-                <section>
-                <h4><span class="orange">#</span> XXXXXXXXXX</h4>
-                    <pre><code class='python' data-trim data-noescape># SLOW
-
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape># FAST
-
-                    </code></pre>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
-                    <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
-                    </aside>
-                </section>
-                <!-- SPLIT DIV -->
-                <section>
-                <h4><span class="orange">#</span> SPLIT DIV </h4>
-                    <div>
-                        <div class='left'>
-                            <pre><code class='python' data-trim data-noescape>
-
-                            </code></pre>
-                            <p>
-                                <span class="bad">xxxxxx</span>
-                            </p>
-                            <pre><code class='python' data-trim data-noescape>
-
-                            </code></pre>
-                            <p>
-                                <span class="good">xxxxxx</span>
-                            </p>
-                            <p>
-                                xxxxxxxxx
-                            </p>
-                        </div>
-                        <div class='right'>
-                            <pre><code class='python' data-trim data-noescape>
-
-                            </code></pre>
-                            <p>
-                                <span class="bad">xxxxxxxx</span>
-                            </p>
-                            <pre><code class='python' data-trim data-noescape>
-
-                            </code></pre>
-                            <p>
-                                <span class="good">xxxxxxxx</span>
-                            </p>
-                            <p>
-                                xxxxxxxxxx
-                            </p>
-                        </div>
-                    </div>
-                    <aside class="notes">
-                        xxxxxxxxxxxxxxxxx
+                        All right, my name was Sebastian Witowski, I work at CERN so if you want to talk with my about physics, then you are probably on a wrong conference.<br>
+                        But if you want to talk about Python, you can catch me somewhere on that corridor.<br>
+                        Thank you for your attention, you guys were great audience.<br>
+                        Any questions ?
                     </aside>
                 </section>
             </div>
