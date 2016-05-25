@@ -40,7 +40,7 @@
                         <aside class="notes">
                             Hi everyone.<br>
                             I would like to talk with you about writing faster code. Last time I gave a short talk on how to make your Python code faster, I remember someone pointing out that 'basically you can rewrite your code in C to make it faster'.<br>
-                            And you know what ? The guy was absolutely right. Take any piece of code, rewrite it in C or C++ and it will be automatically faster.<br>
+                            And you know what ? The guy was absolutely right. Take any piece of Python code, rewrite it in C or C++ and it will probably be faster.<br>
                             So I was thinking, "Hmm, if I say just 'writing faster code', people will be confused if it's only about Python or not".<br>
                             So I decided to fix it.<br>
                         </aside>
@@ -48,10 +48,9 @@
                     <section>
                         <h2>Writing faster code <span class='orange'>and not hating your job as a software developer</span></h2>
                         <aside class="notes">
-                            I was very happy with the new title. It makes it clear that we are not talking about Java or C here.<br>
-                            But then I remembered from school that the presentation title should be clear but also concise.
-                            And frankly - this one barely even fits on the slides.<br>
-                            So I had to fix it again.<br>
+                            I was very happy with the new title. It makes it clear that we are not gonna talk about Java or C today.<br>
+                            But then I realized this title is too long, I mean even though it's very clear, it barely even fits on the slide.<br>
+                            So I had to change it again.<br>
                         </aside>
                     </section>
                     <section>
@@ -86,8 +85,8 @@
                             </div>
                         </div>
                         <aside class="notes">
-                            Python is very easy to learn. The fact that it's so easy to read and write code in Python is very encouraging for people new to development.<br>
-                            I see that it's getting more and more popular in schools or universities as the first programming language that people are learning.<br>
+                            Python is very easy to learn. The fact that it's so easy to read and write code in Python is very encouraging for people new to software development.<br>
+                            And I see that it's getting more and more popular in schools or at universities as the first programming language.<br>
                         </aside>
                     </section>
                     <section>
@@ -114,9 +113,9 @@ print("Hello, world!")
                         <p></p>
                         <small class='source-link'>Source: <a href="">https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites</a></small>
                         <aside class="notes">
-                            So, is Python only usefull for learning programming ?
-                            Nope, and as a proof of that, here are some big companies that are quite happy with using Python as their backend or parts of their backend.
-                            Those are companies with millions of users and billions of requests, so I think your website website will also be fine with using Python.
+                            But, is Python useful only for learning ?<br>
+                            Nope, and as a proof of that, here are some big companies that are quite happy with using Python as their backend or parts of their backend.<br>
+                            Those are companies with millions of users and billions of requests per month, so I think your website will also be fine with using Python.
                         </aside>
                     </section>
                 </section>
@@ -134,25 +133,25 @@ print("Hello, world!")
                         <aside class="notes">
                             But how do you optimize your code ?<br>
                             Probably you need to follow some rules, so let's try to google that.<br>
+                            And let's open the first link.<br>
                         </aside>
                     </section>
                     <section data-background="#f7f3de">
                         <img src="./img/optimization-rules.png">
                         <aside class="notes">
-                            Let's open the first link.<br>
                             Only 3 rules ? Wow, optimization might be easier than we expected!
                             Let's take a closer look at those rules.
                         </aside>
                     </section>
                     <section>
-                        <h3>Don't</h3>
-                        <h3 class="fragment">Don't...&nbsp;yet</h3>
+                        <h3>1. Don't</h3>
+                        <h3 class="fragment">2. Don't...&nbsp;yet</h3>
                         <ul class="fragment current-visible remove" style="padding-left:325px;">
                             <li>Finish your code</li>
                             <li>Have tests</li>
                             <li>Now</li>
                         </ul>
-                        <h3 class="fragment">Profile</h3>
+                        <h3 class="fragment">3. Profile</h3>
                         <ul class="fragment current-visible remove" style="padding-left:325px;">
                             <li>cProfile</li>
                             <li>pstats</li>
@@ -160,26 +159,37 @@ print("Hello, world!")
                         </ul>
                         <aside class="notes">
                             First rule of optimization: Don't. Ok, that was easy. Thank you for your attention.<br>
-                            Well, actually now, there is more.<br>
-                            So what does it mean 'Don't.<br>
+                            Well, actually no, there is more to that.<br>
+                            So what does it mean 'Don't' ?<br>
                             Well, 9 out of 10 times when you think you need optimization, you don't, especially in the early stage of your product's life.<br>
-                            You might think it would be nice to optimize your code a bit, but first of all, you will waste time doing something that is not needed. You can get more benefits from getting a faster hardware of something if you want. Second of all, optimization comes with a cost. Sometimes it's only the time spend optimizing existing code. Sometimes you have to add even more time to fix, what you broke with you optimization. But also, the optimized code might not be as readable as it was in the first place. And maybe your code is running faster but uses more memory ? So unless you have real resons to optimize - don't do this.
-                            If you know that you really need to optimize, then you can move to the second rule of optimization - don't do this yet. This is how I understand it:<br>
+                            You might think it would be nice to optimize your code a bit, but first of all, you will waste time doing something that is probably not needed.<br>
+                            If you want your code to run faster, you can start with getting faster hardware in the first place.<br>
+                            Second of all, optimization comes with a cost. Sometimes the only cost is the time you spend optimizing the existing code.<br>
+                            Sometimes, it's also the time needed to fix what you just broke with your optimization.<br>
+                            But also, the optimized code might not be as readable as it was in the first place.<br>
+                            And maybe your code is now running faster but it uses more memory ?<br>
+                            So unless you have real reasons to optimize - don't do this.<br>
+                            If you know that you really need to optimize, then you can move to the second rule of optimization<br>
+                            ###CLICK###<br>
+                            Don't do this yet.<br>
+                            This is how I understand this rule:<br>
+                            ###CLICK###<br>
                             First make sure your code works<br>
                             Then make sure you have good test suite<br>
                             And only then, you are ready for optimization.<br>
-                            I love this rule, it always reminds me how many times I have violated it. So many times I was in the middle of working on a more or less complex piece of code and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
+                            I love this rule, it always reminds me how many times I have broke it.<br>
+                            So many times I was in the middle of working on a piece of code and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
                             Was it a good idea ?<br>
-                            Nope. And not only because I ended up breaking things. Well, quite often I did end up breaking things, but also, when I started jumping around the code, I forgot what exactly was I writing in the first place.<br>
-                            One way or another, it was causing confusion and additional work.<br>
+                            Nope. And not only because I ended up breaking things. Well, quite often I did end up breaking things, but also, when I started jumping around the code, I forgot what I was writing in the first place.<br>
                             Did it make my code faster ?<br>
-                            I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's better or worse now, but otherwise I could only guess.<br>
+                            I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's now better or worse, but otherwise I can only guess.<br>
                             And that brings me to the last rules of optimization - Don't guess.<br>
-                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If you code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.
+                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If you code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
+                            ###CLICK###<br>
                             There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
-                            It will show you a clear overview of how many times each function is called and where is your code spending most of the time, so there is no need to guess.<br>
+                            It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
                             You can combine it with the pstats module, which allows for more advanced formatting of the results.<br>
-                            If you prefer a graphical interface, there are also libraries like that. RunSnakeRun and SnakeViz seems to be the most common.
+                            If you prefer a graphical interface, you can take a look at libraries like RunSnakeRun and SnakeViz.
                         </aside>
                     </section>
                 </section>
@@ -193,10 +203,11 @@ print("Hello, world!")
                         <aside class="notes">
                             Once we are ready for optimization, we have to decide, on which area we want to focus.<br>
                             There are different levels of optimization:<br>
-                            Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language that might be faster, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries etc.<br>
-                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.
-
-                            One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good, fast software.
+                            ###CLICK###<br>
+                            Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries.<br>
+                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.<br>
+                            ###CLICK###<br>
+                            One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good and fast software.
                         </aside>
                     </section>
                     <section>
@@ -213,8 +224,9 @@ print N * (1 + N) / 2
                             </code></pre>
                         </div>
                         <aside class="notes">
-                            For example, you want to get a sum of numbers from 1 to N. The first idea might be a loop that goes though all elements and adds them.<br>
+                            For example, if you want to get a sum of numbers from 1 to N, the first idea might be a loop that goes though all elements and adds them.<br>
                             It will work, but it won't be fast.<br>
+                            ###CLICK###<br>
                             You can instead use an algorithm for the arithmetic sum, which will give you the same results and it will be more efficient.
                         </aside>
                     </section>
@@ -230,16 +242,28 @@ print N * (1 + N) / 2
                             <li class="fragment">Runtime level</li>
                         </ul>
                         <aside class="notes">
-                            Next level is the source code optimization. This is something that I want to talk about today. We are slowly getting there.
-
-                            And now we got to the low levels of optimization. For example, "build level" involves setting up specific build flags. In you daily work, it's not something that you do often. You can optimize Python for a specific architecture, but if you are a web-developer like me, you don't go to that level of optimization.
-
-                            Compile level - you can make some optimizations if you are using Ahead of Time compiler. Which is not the case for Python, as there is no ahead of time compiler for Python.
-
-                            Assembly level - this is probably as low as you can get with the optimization. For additional performance, you can write directly the assembly code for a specific architecture. As this is "Python Developers Forum", not the "Assembly Developers Forum", I will not focus on this level of optimization either.
-
-                            Last but not least - runtime level. It's related with a specific compiler you are using. Some compilers are faster than the others, for example if you replace CPython with PyPy, you can gain on average up to 7 times speed improvement, but again, it depends on what kind of task you are doing.<br>
-                            Most of the time, once we set up on a specific language implementation, there is nothing we have to do to benefit from this kind of optimizations - it's up to the creators of the compilers to optimize them, so simply updating to the new version of the programming language you are using can make your programs run a bit faster.
+                            Next level is the source code optimization.<br>
+                            This is something that I want to talk about today.<br>
+                            We are getting there.<br>
+                            ###CLICK###<br>
+                            Now we are moving to the low levels of optimization.<br>
+                            For example, "build level" involves setting up specific build flags.<br>
+                            In you daily work, it's not something that you do often.<br>
+                            You can optimize Python for a specific architecture, but if you are a web-developer like me, you will probably do this only once for each machine or you won't bother at all.<br>
+                            ###CLICK###<br>
+                            Next, the compile level.<br>
+                            You can make some optimizations if you are using Ahead of Time compiler.<br>
+                            Python doesn't have an Ahead of Time compiler.<br>
+                            Next.<br>
+                            ###CLICK###<br>
+                            Assembly level - this is probably as low as you can get with the optimization.<br>
+                            For additional performance, you can write directly the assembler code for a specific architecture.<br>
+                            As this is "Python Developers Forum", not the "Assembler Developers Forum", I will not focus on this level of optimization either.<br>
+                            ###CLICK###<br>
+                            Last but not least - runtime level.<br>
+                            It's related with a specific compiler you are using.<br>
+                            Some compilers are faster than the others, for example if you replace CPython with PyPy, in some specific cases you can gain on average up to 7 times speed improvement, but again, it depends on what kind of tasks you are doing.<br>
+                            Most of the time, once we set up on a specific language implementation, there is nothing we have to do to benefit from this kind of optimization - it's up to the creators of the compilers to optimize them, so simply updating to the new version of the programming language can make your code run a bit faster.
                         </aside>
                     </section>
                 </section>
@@ -259,10 +283,14 @@ print N * (1 + N) / 2
                         </div>
                         <aside class="notes">
                             So, when you optimize you probably want your code to run faster.<br>
-                            And also use less memory. And less disk space, perform less disk I/O, network I/O, less power consumption, etc. etc.
-                            The bad news is - you can't have all of this. Optimization in one area will usuallycause deterioration in other areas.
-                            So you have to always decide, which resources are crucial to you and try to optimize in that direction.
-                            So it's possible that optimization will have nothing to do with the execution time at all, as there can be other resources more important than the raw speed.
+                            ###CLICK###<br>
+                            And also use less memory.<br>
+                            ###CLICK###<br>
+                            And less disk space, perform less disk operations, network operations, use less power, etc. etc.<br>
+                            The bad news is - you can't have all of this.<br>
+                            Optimization in one area will usually cause deterioration in other areas.<br>
+                            You always have to decide, which resources are crucial to you and try to optimize in that direction.<br>
+                            So it's possible that optimization will have nothing to do with the execution time at all, as there can be other resources more important than the raw speed.<br>
                             For example, who cares if you program is now 10 times faster if it's crashing half of the time, because it's running out of memory ?
                         </aside>
                     </section>
@@ -310,37 +338,13 @@ def ultimate_answer_to_life():
                             2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
                         </p>
                         <aside class="notes">
-                            In my examples I'm using version 3.5.1 of Python together with IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
-                            For measuring execution times of code, I will use the magic %timeit function. It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
-                            So for each of my example, I write different versions of code, measure the execution time and compare them.
+                            In my examples, I'm using version 3.5.1 of Python together with IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
+                            For measuring execution times of code, I will use the magic %timeit function.<br>
+                            It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
+                            So for each of my examples, I write different versions of code, measure the execution time and compare them.
                         </aside>
                     </section>
                 </section>
-
-                <!-- List of examples: -->
-                <!-- built-ins Counting elements in a list vs using a built-in-->
-                <!-- list Filter a list -->
-                <!-- dict List with index -->
-
-                <!-- Ask for permissions vs beg for forgiveness -->
-
-
-                <!-- string/list Create a string from a list -->
-                <!-- string String formatting is faster than string concatenation -->
-
-                <!-- functions Execute operation 1000 times in a function than a function 1000 times -->
-                <!-- list List sorting is faster in place -->
-                <!-- bool Checking for True -->
-                <!-- bool Checking for False -->
-                <!-- list Checking if list in empty -->
-                <!-- function Lambda vs def -->
-                <!-- function [] vs list() and {} vs dict() -->
-
-                <!-- DANGER ZONE -->
-                <!-- Parallel vs sequential variables assignment -->
-                <!-- Local vs global/built-in variables -->
-
-
 
                 <!-- Counting elements in a list -->
                 <section>
@@ -417,13 +421,15 @@ list(filter(lambda x: x % 2, MILLION_NUMBERS))
                         Let's say you have a list of 1 million numbers and you want to select only the odd numbers.<br>
                         The naive version would be to use a for loop, so for each element of the list you check if it's odd and if it is, the you add it to another list.<br>
                         But I already showed you in the previous example that in most cases, for loops can be replaced with something better.<br>
+                        ###CLICK###<br>
                         In this case, you could use the built-in filter function instead.<br>
                         In Python 2, filter was returning a list directly.<br>
                         In Python 3, it's returning an iterator, so I need to call list function on that iterator to get the same results as in case of the loop.<br>
-                        Even though calling list function has some impacts on the performance, it's negligible comparing to the time spent in filter function.<br>
+                        Even though calling list function has some impacts on the performance, it's negligible comparing to the time spent in the filter function.<br>
                         And as we can see, filter performs even slower than the for loop.<br>
                         Why does this happen ?<br>
-                        Well, the fact that filter is now returning an iterator is a clear suggestion that this is a wrong use case for filter function.<br>
+                        Well, the fact that filter is now returning an iterator is a clear suggestion that this is a wrong use case for the filter function.<br>
+                        ###CLICK###<br>
                         If we want to get the whole list as a result, the better idea is to use list comprehension.<br>
                         It's around 75% faster than the for loop and - at least for me - it looks very clear.
                     </aside>
@@ -458,13 +464,13 @@ for i, element in enumerate(MILLION):
                     </p>
                     <aside class="notes">
                         Ok, so for loops can often be avoided.<br>
-                        But what if you need to iterate over a list and also get the index.<br>
-                        Let's say, you want to take a list and convert it to a dictionary, in such way that index of each element becomes a key of that dictionary, and the value in list becomes the value in the dictionary.<br>
-                        There is a bad was to do this, where you basically iterate over numbers from 0 to 1 million and take the value corresponding to that number in the list.<br>
-                        That's a bad idea, because you can use the enumerate function to get the index.<br>
-                        And it's going to be faster by 50%.<br>
+                        But what if you need to iterate over a list and also get the index of each element ?<br>
+                        Let's say, you want to take a list and convert it to a dictionary, in such way that index of each element becomes a key of that dictionary, and the value in the list becomes the value in the dictionary.<br>
+                        There is a bad was to do this, where you basically iterate over the numbers from 0 to 1 million and take the value corresponding to that number in the list.<br>
+                        A better idea would be to use the enumerate function to get the list elements and the index.<br>
+                        And this is going to be faster by 50%.<br>
                         But it's still a for loop with only one instruction inside, so it can easily be replaced with dictionary comprehension.<br>
-                        The speed performance of dictionary comprehension is the same as using the enumerate, but again it's shorter and more clear.
+                        The speed performance will be the same, but the code will be shorter and easier to read.
                     </aside>
                 </section>
 
@@ -495,8 +501,12 @@ except AttributeError:
                             3.5 times faster
                         </p>
                         <aside class="notes">
-                            When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or like here, the class doesn't have a specific attribute), so you want to protect yourself somehow. The first way you can do this is called 'Look before you leap' or 'Ask for permission'. What is means is that you fist check if the class has a specific attribute and then you perform the operations. Usually this checking is done with the if statement.
-                            However, there is a different approach that you could use - it's called "Beg for forgiveness". In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap you code in a try/except block and catch the exceptions that were raised.
+                            When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or like here, the class might not have a specific attribute), so you want to protect yourself somehow.<br>
+                            The first way you can do this is called 'Look before you leap' or 'Ask for permission'.<br>
+                            What is means is that you fist check if the class has a specific attribute and then you perform the operations.<br>
+                            Usually this checking is done with the if statement.<br>
+                            However, there is a different approach that you could use - it's called "Beg for forgiveness".<br>
+                            In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap you code in a try/except block and catch the exceptions that were raised.<br>
                             As you can see in this simple example, begging for forgiveness is 3 times faster.
                         </aside>
                     </section>
@@ -562,7 +572,7 @@ except AttributeError:
                             Exceptions handling is still quite expensive.<br>
                             If the object doesn't have the attribute we are looking for, begging for forgiveness will be slower than asking for permissions.<br>
                             So as a rule of thumb, you can use the 'Ask for permissions' way if you know that it's very likely that the attribute will be missing or there will be some other problems that you can predict.<br>
-                            Otherwise, if you are expecting that your code will work fine for most of the time, using try/except will be faster and quite often more readable way to go<br>
+                            Otherwise, if you are expecting that your code will work fine for most of the time, using try/except will be faster and quite often more readable way to go.<br>
                             For example, you are fetching some files from the internet and you are expecting that it will work, unless there is no internet connection, then instead of checking if there is network connection, if it's fast enough, no timeouts, etc. just go for try/except.<br>
                             But again, I strongly advise you to measure both solutions to see which one is faster in your scenario.
                         </aside>
@@ -600,8 +610,9 @@ def check_number(number):
                         </div>
                         <aside class="notes">
                             Let's tackle another problem - membership testing.<br>
-                            If you have a list and want to check if it contains a specific element, you can use for loop.<br>
+                            If you have a list and want to check if it contains a specific element, you can use a for loop.<br>
                             But the problem is, you are iterating over the list, event though you are not really doing anything with all the elements.<br>
+                            ###CLICK###<br>
                             You can replace the for loop with the in statement.<br>
                             It will check if specific element belongs to given set of data.<br>
                             And it will do this twice as fast.<br>
@@ -623,7 +634,7 @@ def check_number(number):
                             <span class="bad">15.7 ms</span>
                         </p>
                         <aside class="notes">
-                            The lookup time in a list is depends where is that list is the element you are looking for.<br>
+                            The lookup time depends on where the element is located in that list.<br>
                             So, if an element is at the beginning of the list, you are lucky and you get it fast.<br>
                             If it's at the end, well, then you wait a bit more.<br>
                             You know what would be great here ?<br>
@@ -660,6 +671,7 @@ MILLION_SET = set(MILLION_NUMBERS)
                             If we replace the list with a set, the lookup time becomes faster.<br>
                             From few times faster to hundreds of thousands times faster.<br>
                             Where is the catch ?<br>
+                            ###CLICK###<br>
                             Well, you pay some time for converting list to a set.<br>
                             In this example, converting list to a set is slower than any of the lookups in the list, so it doesn't make sense to do this.<br>
                             However, if you are testing membership of more than 1 element, very often it makes sense to convert the list to a set.
@@ -694,7 +706,7 @@ set(MILLION_ELEMENTS)
                     <aside class="notes">
                         Speaking of sets, they have one interesting feature - they don't contain duplicates.<br>
                         So if you have a list of elements and you want to remove duplicates, the fastest way would be to convert this list to a set.<br>
-                        But be aware that sets are unordered, so if you need to preserve the order, you can either take a look at ordered dictionary from the collection module or search for ordered-set package on pypy.
+                        But be aware that sets are unordered, so if you need to preserve the order, take a look at the ordered dictionary from the collection module.
                     </aside>
                 </section>
 
@@ -722,73 +734,6 @@ MILLION_RANDOM_NUMBERS.sort()
                     </aside>
                 </section>
 
-
-
-
-                <!-- List to string -->
-<!--                 <section class="example">
-                <h4><span class="orange counter"></span> List to string</h4>
-                    <pre><code class='python' data-trim data-noescape>
-# Create a list of 1000 words:
-LIST = ['word'] * 1000
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape>
-result = ''
-for word in LIST:
-    result += word
-                    </code></pre>
-                    <p>vs</p>
-                    <pre><code class='python' data-trim data-noescape>
-result = ''.join(LIST)
-                    </code></pre>
-                    <p>
-                        10000 loops, best of 3: 94 µs per loop
-                        100000 loops, best of 3: 8.54 µs per loop
-
-                        <span class="bad">94 µs</span> vs <span class="good">8.54 µs</span><br>
-                        11 times faster
-                    </p>
-                    <aside class="notes">
-                        Let's talk about string for now. If you have a list of strings and want to concatenate them into one string, using a loop is not the best idea. Instead, you can use the join function, that will be much faster (and clearer to understand). Here, for a list of 1000 words, the join function is 11 times faster. I have also tested it with longer words and even though the difference got lower (for 1000 words of 600 characters, join was 'only' twice as fast), join function is still a clear winner here.
-                    </aside>
-                </section> -->
-
-
-
-
-                <!-- String formatting is faster than string concatenation -->
-<!--                 <section>
-                <h4><span class="orange">#</span> String formatting or string concatenation ?</h4>
-                <h2>This is not working, find better example: https://wiki.python.org/moin/PythonSpeed/PerformanceTips#String_Concatenation</h2>
-                    <pre><code class='python' data-trim data-noescape>
-word1 = 'Hello'
-word2 = 'world'
-word3 = 'from'
-word4 = 'EuroPython'
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape>
-"This is:" + word1 + word2 + word3 + word4 + "!"
-                    </code></pre>
-                    <pre><code class='python' data-trim data-noescape>
-"This is:%s%s%s%s!" % (word1, word2, word3, word4)
-
-                    </code></pre>
-                    <p>
-                        XXXXXXX <span class="bad">26.5 ms</span> vs <span class="good">96.7 ns</span><br>
-                        XXXXXXXX <span class="good">274 000</span> times faster
-                    </p>
-                    <aside class="notes">
-                    1000000 loops, best of 3: 369 ns per loop
-
-                        In case you are trying to concatenate just a few strings, not a whole list, you are also better of with using string formatting, instead of concatenation operator.
-                    </aside>
-                </section>
- -->
-
-
-
-
-
                 <!-- Execute operation 1000 times in a function than a function 1000 times -->
                 <section>
                     <h4 class="mb50"><span class="orange">#5</span> 1000 operations and 1 function</h4>
@@ -812,7 +757,7 @@ def compute_squares():
                         If you want to perform the same operation on a large set of data, you have two options.<br>
                         You can write a function that performs the operation and then call this function 1000 time.<br>
                         Or, you can write a function that takes those 1000 elements and performs the operation inside.<br>
-                        And the second approach will be faster, so if you can easily change your code, especially if you have a simple function, and replace multiple calls to a function with one function, then probably it's a good idea.
+                        And the second approach will be faster, so if you can easily change your code and replace multiple calls to a function with one function, then probably it's a good idea.
                     </aside>
                 </section>
 
@@ -845,9 +790,10 @@ if variable:
                         </p>
                         <aside class="notes">
                             What is the best way to check if a variable or expression is True ?<br>
-                            You can explicitly compare this variable to True, but unless you really want to check if a variable is True (and not for example 0 or None), then using the first two versions is adding unnecessary redundancy.<br>
-                            You can simplify your condition to just 'if variable'. It will return True, unless the variable is False, None, 0, empty string, empty list or any other "Falsy" expression.<br>
-                            And by doing that, your comparison gets almost twice faster.
+                            You can explicitly compare this variable to True, but in most cases, it's adding unnecessary redundancy.<br>
+                            You can simplify your condition to just 'if variable'.<br>
+                            It will return True, unless the variable is False, None, 0, empty string, empty list or any other "Falsy" expression.<br>
+                            And by doing that, your comparison gets faster by 70%.
                         </aside>
                     </section>
                     <!-- Checking for False -->
@@ -902,9 +848,8 @@ if not a_list:
                             280% faster
                         </p>
                         <aside class="notes">
-                            Two slides before I said that the if not statement is checking for Falsy expressions and Falsy means: False, but also 0, None, empty list, empty string, empty set, dictionary or other data structure.<br>
-                            You can take advantage of that for checking, for example  if a list is empty.<br>
-                            Simply doing "if not a_list", will be almost 3 times faster than explicitelly checking for the length of a list.
+                            It also applies to empty data structures, like lists for example.<br>
+                            Simply doing "if not a_list", will be almost 3 times faster than explicitly checking for the length of a list.
                         </aside>
                     </section>
                 </section>
@@ -914,23 +859,25 @@ if not a_list:
                     <section>
                     <h4><span class="orange">#</span> Def vs lambda</h4>
                         <pre><code class='python' data-trim data-noescape>
-    def greet(name):
-        return 'Hello {}!'.format(name)
+def greet(name):
+    return 'Hello {}!'.format(name)
                         </code></pre>
                         <p>
                             <span class="good">329 ns</span>
                         </p>
                         <pre><code class='python' data-trim data-noescape>
-    greet = lambda name: 'Hello {}!'.format(name)
+greet = lambda name: 'Hello {}!'.format(name)
                         </code></pre>
                         <p>
                             <span class="good">332 ns</span>
                         </p>
                         <aside class="notes">
-                            Let's take a look at different ways of defining functions in Python. The most common way to create a function is with def keyword. The other way is to declare an anonymous function with lambda. If you assign this lambda to a variable it will act in the same way as function created with def keyword.
-                            So let's see which version is faster.
-                            Well, actually they are both equally fast.
-                            Why ? Because both version exactly the same thing.
+                            Let's take a look at different ways of defining functions in Python.<br>
+                            The most common way to create a function is with def keyword.<br>
+                            The other way is to declare an anonymous function with lambda.<br>
+                            If you assign this lambda to a variable it will act in the same way as function created with def keyword.<br>
+                            And as you can see, they are both equally fast.<br>
+                            Why ? Because both version do exactly the same thing.
                         </aside>
                     </section>
                     <section>
@@ -951,7 +898,7 @@ if not a_list:
                             Also, you can't really put documentation inside lambda function.<br>
                             And if you have PEP-8 enabled in you code editor, it will complain each time you try to assign lambda to a variable.<br>
                             And he is right, lambda works really nice when you need a simple one-liner callback for functions, especially for functions like filter, map or reduce.<br>
-                            There are also some quite narrow use cases when it might be necessary to use the lambda as a callback - if you want to read more, you can check the link on this slide.<br>
+                            There are also some quite narrow use cases when it might be necessary to use the lambda as a callback - if you want to read more, you can check the link at the bottom of this slide.<br>
                             However, for any other case, I would use def. It's much cleaner, you can document it properly and the performance is the same.<br>
                         </aside>
                     </section>
@@ -976,10 +923,10 @@ list()
                             4.6 times faster
                         </p>
                         <aside class="notes">
-                            There are 2 ways you can create an empty list.<br>
-                            You can either call a list function, or you can simply use the list literal syntax.<br>
+                            There are 2 ways how you can create an empty list.<br>
+                            You can either call a list function or you can use the literal syntax.<br>
                             And as you can see, using the literal syntax is way faster.<br>
-                            It happens, because if you call a function, Python needs to resolve this function first.<br>
+                            It's faster, because if you call a function, Python needs to resolve this function first.<br>
                             With the list literal, there is no overhead for that.
                         </aside>
                     </section>
@@ -1012,7 +959,8 @@ dict()
                     <h1 class="danger">Danger zone</h1>
                     <aside class="notes">
                         I have 2 more slides that should be treated with caution.<br>
-                        Even though the code can run faster there, I don't advise you to do this kind of optimizations<br>
+                        Even though the code can run faster there, I don't advise you to do this kind of optimizations.<br>
+                        Sometimes, even though you can squeeze some more speed from your code, it doesn't mean that you should do this.
                     </aside>
                 </section>
                 <section>
@@ -1041,9 +989,9 @@ q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
                         27% faster (but please don't)
                     </p>
                     <aside class="notes">
-                        One interesting thing is variables assignments.<br>
+                        So, one thing is variables assignments.<br>
                         If you have a bunch of variables that you need to assign, you can either do this the normal, sequential way or you can pull this crazy parallel assignment.<br>
-                        Indeed, you can gain some speed, but with this speed comes the hate of your peers reading this code later.<br>
+                        Indeed, you can gain some speed, but with this speed comes the hate of your colleagues reading this code later.<br>
                         In my opinion, it's not worth it.
                     </aside>
                 </section>
@@ -1073,9 +1021,9 @@ def squares_faster(MILLION_NUMBERS):
                         35% faster (and 27% less clear)
                     </p>
                     <aside class="notes">
-                        Another interesting property of Python - local variables can be found faster than global or built-ins.<br>
+                        Another interesting property of Python - the lookup for local variables is faster than the lookup for globals or built-ins.<br>
                         So you can save some time if, for example, you store the reference to a built-in function or a global function in a local variable.<br>
-                        In this example, the only difference is that on the line 3 I store the reference to the append function in a variable called append.<br>
+                        In this example, the only difference is that on the line 3, I store the reference to the append function in a variable called append.<br>
                         Thanks to that, this function is 35% faster, but then again, if you see this code for the first time, it's not obvious what it is supposed to do.<br>
                         It might be confusing to see this append function, as we are used to see the list.append version more often.
                     </aside>
@@ -1096,9 +1044,9 @@ def squares_faster(MILLION_NUMBERS):
                     </ul>
                     <aside class="notes">
                         To sum up - there are different kinds of optimization, it's quite often about the speed, but not always.<br>
-                        There are different levels of optimization, sometimes if you can't rewrite your whole application in a faster programming language, maybe you can use a different approach?<br>
-                        Source code optimization might not be the fastest way to optimize your code, but those small improvements in your code will add up.<br>
-                        And it's main advantage is that it's cheap.<br>
+                        There are different levels of optimization, sometimes if you can't rewrite your whole application, maybe you can use a different approach?<br>
+                        Even though the source code optimization might not be the fastest way to optimize your code, those small improvements will add up.<br>
+                        And it's main advantage of it, is that it's cheap.<br>
                         You don't need to make huge changes, you can optimize your code at the moment of writing.<br>
                         If you write idiomatic code and don't reinvent the wheel but use the existing functions and data structures, then you are already good.<br>
                         So be curious when your are coding.<br>
