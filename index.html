@@ -86,7 +86,7 @@
                         </div>
                         <aside class="notes">
                             Python is very easy to learn. The fact that it's so easy to read and write code in Python is very encouraging for people new to software development.<br>
-                            And I see that it's getting more and more popular in schools or at universities as the first programming language.<br>
+                            I see that it's getting more and more popular in schools or at the universities as the first programming language.<br>
                         </aside>
                     </section>
                     <section>
@@ -115,7 +115,7 @@ print("Hello, world!")
                         <aside class="notes">
                             But, is Python useful only for learning ?<br>
                             Nope, and as a proof of that, here are some big companies that are quite happy with using Python as their backend or parts of their backend.<br>
-                            Those are companies with millions of users and billions of requests per month, so I think your website will also be fine with using Python.
+                            Those are companies with millions of users and billions of requests per month, so I think your website will also be fine with Python.
                         </aside>
                     </section>
                 </section>
@@ -184,7 +184,8 @@ print("Hello, world!")
                             Did it make my code faster ?<br>
                             I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's now better or worse, but otherwise I can only guess.<br>
                             And that brings me to the last rules of optimization - Don't guess.<br>
-                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If you code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
+                            ###CLICK###<br>
+                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If your code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
                             ###CLICK###<br>
                             There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
                             It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
@@ -205,7 +206,7 @@ print("Hello, world!")
                             There are different levels of optimization:<br>
                             ###CLICK###<br>
                             Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries.<br>
-                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.<br>
+                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on, in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.<br>
                             ###CLICK###<br>
                             One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good and fast software.
                         </aside>
@@ -224,7 +225,7 @@ print N * (1 + N) / 2
                             </code></pre>
                         </div>
                         <aside class="notes">
-                            For example, if you want to get a sum of numbers from 1 to N, the first idea might be a loop that goes though all elements and adds them.<br>
+                            For example, if you want to get the sum of numbers from 1 to N, the first idea might be a loop that goes though all elements and adds them.<br>
                             It will work, but it won't be fast.<br>
                             ###CLICK###<br>
                             You can instead use an algorithm for the arithmetic sum, which will give you the same results and it will be more efficient.
@@ -252,7 +253,7 @@ print N * (1 + N) / 2
                             You can optimize Python for a specific architecture, but if you are a web-developer like me, you will probably do this only once for each machine or you won't bother at all.<br>
                             ###CLICK###<br>
                             Next, the compile level.<br>
-                            You can make some optimizations if you are using Ahead of Time compiler.<br>
+                            You can make some optimizations if your programming language is using an Ahead of Time compiler.<br>
                             Python doesn't have an Ahead of Time compiler.<br>
                             Next.<br>
                             ###CLICK###<br>
@@ -338,7 +339,7 @@ def ultimate_answer_to_life():
                             2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
                         </p>
                         <aside class="notes">
-                            In my examples, I'm using version 3.5.1 of Python together with IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
+                            In my examples, I'm using version 3.5.1 of Python together with the IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
                             For measuring execution times of code, I will use the magic %timeit function.<br>
                             It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
                             So for each of my examples, I write different versions of code, measure the execution time and compare them.
@@ -424,9 +425,9 @@ list(filter(lambda x: x % 2, MILLION_NUMBERS))
                         ###CLICK###<br>
                         In this case, you could use the built-in filter function instead.<br>
                         In Python 2, filter was returning a list directly.<br>
-                        In Python 3, it's returning an iterator, so I need to call list function on that iterator to get the same results as in case of the loop.<br>
+                        In Python 3, it's returning an iterator, so I need to call the list function on that iterator to get the same results as in case of the loop.<br>
                         Even though calling list function has some impacts on the performance, it's negligible comparing to the time spent in the filter function.<br>
-                        And as we can see, filter performs even slower than the for loop.<br>
+                        But as we can see, filter performs even slower than the for loop.<br>
                         Why does this happen ?<br>
                         Well, the fact that filter is now returning an iterator is a clear suggestion that this is a wrong use case for the filter function.<br>
                         ###CLICK###<br>
@@ -614,7 +615,7 @@ def check_number(number):
                             But the problem is, you are iterating over the list, event though you are not really doing anything with all the elements.<br>
                             ###CLICK###<br>
                             You can replace the for loop with the in statement.<br>
-                            It will check if specific element belongs to given set of data.<br>
+                            It will check if a specific element belongs to given set of data.<br>
                             And it will do this twice as fast.<br>
                             Ok, but there is still one big problem with this approach.<br>
                         </aside>
@@ -990,7 +991,7 @@ q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
                     </p>
                     <aside class="notes">
                         So, one thing is variables assignments.<br>
-                        If you have a bunch of variables that you need to assign, you can either do this the normal, sequential way or you can pull this crazy parallel assignment.<br>
+                        If you have a bunch of variables that you need to assign, you can either do this the normal, sequential way or you can go for this crazy parallel assignment.<br>
                         Indeed, you can gain some speed, but with this speed comes the hate of your colleagues reading this code later.<br>
                         In my opinion, it's not worth it.
                     </aside>
@@ -1018,12 +1019,12 @@ def squares_faster(MILLION_NUMBERS):
                     </code></pre>
                     <p>
                         <span class="good">110 ms</span><br>
-                        35% faster (and 27% less clear)
+                        35% faster (and 27% more confusing)
                     </p>
                     <aside class="notes">
                         Another interesting property of Python - the lookup for local variables is faster than the lookup for globals or built-ins.<br>
                         So you can save some time if, for example, you store the reference to a built-in function or a global function in a local variable.<br>
-                        In this example, the only difference is that on the line 3, I store the reference to the append function in a variable called append.<br>
+                        In this example, the only difference is that on line 3, I'm storing the reference to the append function in a variable called append.<br>
                         Thanks to that, this function is 35% faster, but then again, if you see this code for the first time, it's not obvious what it is supposed to do.<br>
                         It might be confusing to see this append function, as we are used to see the list.append version more often.
                     </aside>
@@ -1046,11 +1047,11 @@ def squares_faster(MILLION_NUMBERS):
                         To sum up - there are different kinds of optimization, it's quite often about the speed, but not always.<br>
                         There are different levels of optimization, sometimes if you can't rewrite your whole application, maybe you can use a different approach?<br>
                         Even though the source code optimization might not be the fastest way to optimize your code, those small improvements will add up.<br>
-                        And it's main advantage of it, is that it's cheap.<br>
+                        And the main advantage of it, is that it's cheap.<br>
                         You don't need to make huge changes, you can optimize your code at the moment of writing.<br>
                         If you write idiomatic code and don't reinvent the wheel but use the existing functions and data structures, then you are already good.<br>
                         So be curious when your are coding.<br>
-                        If you think that a different code structure will be faster, you can quickly check it with timeit.
+                        If you think that a different code structure will be faster, you can quickly check it with timeit and improve it.
                     </aside>
                 </section>
                 <section>
