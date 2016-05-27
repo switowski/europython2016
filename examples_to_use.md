@@ -47,13 +47,6 @@
 
 
 
-- Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function!
-
-
-
-- Use dictionary.iteritems() not, dictionary.items(): http://docs.quantifiedcode.com/python-anti-patterns/performance/not_using_iteritems_to_iterate_large_dict.html
-
-
 ### Examples I want to mention at the end (more like curiosities):
 
 
@@ -94,6 +87,12 @@
 
 
 - Use iterator versions of functions when you need them (for example imap from itertools) - Python3 has most data structures as iterators
+
+
+- Use dictionary.iteritems() not, dictionary.items(): http://docs.quantifiedcode.com/python-anti-patterns/performance/not_using_iteritems_to_iterate_large_dict.html - only Python2
+
+
+- Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function! - don't use those things, use list comprehensions of other stuff
 
 
 ## All examples:
