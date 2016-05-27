@@ -54,7 +54,8 @@
                         </aside>
                     </section>
                     <section>
-                        <h1>Writing faster <span class='orange'>Python</span></h1>
+                        <h1 class="mb50">Writing faster <span class='orange'>Python</span></h1>
+                        <p class="source-link">By: <a href="https://github.com/switowski">Sebastian Witowski</a></p>
                         <aside class="notes">
                             And this is how I ended up with 'Writing faster Python' as a title for my today's talk.
                             Let's put aside the flame war about which programming language is better.<br>
@@ -152,7 +153,7 @@ print("Hello, world!")
                             <li>Now</li>
                         </ul>
                         <h3 class="fragment">3. Profile</h3>
-                        <ul class="fragment current-visible remove" style="padding-left:325px;">
+                        <ul class="fragment" style="padding-left:160px;">
                             <li>cProfile</li>
                             <li>pstats</li>
                             <li>RunSnakeRun, SnakeViz</li>
@@ -714,7 +715,7 @@ set(MILLION_ELEMENTS)
 
                 <!-- List sorting is faster in place -->
                 <section>
-                    <h4 class="mb50"><span class="orange">#4</span> List sorting</h4>
+                    <h4 class="mb50"><span class="orange">#6</span> List sorting</h4>
                     <pre><code class='python' data-trim data-noescape>
 sorted(MILLION_RANDOM_NUMBERS)
                     </code></pre>
@@ -737,7 +738,7 @@ MILLION_RANDOM_NUMBERS.sort()
 
                 <!-- Execute operation 1000 times in a function than a function 1000 times -->
                 <section>
-                    <h4 class="mb50"><span class="orange">#5</span> 1000 operations and 1 function</h4>
+                    <h4 class="mb50"><span class="orange">#7</span> 1000 operations and 1 function</h4>
                     <pre><code class='python' data-trim data-noescape>
 def square(number):
     return number**2
@@ -768,7 +769,7 @@ def compute_squares():
                 <!-- Checking for True -->
                 <section>
                     <section>
-                        <h4 class="mb50"><span class="orange">#</span> Checking for True</h4>
+                        <h4 class="mb50"><span class="orange">#8</span> Checking for True</h4>
                         <pre><code class='python' data-trim data-noescape>
 if variable == True:
                         </code></pre>
@@ -799,7 +800,7 @@ if variable:
                     </section>
                     <!-- Checking for False -->
                     <section>
-                        <h4 class="mb50"><span class="orange">#</span> Checking for False</h4>
+                        <h4 class="mb50"><span class="orange">#8</span> Checking for False</h4>
                         <pre><code class='python' data-trim data-noescape>
 if variable == False:
                         </code></pre>
@@ -827,7 +828,7 @@ if not variable:
                     </section>
                     <!-- Checking for empty list -->
                     <section>
-                        <h4 class="mb50"><span class="orange">#</span> Checking for empty list</h4>
+                        <h4 class="mb50"><span class="orange">#8</span> Checking for empty list</h4>
                         <pre><code class='python' data-trim data-noescape>
 if len(a_list) == 0:
                         </code></pre>
@@ -858,7 +859,7 @@ if not a_list:
                 <!-- Lambda vs def -->
                 <section>
                     <section>
-                    <h4><span class="orange">#</span> Def vs lambda</h4>
+                    <h4><span class="orange">#9</span> Def vs lambda</h4>
                         <pre><code class='python' data-trim data-noescape>
 def greet(name):
     return 'Hello {}!'.format(name)
@@ -882,7 +883,7 @@ greet = lambda name: 'Hello {}!'.format(name)
                         </aside>
                     </section>
                     <section>
-                    <h4><span class="orange">#</span> Def vs lambda</h4>
+                    <h4><span class="orange">#9</span> Def vs lambda</h4>
                         <pre><code class='python' data-trim data-noescape>
 >>> dis.dis(greet)
  0 LOAD_CONST    1 ('Hello {}!')
@@ -907,7 +908,7 @@ greet = lambda name: 'Hello {}!'.format(name)
                 <!-- [] vs list() and {} vs dict() -->
                 <section>
                     <section>
-                        <h4><span class="orange">#</span>list() or []</h4>
+                        <h4><span class="orange">#10</span> list() or []</h4>
                         <pre><code class='python' data-trim data-noescape>
 list()
                         </code></pre>
@@ -932,7 +933,7 @@ list()
                         </aside>
                     </section>
                     <section>
-                        <h4><span class="orange">#</span>dict() or {}</h4>
+                        <h4><span class="orange">#10</span> dict() or {}</h4>
                         <pre><code class='python' data-trim data-noescape>
 dict()
                         </code></pre>
@@ -965,7 +966,7 @@ dict()
                     </aside>
                 </section>
                 <section>
-                <h4><span class="orange">#</span>Variables assignment</h4>
+                <h4><span class="orange">#11</span> Variables assignment</h4>
                     <pre><code class='python' data-trim data-noescape>
 q=1
 w=2
@@ -998,7 +999,7 @@ q,w,e,r,t,y,u,i,o,p = 1,2,3,4,5,6,7,8,9,0
                 </section>
                 <!-- Local vs global/built-in variables  -->
                 <section>
-                <h4><span class="orange">#</span> Variables lookup</h4>
+                <h4><span class="orange">#12</span> Variables lookup</h4>
                     <pre><code class='python' data-trim data-noescape>
 def squares(MILLION_NUMBERS):
     output = []
