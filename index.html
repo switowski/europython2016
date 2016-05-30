@@ -55,7 +55,7 @@
                     </section>
                     <section>
                         <h1 class="mb50">Writing faster <span class='orange'>Python</span></h1>
-                        <p class="source-link">By: <a href="https://github.com/switowski">Sebastian Witowski</a></p>
+                        <p class="source-link"><a href="https://github.com/switowski">Sebastian Witowski</a></p>
                         <aside class="notes">
                             And this is how I ended up with 'Writing faster Python' as a title for my today's talk.
                             Let's put aside the flame war about which programming language is better.<br>
@@ -186,7 +186,7 @@ print("Hello, world!")
                             I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's now better or worse, but otherwise I can only guess.<br>
                             And that brings me to the last rules of optimization - Don't guess.<br>
                             ###CLICK###<br>
-                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If your code is slow - profile it and see what takes the most time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
+                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If your code is slow - profile it and see what takes most of the time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
                             ###CLICK###<br>
                             There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
                             It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
@@ -469,7 +469,7 @@ for i, element in enumerate(MILLION):
                         But what if you need to iterate over a list and also get the index of each element ?<br>
                         Let's say, you want to take a list and convert it to a dictionary, in such way that index of each element becomes a key of that dictionary, and the value in the list becomes the value in the dictionary.<br>
                         There is a bad was to do this, where you basically iterate over the numbers from 0 to 1 million and take the value corresponding to that number in the list.<br>
-                        A better idea would be to use the enumerate function to get the list elements and the index.<br>
+                        A better idea would be to use the enumerate function to get the list elements together with the index.<br>
                         And this is going to be faster by 50%.<br>
                         But it's still a for loop with only one instruction inside, so it can easily be replaced with dictionary comprehension.<br>
                         The speed performance will be the same, but the code will be shorter and easier to read.
@@ -505,7 +505,7 @@ except AttributeError:
                         <aside class="notes">
                             When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or like here, the class might not have a specific attribute), so you want to protect yourself somehow.<br>
                             The first way you can do this is called 'Look before you leap' or 'Ask for permission'.<br>
-                            What is means is that you fist check if the class has a specific attribute and then you perform the operations.<br>
+                            What is means is that you first check if the class has a specific attribute and then you perform the operations.<br>
                             Usually this checking is done with the if statement.<br>
                             However, there is a different approach that you could use - it's called "Beg for forgiveness".<br>
                             In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap you code in a try/except block and catch the exceptions that were raised.<br>
