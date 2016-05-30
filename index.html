@@ -33,6 +33,7 @@
     <body>
         <div class="reveal">
             <div class="slides">
+                <section></section>
                 <section>
                     <!-- Vertical slides for different title variations -->
                     <section>
@@ -54,7 +55,7 @@
                         </aside>
                     </section>
                     <section>
-                        <h1 class="mb50">Writing faster <span class='orange'>Python</span></h1>
+                        <h1 class="mb150">Writing faster <span class='orange'>Python</span></h1>
                         <p class="source-link"><a href="https://github.com/switowski">Sebastian Witowski</a></p>
                         <aside class="notes">
                             And this is how I ended up with 'Writing faster Python' as a title for my today's talk.
@@ -340,7 +341,7 @@ def ultimate_answer_to_life():
                             2.72 × 10<sup>21</sup> times faster than in <a href="https://en.wikipedia.org/wiki/42_(number)#Hitchhiker.27s_Guide_to_the_Galaxy">The Hitchhiker's Guide to the Galaxy</a> ;-)
                         </p>
                         <aside class="notes">
-                            In my examples, I'm using version 3.5.1 of Python together with the IPython, although unless I point it out, all the examples should apply to both Python 2 and 3.<br>
+                            In my examples, I'm using version 3.5.1 of Python together with the IPython, although all the examples should apply to both Python 2 and 3.<br>
                             For measuring execution times of code, I will use the magic %timeit function.<br>
                             It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
                             So for each of my examples, I write different versions of code, measure the execution time and compare them.
@@ -929,7 +930,7 @@ list()
                             You can either call a list function or you can use the literal syntax.<br>
                             And as you can see, using the literal syntax is way faster.<br>
                             It's faster, because if you call a function, Python needs to resolve this function first.<br>
-                            With the list literal, there is no overhead for that.
+                            With the literal syntax, there is no overhead for that.
                         </aside>
                     </section>
                     <section>
@@ -1059,10 +1060,10 @@ def squares_faster(MILLION_NUMBERS):
                     <h1>Thank you!</h1>
                     <h2 class="orange">Happy and <span class='fire'>fast</span> coding!</h2>
                     <aside class="notes">
-                        All right, my name was Sebastian Witowski, I work at CERN so if you want to talk with my about physics, then you are probably on a wrong conference.<br>
+                        <!-- All right, my name was Sebastian Witowski, I work at CERN so if you want to talk with my about physics, then you are probably on a wrong conference.<br>
                         But if you want to talk about Python, you can catch me somewhere on that corridor.<br>
                         Thank you for your attention, you guys were great audience.<br>
-                        Any questions ?
+                        Any questions ? -->
                     </aside>
                 </section>
             </div>

@@ -184,6 +184,11 @@
   margin-bottom: 50px;
 }
 
+.reveal .mb150 {
+  /* Even more spacing */
+  margin-bottom: 150px;
+}
+
 .reveal .danger {
   color: #a23;
 }
