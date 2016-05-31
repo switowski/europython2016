@@ -33,10 +33,10 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>
+<!--                 <section>
                     <small>This page is intentionally left blank</small>
                 </section>
-                <section>
+ -->                <section>
                     <!-- Vertical slides for different title variations -->
                     <section>
                         <h1>Writing faster code</h1>
@@ -52,7 +52,7 @@
                         <h2>Writing faster code <span class='orange'>and not hating your job as a software developer</span></h2>
                         <aside class="notes">
                             I was very happy with the new title. It makes it clear that we are not gonna talk about Java or C today.<br>
-                            But then I realized this title is too long, I mean even though it's very clear, it barely even fits on the slide.<br>
+                            But then I realized that this title is too long, I mean even though it's very clear, it barely even fits on the slide.<br>
                             So I had to change it again.<br>
                         </aside>
                     </section>
@@ -60,7 +60,7 @@
                         <h1 class="mb150">Writing faster <span class='orange'>Python</span></h1>
                         <p class="source-link"><a href="https://github.com/switowski">Sebastian Witowski</a></p>
                         <aside class="notes">
-                            So I got the version that means the same thing but is short.<br>
+                            So I got the version that means the same thing but is shorter.<br>
                             And this is how I ended up with 'Writing faster Python' as a title for my today's talk.<br>
                             Let's put aside the flame war about which programming language is better.<br>
                             (Whisper) We all know the answer, that's why you are here!(/Whisper)
@@ -129,7 +129,7 @@ print("Hello, world!")
                         <h1 class='h1-smaller'>OPTIMIZATION</h1>
                         <aside class="notes">
                             So Python is usually fast enough. But what if we decide it's not fast enough anymore.<br>
-                            For example, your websites starts giving timeouts to your users or maybe a faster code will bring more money for your company (or more data for your physicists).<br>
+                            For example, your website starts giving timeouts to your users or maybe a faster code will bring more money for your company (or more data for your physicists).<br>
                             It's time for optimization!
                         </aside>
                     </section>
@@ -144,7 +144,7 @@ print("Hello, world!")
                     <section data-background="#f7f3de">
                         <img src="./img/optimization-rules.png">
                         <aside class="notes">
-                            Only 3 rules ? Wow, optimization might be easier than we expected!
+                            Only 3 rules ? Wow, optimization might be easier than we expected!<br>
                             Let's take a closer look at those rules.
                         </aside>
                     </section>
@@ -180,7 +180,7 @@ print("Hello, world!")
                             This is how I understand this rule:<br>
                             ###CLICK###<br>
                             First make sure your code works<br>
-                            Then make sure you have good test suite<br>
+                            Then make sure you have a good test suite<br>
                             And only then, you are ready for optimization.<br>
                             I love this rule, it always reminds me how many times I have broke it.<br>
                             So many times I was in the middle of working on a piece of code and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
@@ -190,7 +190,9 @@ print("Hello, world!")
                             I have no idea, because I had nothing to compare it to! If I had written the whole function first and then improve it, I could measure it and see if it's now better or worse, but otherwise I can only guess.<br>
                             And that brings me to the last rules of optimization - Don't guess.<br>
                             ###CLICK###<br>
-                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code. If your code is slow - profile it and see what takes most of the time. Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
+                            Always profile your code before optimization. Human are terrible in predicting bottlenecks of the code.<br>
+                            If your code is slow - profile it and see what takes most of the time.<br>
+                            Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
                             ###CLICK###<br>
                             There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
                             It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
@@ -345,7 +347,7 @@ def ultimate_answer_to_life():
                         </p>
                         <aside class="notes">
                             In my examples, I'm using version 3.5.1 of Python together with the IPython, although all the examples should apply to both Python 2 and 3.<br>
-                            For measuring execution times of code, I will use the magic %timeit function.<br>
+                            For measuring execution time of code, I will use the magic %timeit function.<br>
                             It has some overhead comparing with the standard timeit library, but it doesn't really matter - as long as we use the same method to measure execution time of different functions, we only need to know which method is faster and by how much.<br>
                             So for each of my examples, I write different versions of code, measure the execution time and compare them.
                         </aside>
@@ -431,7 +433,7 @@ list(filter(lambda x: x % 2, MILLION_NUMBERS))
                         In this case, you could use the built-in filter function instead.<br>
                         In Python 2, filter was returning a list directly.<br>
                         In Python 3, it's returning an iterator, so I need to call the list function on that iterator to get the same results as in case of the loop.<br>
-                        Even though calling list function has some impacts on the performance, it's negligible comparing to the time spent in the filter function.<br>
+                        Even though calling list function has some impact on the performance, it's negligible comparing to the time spent in the filter function.<br>
                         But as we can see, filter performs even slower than the for loop.<br>
                         Why does this happen ?<br>
                         Well, the fact that filter is now returning an iterator is a clear suggestion that this is a wrong use case for the filter function.<br>
