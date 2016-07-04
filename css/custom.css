@@ -15,6 +15,19 @@
 .reveal .arrow {
   font-size: 80px;
 }
+
+.reveal .danger {
+  background-color: #34495e;
+  color: #e74c3c;
+  text-shadow: 2px 2px 2px #222;
+}
+
+.reveal .fire {
+  color: #f68300;
+  font-family: 'Firestarter', sans-serif;
+  font-weight: 400;
+}
+
 /*********************************************
  * BLOCK QUOTES
  * From: http://tympanus.net/Tutorials/ModernBlockQuoteStyles/index3.html
@@ -187,14 +200,4 @@
 .reveal .mb150 {
   /* Even more spacing */
   margin-bottom: 150px;
-}
-
-.reveal .danger {
-  color: #a23;
-}
-
-.reveal .fire {
-  color: #f68300;
-  font-family: 'Firestarter', sans-serif;
-  font-weight: 400;
 }
