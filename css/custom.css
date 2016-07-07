@@ -185,6 +185,10 @@
   color: #333;
 }
 
+.reveal small.source-link--light {
+  color: #eee;
+}
+
 .reveal .source-link a {
   color: #42affa;
 }
