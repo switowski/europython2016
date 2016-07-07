@@ -7,6 +7,8 @@
 @import url(https://fonts.googleapis.com/css?family=Alegreya+SC);
 /* Fire font (by http://www.pizzadude.dk/home.php): */
 @import url(../lib/font/firestarter/firestarter.css);
+/* Party Hats font (by http://www.fonts101.com/fonts/view/Outline/26584/LD_Party_Hats): */
+@import url(../lib/font/ldpartyhats/ldpartyhats.css);
 
 .reveal pre {
   /*Bigger font for code */
@@ -25,6 +27,12 @@
 .reveal .fire {
   color: #f68300;
   font-family: 'Firestarter', sans-serif;
+  font-weight: 400;
+}
+
+.reveal .partyhats {
+  color: #f68300;
+  font-family: 'LDPartyHats', sans-serif;
   font-weight: 400;
 }
 

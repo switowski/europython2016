@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'LDPartyHats';
+    src: url('firestarter.eot?#iefix') format('embedded-opentype'),
+         url('ldpartyhats.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+}
