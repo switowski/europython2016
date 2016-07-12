@@ -72,7 +72,7 @@
                         <h4>Python was not made to be fast...</h4>
                         <h4>...but to make developers fast.</h4>
                         <aside class="notes">
-                            Python was not created to be a fast language that you would use for LHC computations where every nanosecond counts.<br>
+                            Python was not created to be a fast language that you would use for some computations where every nanosecond counts.<br>
                             And that's fine with me. Python is a great programming language that is easy and fun to use.<br>
                         </aside>
                     </section>
@@ -119,7 +119,7 @@ print("Hello, world!")
                         <small class='source-link'>Source: <a href="https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites">https://www.shoop.io/en/blog/25-of-the-most-popular-python-and-django-websites</a></small>
                         <aside class="notes">
                             But, is Python useful only for learning ?<br>
-                            Nope, and as a proof of that, here are some big companies that are quite happy with using Python as their backend or parts of their backend.<br>
+                            Nope, there are many big companies that are quite happy with using Python as their backend or parts of their backend.<br>
                             Those are companies with millions of users and billions of requests per month, so I think your website will also be fine with Python.
                         </aside>
                     </section>
@@ -129,7 +129,7 @@ print("Hello, world!")
                         <h1 class='h1-smaller'>OPTIMIZATION</h1>
                         <aside class="notes">
                             So Python is usually fast enough. But what if we decide it's not fast enough anymore.<br>
-                            For example, your website starts giving timeouts to your users or maybe a faster code will bring more money for your company (or more data for your physicists).<br>
+                            For example, your website starts giving timeouts to your users or maybe a faster code will bring more money for your company.<br>
                             It's time for optimization!
                         </aside>
                     </section>
@@ -163,17 +163,17 @@ print("Hello, world!")
                             <li>RunSnakeRun, SnakeViz</li>
                         </ul>
                         <aside class="notes">
-                            First rule of optimization: Don't. Ok, that was easy. Thank you for your attention.<br>
+                            First rule of optimization: Don't. Ok, that was easy. Thanks for listening, any questions ?<br>
                             Well, actually no, there is more to that.<br>
                             So what does it mean 'Don't' ?<br>
                             Well, 9 out of 10 times when you think you need optimization, you don't, especially in the early stage of your product's life.<br>
                             You might think it would be nice to optimize your code a bit, but first of all, you will waste time doing something that is probably not needed.<br>
                             If you want your code to run faster, you can start with getting faster hardware in the first place.<br>
-                            Second of all, optimization comes with a cost. Sometimes the only cost is the time you spend optimizing the existing code.<br>
+                            Second of all, optimization comes with a cost. Most often the only cost is the time you spend optimizing the existing code.<br>
                             Sometimes, it's also the time needed to fix what you just broke with your optimization.<br>
                             But also, the optimized code might not be as readable as it was in the first place.<br>
                             And maybe your code is now running faster but it uses more memory ?<br>
-                            So unless you have real reasons to optimize - don't do this.<br>
+                            So unless you have really good reasons to optimize - don't do this.<br>
                             If you know that you really need to optimize, then you can move to the second rule of optimization<br>
                             ###CLICK###<br>
                             Don't do this yet.<br>
@@ -182,8 +182,8 @@ print("Hello, world!")
                             First make sure your code works<br>
                             Then make sure you have a good test suite<br>
                             And only then, you are ready for optimization.<br>
-                            I love this rule, it always reminds me how many times I have broke it.<br>
-                            So many times I was in the middle of working on a piece of code and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
+                            I love this rule, it always reminds me how many times I broke it.<br>
+                            I mean, so many times I was in the middle of working on something and then I started thinking: "Hmm, I can change that piece of code and probably it will be faster - also I will save 2 lines of code".<br>
                             Was it a good idea ?<br>
                             Nope. And not only because I ended up breaking things. Well, quite often I did end up breaking things, but also, when I started jumping around the code, I forgot what I was writing in the first place.<br>
                             Did it make my code faster ?<br>
@@ -194,7 +194,8 @@ print("Hello, world!")
                             If your code is slow - profile it and see what takes most of the time.<br>
                             Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
                             ###CLICK###<br>
-                            There are plenty of profiling tools, if you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
+                            There are plenty of profiling tools.<br>
+                            If you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
                             It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
                             You can combine it with the pstats module, which allows for more advanced formatting of the results.<br>
                             If you prefer a graphical interface, you can take a look at libraries like RunSnakeRun and SnakeViz.
@@ -213,9 +214,10 @@ print("Hello, world!")
                             There are different levels of optimization:<br>
                             ###CLICK###<br>
                             Starting from the highest level, you have the design level optimization. Depending on the constrains and priorities of your system, you can optimize it by redesigning it. It might require rewriting parts or the whole application in a different programming language, changing the type of a database or redesigning the architecture of your software to limit the number of DB queries.<br>
-                            We are probably not interested in this kind of optimization today, as we are not going to rewrite something that we have been working very hard on, in the past months or years. However, if you have some critical parts of the code that are run often, you can optimize it by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.<br>
+                            This type of optimization can give you the best improvement, but also takes the most time to do this.<br>
+                            I don't encourage you to rewrite your software from the scratch, but if you have some critical parts of the code that are run often, you can optimize them by rewriting it in C or C++. Because C is faster, you can get some good speed improvement for free. Well, not really for free - now you have to maintain Python AND C/C++ code in one project.<br>
                             ###CLICK###<br>
-                            One level lower, we have algorithms and data structures. That's usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good and fast software.
+                            One level lower, we have algorithms and data structures. That is usually the second biggest improvement you can get after a complete redesign. Knowing different algorithms together with their complexity definitely helps creating good and fast software.
                         </aside>
                     </section>
                     <section>
@@ -246,13 +248,11 @@ print N * (1 + N) / 2
                             <li>Source code</li>
                             <li class="fragment">Build level</li>
                             <li class="fragment">Compile level</li>
-                            <li class="fragment">Assembly level</li>
                             <li class="fragment">Runtime level</li>
                         </ul>
                         <aside class="notes">
                             Next level is the source code optimization.<br>
-                            This is something that I want to talk about today.<br>
-                            We are getting there.<br>
+                            This is something that I will talk about more in the second part of the presentation.<br>
                             ###CLICK###<br>
                             Now we are moving to the low levels of optimization.<br>
                             For example, "build level" involves setting up specific build flags.<br>
@@ -261,12 +261,7 @@ print N * (1 + N) / 2
                             ###CLICK###<br>
                             Next, the compile level.<br>
                             You can make some optimizations if your programming language is using an Ahead of Time compiler.<br>
-                            Python doesn't have an Ahead of Time compiler.<br>
-                            Next.<br>
-                            ###CLICK###<br>
-                            Assembly level - this is probably as low as you can get with the optimization.<br>
-                            For additional performance, you can write directly the assembler code for a specific architecture.<br>
-                            As this is "Python Developers Forum", not the "Assembler Developers Forum", I will not focus on this level of optimization either.<br>
+                            Since, I'm talking about the CPython, that doesn't have an Ahead of Time compiler, we skip this part as well.<br>
                             ###CLICK###<br>
                             Last but not least - runtime level.<br>
                             It's related with a specific compiler you are using.<br>
@@ -299,7 +294,7 @@ print N * (1 + N) / 2
                             Optimization in one area will usually cause deterioration in other areas.<br>
                             You always have to decide, which resources are crucial to you and try to optimize in that direction.<br>
                             So it's possible that optimization will have nothing to do with the execution time at all, as there can be other resources more important than the raw speed.<br>
-                            For example, who cares if you program is now 10 times faster if it's crashing half of the time, because it's running out of memory ?
+                            For example, who cares if your program is now 10 times faster if it's crashing half of the time, because it's running out of memory ?
                         </aside>
                     </section>
                     <section data-background="#f7f3de">
@@ -314,7 +309,7 @@ print N * (1 + N) / 2
                             </div>
                         </div>
                         <aside class="notes">
-                            Another important resource of optimization that people are often forgetting is sanity.<br>
+                            Another important resource of optimization that people are often forgetting is the sanity.<br>
                             Sanity of a person, who will be maintaining your code. So please, be nice to that person, you never know who that might be.<br>
                             Unless you are really writing a throw-away code, if you are making the code harder to read and maintain, then you are probably doing it wrong!
                         </aside>
