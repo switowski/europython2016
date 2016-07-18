@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Firestarter';
+    src: url('firestarter.eot');
+    src: url('firestarter.eot?#iefix') format('embedded-opentype'),
+         url('firestarter.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+}

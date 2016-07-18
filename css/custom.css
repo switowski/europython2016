@@ -1,0 +1,207 @@
+/*********************************************
+ * GENERAL
+ *********************************************/
+/* Load fonts: */
+/* Quotes font: */
+@import url(https://fonts.googleapis.com/css?family=Alegreya);
+@import url(https://fonts.googleapis.com/css?family=Alegreya+SC);
+/* Fire font (by http://www.pizzadude.dk/home.php): */
+@import url(../lib/font/firestarter/firestarter.css);
+
+.reveal pre {
+  /*Bigger font for code */
+  font-size: 0.8em;
+}
+.reveal .arrow {
+  font-size: 80px;
+}
+
+.reveal .danger {
+  background-color: #34495e;
+  color: #e74c3c;
+  text-shadow: 2px 2px 2px #222;
+}
+
+.reveal .fire {
+  color: #f68300;
+  font-family: 'Firestarter', sans-serif;
+  font-weight: 400;
+}
+
+/*********************************************
+ * BLOCK QUOTES
+ * From: http://tympanus.net/Tutorials/ModernBlockQuoteStyles/index3.html
+ *********************************************/
+.reveal .blockquote {
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+}
+
+.reveal blockquote {
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow:
+    inset 0 2px 0 rgba(246,131,0,0.7),
+    -5px -4px 25px rgba(0, 0, 0, 0.3);
+}
+.reveal blockquote:after,
+.reveal blockquote:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.reveal blockquote:after  {
+  border-top-color: #ffffff;
+  border-width: 10px;
+  left: 77%;
+  margin-left: -10px;
+}
+
+.reveal blockquote:before {
+  border-top-color: rgba(0,0,0,0.01);
+  border-width: 11px;
+  left: 77%;
+  margin-left: -11px;
+}
+
+.reveal blockquote p {
+  font-family: 'Alegreya', serif;
+  font-size: 36px;
+  color: #888;
+  font-weight: 400;
+  line-height: 56px;
+  font-style: italic;
+  text-indent: 100px;
+  text-shadow: none;
+  position: relative;
+}
+
+.reveal blockquote p:before{
+  content: '\201C';
+  font-family: serif;
+  font-style: normal;
+  font-weight: 700;
+  position: absolute;
+  font-size: 175px;
+  top: 0px;
+  left: -105px;
+  color: #F68300;
+  text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
+}
+.reveal .blockquote-attribution {
+  text-align: right;
+  padding: 20px 100px 20px 20px;
+  position: relative;
+  width: 770px;
+}
+.reveal .blockquote-picture {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  box-shadow:
+    inset 1px 1px 4px rgba(0,0,0,0.5),
+    0 2px 3px rgba(0,0,0,0.6);
+}
+
+.reveal .knuth {
+  background: url('../img/donald-knuth.jpg') no-repeat center center;
+}
+
+.reveal .blockquote-author {
+  font-family: 'Alegreya SC', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #F68300;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.7);
+  padding-right:35px;
+}
+
+/*********************************************
+ * Like current visible but remove completely
+ *********************************************/
+.reveal .slides section .fragment.current-visible.remove {
+  opacity: 0;
+  display: none;
+}
+
+.reveal .slides section .fragment.current-visible.current-fragment.remove {
+  opacity: 1;
+  display: block;
+}
+
+/*********************************************
+ * Additional colors
+ *********************************************/
+.reveal .bad {
+  /*Class for worse performance*/
+  color: red;
+  font-weight: bold;
+}
+
+.reveal .good {
+  /*Class for better performance*/
+  color: lime;
+  font-weight: bold;
+}
+
+.reveal .orange {
+  color: #f68300;
+}
+/*********************************************
+ * Split layout
+ *********************************************/
+.reveal .left {
+  /*Left column*/
+  width: 50%;
+  float: left;
+}
+
+.reveal .right {
+  /*Right column*/
+  width: 50%;
+  float: left;
+}
+
+/* Remove borders and shadows from image */
+.reveal img.no-borders {
+  background: none;
+  border: none;
+  box-shadow: none
+}
+
+.reveal small.source-link {
+  color: #333;
+}
+
+.reveal small.source-link--light {
+  color: #eee;
+}
+
+.reveal .source-link a {
+  color: #42affa;
+}
+.reveal .source-link a:hover{
+  color: #8dcffc;
+}
+
+.reveal .mb50 {
+  /* Some spacing - can be used on headers*/
+  margin-bottom: 50px;
+}
+
+.reveal .mb150 {
+  /* Even more spacing */
+  margin-bottom: 150px;
+}
