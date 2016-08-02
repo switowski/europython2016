@@ -45,7 +45,7 @@
                             I would like to talk with you about writing faster code. Last time I gave a short talk on how to make your Python code faster, I remember someone pointing out that 'basically you can rewrite your code in C to make it faster'.<br>
                             And you know what ? The guy was absolutely right. Take any piece of Python code, rewrite it in C or C++ and it will probably be faster.<br>
                             So I was thinking, "Hmm, if I say just 'writing faster code', people will be confused if it's only about Python or not".<br>
-                            So I decided to fix it.<br>
+                            So I had to fix it.<br>
                         </aside>
                     </section>
                     <section>
@@ -196,6 +196,7 @@ print("Hello, world!")
                             Otherwise, you might end up spending time to rewrite part of your code just to make it 1% faster, while there are other parts of the system where you can gain much more improvements with less effort.<br>
                             ###CLICK###<br>
                             There are plenty of profiling tools.<br>
+                            There are a few talks about profiling that you can check, so I will not go into details here.<br>
                             If you don't know where to start, you can try the built-in Python profiler called cProfile.<br>
                             It will show you a clear overview of how many times each function is called and where your code is spending most of the time.<br>
                             You can combine it with the pstats module, which allows for more advanced formatting of the results.<br>
@@ -506,12 +507,12 @@ except AttributeError:
                             3.5 times faster
                         </p>
                         <aside class="notes">
-                            When you want to execute a piece of code, but you are not sure it will be successful (maybe some variables are not set or like here, the class might not have a specific attribute), so you want to protect yourself somehow.<br>
+                            When you want to execute a piece of code, but you are not sure if it will be successful (maybe some variables are not set or like here, the class might not have a specific attribute), so you want to protect yourself somehow.<br>
                             The first way you can do this is called 'Look before you leap' or 'Ask for permission'.<br>
                             What is means is that you first check if the class has a specific attribute and then you perform the operations.<br>
                             Usually this checking is done with the if statement.<br>
                             However, there is a different approach that you could use - it's called "Beg for forgiveness".<br>
-                            In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap you code in a try/except block and catch the exceptions that were raised.<br>
+                            In this scenario, you perform your operations without checking the conditions, but in case you expect that something might break, you wrap your code in a try/except block and catch the exceptions that were raised.<br>
                             As you can see in this simple example, begging for forgiveness is 3 times faster.
                         </aside>
                     </section>
